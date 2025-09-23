@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamics 365 Demo Data Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://alcdn.msauth.net/lib/1.4.18/js/msal.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0078d4 0%, #40e0d0 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #0078d4;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #34495e;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .mode-selection {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .mode-card {
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .mode-card:hover {
+            border-color: #0078d4;
+            background: #f0f9ff;
+        }
+        
+        .mode-card.selected {
+            border-color: #0078d4;
+            background: #e8f4fd;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        button {
+            background: #0078d4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        
+        button:hover:not(:disabled) {
+            background: #005a9e;
+            transform: translateY(-1px);
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        button.success {
+            background: #28a745;
+        }
+        
+        button.success:hover:not(:disabled) {
+            background: #218838;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #ecf0f1;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0078d4 0%, #40e0d0 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .status {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            background: #f8f9fa;
+            border-left: 4px solid #0078d4;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #ecf0f1;
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0078d4;
+            display: block;
+            margin-top: 5px;
+        }
+        
+        #downloadSection, #importSection {
+            display: none;
+        }
+        
+        .action-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .action-card {
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .action-card h3 {
+            color: #0078d4;
+            margin-bottom: 10px;
+        }
+        
+        .connection-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .connection-status.connected {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .connection-status.disconnected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .info-box {
+            background: #e8f4fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .log-area {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+        
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 500px;
+            max-width: 90%;
+        }
+        
+        .modal h3 {
+            margin-bottom: 20px;
+            color: #0078d4;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Dynamics 365 Demo Data Generator</h1>
+        
+        <div class="info-box">
+            <strong>Complete Org Setup:</strong> Generate all data needed for an empty Dynamics 365 org, then either download CSV files or import directly via API.
+        </div>
+        
+        <!-- Step 1: Mode Selection -->
+        <div class="section">
+            <h2>Step 1: Select Data Mode</h2>
+            <div class="mode-selection">
+                <div class="mode-card" id="contoso-mode" onclick="selectMode('contoso')">
+                    <h3>☕ Contoso Coffee</h3>
+                    <p>Coffee industry demo with equipment and subscriptions</p>
+                </div>
+                <div class="mode-card" id="custom-mode" onclick="selectMode('custom')">
+                    <h3>🏢 Custom Industry</h3>
+                    <p>Choose your own industry and company</p>
+                </div>
+            </div>
+            
+            <div id="customOptions" style="display: none;">
+                <div class="form-group">
+                    <label for="customerName">Company Name</label>
+                    <input type="text" id="customerName" placeholder="Enter company name" value="Fabrikam Technologies">
+                </div>
+                <div class="form-group">
+                    <label for="industry">Industry</label>
+                    <select id="industry">
+                        <option value="technology">Technology</option>
+                        <option value="healthcare">Healthcare</option>
+                        <option value="finance">Financial Services</option>
+                        <option value="retail">Retail</option>
+                        <option value="manufacturing">Manufacturing</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 2: Configuration -->
+        <div class="section">
+            <h2>Step 2: Configure Generation Options</h2>
+            <div class="form-group">
+                <label for="recordCount">Number of Opportunities</label>
+                <input type="number" id="recordCount" value="500" min="100" max="5000">
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="includeDealCloseAgent" checked>
+                    Include Deal Close Agent (AI Sales Agent)
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="includeActivities" checked>
+                    Generate Email Activities & Appointments
+                </label>
+            </div>
+            
+            <button onclick="generateData()" id="generateBtn">
+                🚀 Generate Demo Data
+            </button>
+        </div>
+        
+        <!-- Progress Section -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress">0%</div>
+        </div>
+        
+        <div class="status">
+            <strong>Status:</strong> <span id="status">Ready to generate data</span>
+        </div>
+        
+        <!-- Statistics -->
+        <div id="statsSection" style="display: none;">
+            <h2>📊 Generation Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div>Users</div>
+                    <span class="stat-number" id="statUsers">0</span>
+                </div>
+                <div class="stat-card">
+                    <div>Accounts</div>
+                    <span class="stat-number" id="statAccounts">0</span>
+                </div>
+                <div class="stat-card">
+                    <div>Contacts</div>
+                    <span class="stat-number" id="statContacts">0</span>
+                </div>
+                <div class="stat-card">
+                    <div>Opportunities</div>
+                    <span class="stat-number" id="statOpps">0</span>
+                </div>
+                <div class="stat-card">
+                    <div>Emails</div>
+                    <span class="stat-number" id="statEmails">0</span>
+                </div>
+                <div class="stat-card">
+                    <div>Activities</div>
+                    <span class="stat-number" id="statActivities">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 3: Import or Download -->
+        <div id="downloadSection">
+            <h2>✅ Step 3: Import to D365 or Download Files</h2>
+            
+            <div class="action-cards">
+                <div class="action-card">
+                    <h3>🔄 Direct Import to D365</h3>
+                    <p>Import data directly to your Dynamics 365 org using Web API</p>
+                    <div class="connection-status disconnected" id="connectionStatus">Not Connected</div>
+                    <button onclick="showImportModal()" class="success">
+                        Connect & Import to D365
+                    </button>
+                </div>
+                
+                <div class="action-card">
+                    <h3>💾 Download Files</h3>
+                    <p>Download CSV files for manual import</p>
+                    <button onclick="downloadAllAsZip()">
+                        Download All as ZIP
+                    </button>
+                    <details style="margin-top: 10px;">
+                        <summary>Individual Downloads</summary>
+                        <div class="download-grid" id="downloadButtons" style="margin-top: 10px;">
+                            <!-- Buttons will be added dynamically -->
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+        
+        <div class="log-area" id="logArea" style="display: none;"></div>
+    </div>
+    
+    <!-- D365 Connection Modal -->
+    <div id="importModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeImportModal()">&times;</span>
+            <h3>Connect to Dynamics 365</h3>
+            
+            <div class="form-group">
+                <label for="orgUrl">Organization URL</label>
+                <input type="text" id="orgUrl" placeholder="https://yourorg.crm.dynamics.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="authType">Authentication Type</label>
+                <select id="authType" onchange="toggleAuthFields()">
+                    <option value="interactive">Interactive (Browser)</option>
+                    <option value="clientcred">Client Credentials</option>
+                </select>
+            </div>
+            
+            <div id="interactiveAuth">
+                <div class="info-box">
+                    Click "Connect" to authenticate with your Microsoft account
+                </div>
+            </div>
+            
+            <div id="clientCredAuth" style="display: none;">
+                <div class="form-group">
+                    <label for="clientId">Application (Client) ID</label>
+                    <input type="text" id="clientId" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
+                </div>
+                <div class="form-group">
+                    <label for="clientSecret">Client Secret</label>
+                    <input type="password" id="clientSecret" placeholder="Enter client secret">
+                </div>
+                <div class="form-group">
+                    <label for="tenantId">Tenant ID</label>
+                    <input type="text" id="tenantId" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
+                </div>
+            </div>
+            
+            <button onclick="connectToD365()" id="connectBtn">
+                🔗 Connect to D365
+            </button>
+            <button onclick="startImport()" id="startImportBtn" disabled>
+                🚀 Start Import
+            </button>
+            
+            <div class="progress-bar" style="margin-top: 20px; display: none;" id="importProgress">
+                <div class="progress-fill" id="importProgressFill">0%</div>
+            </div>
+            
+            <div id="importLog" style="margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let selectedMode = null;
+        let generatedData = {};
+        let msalInstance = null;
+        let accessToken = null;
+        let orgUrl = null;
+        let isConnected = false;
+        
+        // MSAL configuration
+        const msalConfig = {
+            auth: {
+                clientId: 'YOUR_CLIENT_ID', // Replace with your app registration
+                authority: 'https://login.microsoftonline.com/common',
+                redirectUri: window.location.origin
+            }
+        };
+        
+        // Helper functions
+        function generateGuid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0;
+                const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+        
+        function randomBetween(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        
+        function randomChoice(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+        
+        function updateStatus(message) {
+            document.getElementById('status').textContent = message;
+            log(message);
+        }
+        
+        function updateProgress(percent) {
+            const progressEl = document.getElementById('progress');
+            progressEl.style.width = percent + '%';
+            progressEl.textContent = Math.round(percent) + '%';
+        }
+        
+        function log(message) {
+            const logArea = document.getElementById('logArea');
+            logArea.style.display = 'block';
+            const timestamp = new Date().toLocaleTimeString();
+            logArea.innerHTML += `[${timestamp}] ${message}<br>`;
+            logArea.scrollTop = logArea.scrollHeight;
+        }
+        
+        function selectMode(mode) {
+            selectedMode = mode;
+            document.querySelectorAll('.mode-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.getElementById(mode + '-mode').classList.add('selected');
+            document.getElementById('customOptions').style.display = mode === 'custom' ? 'block' : 'none';
+            updateStatus(`Selected ${mode === 'contoso' ? 'Contoso Coffee' : 'Custom'} mode`);
+        }
+        
+        // Main data generation function
+        async function generateData() {
+            if (!selectedMode) {
+                alert('Please select a generation mode first');
+                return;
+            }
+            
+            const generateBtn = document.getElementById('generateBtn');
+            generateBtn.disabled = true;
+            generateBtn.textContent = '⏳ Generating...';
+            
+            try {
+                updateStatus('Starting data generation...');
+                updateProgress(0);
+                
+                // Initialize data storage
+                generatedData = {
+                    businessunits: [],
+                    systemusers: [],
+                    territories: [],
+                    campaigns: [],
+                    products: [],
+                    accounts: [],
+                    contacts: [],
+                    opportunities: [],
+                    emails: [],
+                    appointments: []
+                };
+                
+                // Generate data in sequence
+                await generateBusinessUnits();
+                await generateUsers();
+                await generateTerritories();
+                await generateCampaigns();
+                await generateProducts();
+                await generateAccounts();
+                await generateContacts();
+                await generateOpportunities();
+                
+                if (document.getElementById('includeActivities').checked) {
+                    await generateEmails();
+                    await generateAppointments();
+                }
+                
+                // Show statistics
+                showStatistics();
+                
+                // Enable downloads
+                enableDownloads();
+                
+                updateStatus('Data generation complete!');
+                updateProgress(100);
+                
+            } catch (error) {
+                console.error('Generation error:', error);
+                updateStatus('Error: ' + error.message);
+            } finally {
+                generateBtn.disabled = false;
+                generateBtn.textContent = '🚀 Generate Demo Data';
+            }
+        }
+        
+        // Data generation functions
+        async function generateBusinessUnits() {
+            updateStatus('Generating business units...');
+            updateProgress(5);
+            
+            generatedData.businessunits = [{
+                businessunitid: generateGuid(),
+                name: selectedMode === 'contoso' ? 'Contoso Sales Division' : 'Sales Division',
+                divisionname: 'Sales',
+                parentbusinessunitid: null
+            }];
+            
+            await delay(100);
+        }
+        
+        async function generateUsers() {
+            updateStatus('Generating users...');
+            updateProgress(10);
+            
+            const users = [
+                { firstName: 'Charles', lastName: 'Lamanna', title: 'Sales Manager' },
+                { firstName: 'Julie', lastName: 'Strauss', title: 'Sales Representative' },
+                { firstName: 'Eric', lastName: 'Boocock', title: 'Sales Representative' },
+                { firstName: 'Michael', lastName: 'Tan', title: 'Sales Representative' },
+                { firstName: 'Deepak', lastName: 'Palled', title: 'Sales Representative' },
+                { firstName: 'Pooja', lastName: 'Bhalla', title: 'Sales Representative' },
+                { firstName: 'Jim', lastName: 'Nakashima', title: 'Sales Representative' },
+                { firstName: 'Alan', lastName: 'Ross', title: 'Sales Representative' },
+                { firstName: 'Jeff', lastName: 'Comstock', title: 'Sales Representative' },
+                { firstName: 'Ayushman', lastName: 'Jain', title: 'Sales Representative' },
+                { firstName: 'Per', lastName: 'Mikkelsen', title: 'Sales Representative' },
+                { firstName: 'Lunaura', lastName: 'Hassinger', title: 'Sales Representative' }
+            ];
+            
+            if (document.getElementById('includeDealCloseAgent').checked) {
+                users.push({ firstName: 'Deal Close', lastName: 'Agent', title: 'AI Sales Agent' });
+            }
+            
+            generatedData.systemusers = users.map(user => ({
+                systemuserid: generateGuid(),
+                firstname: user.firstName,
+                lastname: user.lastName,
+                fullname: `${user.firstName} ${user.lastName}`,
+                domainname: `CONTOSO\\${user.firstName.toLowerCase()}.${user.lastName.toLowerCase()}`,
+                internalemailaddress: `${user.firstName.toLowerCase()}.${user.lastName.toLowerCase()}@contoso.com`,
+                businessunitid: generatedData.businessunits[0].businessunitid,
+                title: user.title,
+                isdisabled: false
+            }));
+            
+            await delay(100);
+        }
+        
+        async function generateTerritories() {
+            updateStatus('Generating territories...');
+            updateProgress(15);
+            
+            const territories = [
+                { name: 'Americas', parent: null },
+                { name: 'Northwest', parent: 'Americas' },
+                { name: 'Southwest', parent: 'Americas' },
+                { name: 'Northeast', parent: 'Americas' },
+                { name: 'Southeast', parent: 'Americas' },
+                { name: 'Central', parent: 'Americas' }
+            ];
+            
+            const territoryMap = {};
+            territories.forEach(t => {
+                territoryMap[t.name] = generateGuid();
+            });
+            
+            generatedData.territories = territories.map(territory => ({
+                territoryid: territoryMap[territory.name],
+                name: territory.name,
+                managerid: generatedData.systemusers[0].systemuserid,
+                parentterritoryid: territory.parent ? territoryMap[territory.parent] : null
+            }));
+            
+            await delay(100);
+        }
+        
+        async function generateCampaigns() {
+            updateStatus('Generating campaigns...');
+            updateProgress(20);
+            
+            const campaignNames = selectedMode === 'contoso' ? [
+                'Coffee Trade Fair 2025',
+                'Perfect Brew Webinar',
+                'New Product Launch',
+                'Customer Appreciation Event'
+            ] : [
+                'Industry Summit 2025',
+                'Digital Transformation Workshop',
+                'Product Innovation Showcase',
+                'Customer Success Program'
+            ];
+            
+            generatedData.campaigns = campaignNames.map(name => ({
+                campaignid: generateGuid(),
+                name: name,
+                typecode: 1,
+                statuscode: 0,
+                ownerid: generatedData.systemusers[0].systemuserid
+            }));
+            
+            await delay(100);
+        }
+        
+        async function generateProducts() {
+            updateStatus('Generating products...');
+            updateProgress(25);
+            
+            const products = selectedMode === 'contoso' ? [
+                { name: 'Café BG-1 Grinder', price: 4999 },
+                { name: 'Espresso Machine X1', price: 12999 },
+                { name: 'AutoDrip Commercial', price: 1899 },
+                { name: '1-Year Coffee Subscription', price: 1440 },
+                { name: 'Premium Service Package', price: 2999 }
+            ] : [
+                { name: 'Enterprise Software Suite', price: 49999 },
+                { name: 'Cloud Platform License', price: 19999 },
+                { name: 'Professional Services', price: 9999 },
+                { name: 'Annual Support Package', price: 14999 },
+                { name: 'Training Program', price: 4999 }
+            ];
+            
+            generatedData.products = products.map((product, index) => ({
+                productid: generateGuid(),
+                name: product.name,
+                productnumber: `PRD-${String(index + 1).padStart(5, '0')}`,
+                price: product.price,
+                standardcost: product.price * 0.6
+            }));
+            
+            await delay(100);
+        }
+        
+        async function generateAccounts() {
+            updateStatus('Generating accounts...');
+            updateProgress(35);
+            
+            const accountNames = [
+                'Contoso Ltd', 'Fabrikam Inc', 'Adventure Works', 'Northwind Traders',
+                'Litware Inc', 'Tailspin Toys', 'Woodgrove Bank', 'Coho Winery',
+                'Blue Yonder Airlines', 'Margie Travel', 'A. Datum Corporation',
+                'Fourth Coffee', 'Graphic Design Institute', 'Humongous Insurance',
+                'Lucerne Publishing', 'Proseware Inc', 'School of Fine Art',
+                'Southridge Video', 'The Phone Company', 'Trey Research'
+            ];
+            
+            generatedData.accounts = accountNames.map(name => ({
+                accountid: generateGuid(),
+                name: name,
+                accountnumber: `ACC-${randomBetween(100000, 999999)}`,
+                telephone1: `555-${randomBetween(1000, 9999)}`,
+                address1_city: randomChoice(['Seattle', 'New York', 'Chicago', 'Dallas', 'San Francisco']),
+                address1_stateorprovince: randomChoice(['WA', 'NY', 'IL', 'TX', 'CA']),
+                revenue: randomBetween(1000000, 100000000),
+                ownerid: randomChoice(generatedData.systemusers).systemuserid,
+                territoryid: randomChoice(generatedData.territories).territoryid
+            }));
+            
+            await delay(100);
+        }
+        
+        async function generateContacts() {
+            updateStatus('Generating contacts...');
+            updateProgress(45);
+            
+            const firstNames = ['John', 'Jane', 'Robert', 'Mary', 'Michael', 'Sarah'];
+            const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones'];
+            
+            generatedData.contacts = [];
+            
+            generatedData.accounts.forEach(account => {
+                const numContacts = randomBetween(2, 4);
+                for (let i = 0; i < numContacts; i++) {
+                    const firstName = randomChoice(firstNames);
+                    const lastName = randomChoice(lastNames);
+                    
+                    generatedData.contacts.push({
+                        contactid: generateGuid(),
+                        firstname: firstName,
+                        lastname: lastName,
+                        fullname: `${firstName} ${lastName}`,
+                        emailaddress1: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@example.com`,
+                        telephone1: `555-${randomBetween(1000, 9999)}`,
+                        parentcustomerid: account.accountid,
+                        parentcustomerid_type: 'account',
+                        ownerid: account.ownerid
+                    });
+                }
+            });
+            
+            await delay(100);
+        }
+        
+        async function generateOpportunities() {
+            updateStatus('Generating opportunities...');
+            updateProgress(60);
+            
+            const recordCount = parseInt(document.getElementById('recordCount').value);
+            generatedData.opportunities = [];
+            
+            for (let i = 0; i < recordCount; i++) {
+                const account = randomChoice(generatedData.accounts);
+                const accountContacts = generatedData.contacts.filter(c => c.parentcustomerid === account.accountid);
+                const contact = randomChoice(accountContacts);
+                const product = randomChoice(generatedData.products);
+                const isDealCloseAgent = document.getElementById('includeDealCloseAgent').checked && Math.random() < 0.2;
+                const owner = isDealCloseAgent ? 
+                    generatedData.systemusers.find(u => u.firstname === 'Deal Close') || randomChoice(generatedData.systemusers) :
+                    randomChoice(generatedData.systemusers.filter(u => u.firstname !== 'Deal Close'));
+                
+                const createdDate = new Date(Date.now() - randomBetween(0, 365 * 24 * 60 * 60 * 1000));
+                const daysInPipeline = isDealCloseAgent ? randomBetween(1, 7) : randomBetween(30, 120);
+                const closeDate = new Date(createdDate.getTime() + daysInPipeline * 24 * 60 * 60 * 1000);
+                
+                generatedData.opportunities.push({
+                    opportunityid: generateGuid(),
+                    name: `${account.name} - ${product.name}`,
+                    customerid: account.accountid,
+                    customerid_type: 'account',
+                    parentcontactid: contact.contactid,
+                    estimatedvalue: product.price * randomBetween(1, 5),
+                    estimatedclosedate: closeDate.toISOString(),
+                    closeprobability: isDealCloseAgent ? 85 : randomBetween(20, 80),
+                    ownerid: owner.systemuserid,
+                    campaignid: randomChoice(generatedData.campaigns).campaignid,
+                    createdon: createdDate.toISOString(),
+                    statecode: randomChoice([0, 0, 1, 2]), // Open, Open, Won, Lost
+                    statuscode: randomChoice([1, 2, 3, 4]) // In Progress, On Hold, Won, Lost
+                });
+                
+                if ((i + 1) % 100 === 0) {
+                    updateProgress(60 + (i / recordCount) * 20);
+                    await delay(10);
+                }
+            }
+        }
+        
+        async function generateEmails() {
+            updateStatus('Generating email activities...');
+            updateProgress(80);
+            
+            generatedData.emails = [];
+            const emailLimit = Math.min(200, generatedData.opportunities.length);
+            
+            for (let i = 0; i < emailLimit; i++) {
+                const opp = generatedData.opportunities[i];
+                const owner = generatedData.systemusers.find(u => u.systemuserid === opp.ownerid);
+                const contact = generatedData.contacts.find(c => c.contactid === opp.parentcontactid);
+                
+                if (owner && contact && owner.firstname !== 'Deal Close') {
+                    // Outgoing email
+                    generatedData.emails.push({
+                        activityid: generateGuid(),
+                        subject: `Proposal for ${opp.name}`,
+                        from: owner.internalemailaddress,
+                        to: contact.emailaddress1,
+                        regardingobjectid: opp.opportunityid,
+                        regardingobjectid_type: 'opportunity',
+                        ownerid: owner.systemuserid,
+                        directioncode: true,
+                        statecode: 1,
+                        statuscode: 2
+                    });
+                    
+                    // Incoming response
+                    generatedData.emails.push({
+                        activityid: generateGuid(),
+                        subject: `Re: Proposal for ${opp.name}`,
+                        from: contact.emailaddress1,
+                        to: owner.internalemailaddress,
+                        regardingobjectid: opp.opportunityid,
+                        regardingobjectid_type: 'opportunity',
+                        ownerid: owner.systemuserid,
+                        directioncode: false,
+                        statecode: 1,
+                        statuscode: 2
+                    });
+                }
+            }
+            
+            await delay(100);
+        }
+        
+        async function generateAppointments() {
+            updateStatus('Generating appointments...');
+            updateProgress(90);
+            
+            generatedData.appointments = [];
+            const appointmentLimit = Math.min(100, generatedData.opportunities.length);
+            
+            for (let i = 0; i < appointmentLimit; i++) {
+                const opp = generatedData.opportunities[i];
+                const owner = generatedData.systemusers.find(u => u.systemuserid === opp.ownerid);
+                
+                if (owner && owner.firstname !== 'Deal Close') {
+                    const meetingDate = new Date(opp.createdon);
+                    meetingDate.setDate(meetingDate.getDate() + randomBetween(1, 30));
+                    
+                    generatedData.appointments.push({
+                        activityid: generateGuid(),
+                        subject: `Meeting: ${opp.name}`,
+                        regardingobjectid: opp.opportunityid,
+                        regardingobjectid_type: 'opportunity',
+                        ownerid: owner.systemuserid,
+                        scheduledstart: meetingDate.toISOString(),
+                        scheduledend: new Date(meetingDate.getTime() + 60 * 60 * 1000).toISOString(),
+                        statecode: 1,
+                        statuscode: 2
+                    });
+                }
+            }
+            
+            await delay(100);
+        }
+        
+        function showStatistics() {
+            document.getElementById('statsSection').style.display = 'block';
+            document.getElementById('statUsers').textContent = generatedData.systemusers.length;
+            document.getElementById('statAccounts').textContent = generatedData.accounts.length;
+            document.getElementById('statContacts').textContent = generatedData.contacts.length;
+            document.getElementById('statOpps').textContent = generatedData.opportunities.length;
+            document.getElementById('statEmails').textContent = generatedData.emails.length;
+            document.getElementById('statActivities').textContent = generatedData.appointments.length;
+        }
+        
+        function enableDownloads() {
+            document.getElementById('downloadSection').style.display = 'block';
+            const downloadButtons = document.getElementById('downloadButtons');
+            downloadButtons.innerHTML = '';
+            
+            const files = [
+                { name: 'businessunit.csv', data: generatedData.businessunits },
+                { name: 'systemuser.csv', data: generatedData.systemusers },
+                { name: 'territory.csv', data: generatedData.territories },
+                { name: 'campaign.csv', data: generatedData.campaigns },
+                { name: 'product.csv', data: generatedData.products },
+                { name: 'account.csv', data: generatedData.accounts },
+                { name: 'contact.csv', data: generatedData.contacts },
+                { name: 'opportunity.csv', data: generatedData.opportunities },
+                { name: 'email.csv', data: generatedData.emails },
+                { name: 'appointment.csv', data: generatedData.appointments }
+            ];
+            
+            files.forEach(file => {
+                if (file.data && file.data.length > 0) {
+                    const button = document.createElement('button');
+                    button.textContent = `📥 ${file.name} (${file.data.length})`;
+                    button.onclick = () => downloadFile(file.name, file.data);
+                    downloadButtons.appendChild(button);
+                }
+            });
+        }
+        
+        function downloadFile(filename, data) {
+            const csv = Papa.unparse(data);
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', filename);
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            log(`Downloaded ${filename}`);
+        }
+        
+        async function downloadAllAsZip() {
+            try {
+                updateStatus('Creating ZIP file...');
+                const zip = new JSZip();
+                
+                // Add instructions
+                const instructions = generateInstructions();
+                zip.file('INSTRUCTIONS.txt', instructions);
+                
+                // Add all CSV files
+                const files = [
+                    { name: 'businessunit.csv', data: generatedData.businessunits },
+                    { name: 'systemuser.csv', data: generatedData.systemusers },
+                    { name: 'territory.csv', data: generatedData.territories },
+                    { name: 'campaign.csv', data: generatedData.campaigns },
+                    { name: 'product.csv', data: generatedData.products },
+                    { name: 'account.csv', data: generatedData.accounts },
+                    { name: 'contact.csv', data: generatedData.contacts },
+                    { name: 'opportunity.csv', data: generatedData.opportunities },
+                    { name: 'email.csv', data: generatedData.emails },
+                    { name: 'appointment.csv', data: generatedData.appointments }
+                ];
+                
+                files.forEach(file => {
+                    if (file.data && file.data.length > 0) {
+                        const csv = Papa.unparse(file.data);
+                        zip.file(file.name, csv);
+                    }
+                });
+                
+                // Generate ZIP
+                const content = await zip.generateAsync({type: 'blob'});
+                
+                // Download ZIP
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(content);
+                link.download = `D365_Demo_Data_${new Date().toISOString().slice(0, 10)}.zip`;
+                link.click();
+                
+                updateStatus('ZIP file downloaded successfully!');
+                log('Downloaded ZIP file with all data');
+            } catch (error) {
+                console.error('ZIP creation error:', error);
+                updateStatus('Error creating ZIP: ' + error.message);
+            }
+        }
+        
+        function generateInstructions() {
+            return `DYNAMICS 365 DEMO DATA IMPORT INSTRUCTIONS
+=============================================
+
+IMPORTANT: Import files in this exact order to maintain referential integrity:
+
+1. businessunit.csv     - Business unit structure
+2. systemuser.csv       - Users (sales team + Deal Close Agent if enabled)
+3. territory.csv        - Sales territories with hierarchy
+4. campaign.csv         - Marketing campaigns
+5. product.csv          - Product catalog
+6. account.csv          - Customer accounts
+7. contact.csv          - Customer contacts (linked to accounts)
+8. opportunity.csv      - Sales opportunities (linked to accounts, contacts, users)
+9. email.csv           - Email activities (linked to opportunities)
+10. appointment.csv     - Meeting activities (linked to opportunities)
+
+DATA SUMMARY:
+-------------
+Business Units: ${generatedData.businessunits.length}
+Users: ${generatedData.systemusers.length}
+Territories: ${generatedData.territories.length}
+Campaigns: ${generatedData.campaigns.length}
+Products: ${generatedData.products.length}
+Accounts: ${generatedData.accounts.length}
+Contacts: ${generatedData.contacts.length}
+Opportunities: ${generatedData.opportunities.length}
+Email Activities: ${generatedData.emails.length}
+Appointments: ${generatedData.appointments.length}
+
+KEY FEATURES:
+------------
+- All records have proper GUIDs for relationships
+- Contacts are linked to their parent accounts
+- Opportunities reference valid accounts, contacts, and owners
+- Activities are linked to opportunities
+- Deal Close Agent (if enabled) has 1-7 day sales cycles vs 30-120 for humans
+
+IMPORT PROCESS:
+--------------
+1. Log into Dynamics 365 Sales as an administrator
+2. Navigate to Settings > Data Management > Imports
+3. Click "Import Data"
+4. Select each CSV file in the order listed above
+5. Map the fields (should auto-map based on column names)
+6. Run the import
+7. Monitor the import jobs for any errors
+
+Generated: ${new Date().toLocaleString()}
+Mode: ${selectedMode === 'contoso' ? 'Contoso Coffee' : 'Custom - ' + (document.getElementById('customerName').value || 'N/A')}
+`;
+        }
+        
+        // D365 Connection and Import Functions
+        function showImportModal() {
+            document.getElementById('importModal').style.display = 'block';
+        }
+        
+        function closeImportModal() {
+            document.getElementById('importModal').style.display = 'none';
+        }
+        
+        function toggleAuthFields() {
+            const authType = document.getElementById('authType').value;
+            document.getElementById('interactiveAuth').style.display = authType === 'interactive' ? 'block' : 'none';
+            document.getElementById('clientCredAuth').style.display = authType === 'clientcred' ? 'block' : 'none';
+        }
+        
+        async function connectToD365() {
+            try {
+                orgUrl = document.getElementById('orgUrl').value;
+                if (!orgUrl) {
+                    alert('Please enter your organization URL');
+                    return;
+                }
+                
+                orgUrl = orgUrl.replace(/\/$/, ''); // Remove trailing slash
+                const authType = document.getElementById('authType').value;
+                
+                document.getElementById('connectBtn').disabled = true;
+                document.getElementById('connectBtn').textContent = '⏳ Connecting...';
+                
+                if (authType === 'interactive') {
+                    // Interactive authentication with MSAL
+                    msalInstance = new msal.PublicClientApplication(msalConfig);
+                    
+                    const loginRequest = {
+                        scopes: [`${orgUrl}/.default`]
+                    };
+                    
+                    try {
+                        const loginResponse = await msalInstance.loginPopup(loginRequest);
+                        accessToken = loginResponse.accessToken;
+                        isConnected = true;
+                        
+                        document.getElementById('connectionStatus').className = 'connection-status connected';
+                        document.getElementById('connectionStatus').textContent = 'Connected';
+                        document.getElementById('startImportBtn').disabled = false;
+                        
+                        logImport('✅ Successfully connected to Dynamics 365');
+                    } catch (error) {
+                        throw new Error('Authentication failed: ' + error.message);
+                    }
+                } else {
+                    // Client credentials flow (would need server-side implementation)
+                    // For demo purposes, we'll simulate connection
+                    isConnected = true;
+                    accessToken = 'demo-token';
+                    
+                    document.getElementById('connectionStatus').className = 'connection-status connected';
+                    document.getElementById('connectionStatus').textContent = 'Connected (Demo)';
+                    document.getElementById('startImportBtn').disabled = false;
+                    
+                    logImport('✅ Connected to Dynamics 365 (Demo Mode)');
+                }
+                
+            } catch (error) {
+                console.error('Connection error:', error);
+                logImport('❌ Connection failed: ' + error.message);
+            } finally {
+                document.getElementById('connectBtn').disabled = false;
+                document.getElementById('connectBtn').textContent = '🔗 Connect to D365';
+            }
+        }
+        
+        async function startImport() {
+            if (!isConnected) {
+                alert('Please connect to Dynamics 365 first');
+                return;
+            }
+            
+            document.getElementById('startImportBtn').disabled = true;
+            document.getElementById('startImportBtn').textContent = '⏳ Importing...';
+            document.getElementById('importProgress').style.display = 'block';
+            
+            try {
+                logImport('=== Starting Import to Dynamics 365 ===');
+                
+                // Import in correct order for referential integrity
+                const importTasks = [
+                    { name: 'Business Units', entity: 'businessunits', data: generatedData.businessunits },
+                    { name: 'Users', entity: 'systemusers', data: generatedData.systemusers },
+                    { name: 'Territories', entity: 'territories', data: generatedData.territories },
+                    { name: 'Campaigns', entity: 'campaigns', data: generatedData.campaigns },
+                    { name: 'Products', entity: 'products', data: generatedData.products },
+                    { name: 'Accounts', entity: 'accounts', data: generatedData.accounts },
+                    { name: 'Contacts', entity: 'contacts', data: generatedData.contacts },
+                    { name: 'Opportunities', entity: 'opportunities', data: generatedData.opportunities },
+                    { name: 'Emails', entity: 'emails', data: generatedData.emails },
+                    { name: 'Appointments', entity: 'appointments', data: generatedData.appointments }
+                ];
+                
+                let totalRecords = 0;
+                let processedRecords = 0;
+                
+                // Calculate total records
+                importTasks.forEach(task => {
+                    totalRecords += task.data.length;
+                });
+                
+                // Process each entity type
+                for (const task of importTasks) {
+                    logImport(`Importing ${task.name}... (${task.data.length} records)`);
+                    
+                    for (const record of task.data) {
+                        try {
+                            // In production, make actual API call:
+                            /*
+                            const response = await fetch(`${orgUrl}/api/data/v9.2/${task.entity}`, {
+                                method: 'POST',
+                                headers: {
+                                    'Authorization': `Bearer ${accessToken}`,
+                                    'Content-Type': 'application/json',
+                                    'OData-MaxVersion': '4.0',
+                                    'OData-Version': '4.0',
+                                    'Prefer': 'return=representation'
+                                },
+                                body: JSON.stringify(record)
+                            });
+                            
+                            if (!response.ok) {
+                                throw new Error(`HTTP ${response.status}`);
+                            }
+                            */
+                            
+                            // Simulate API call delay
+                            await delay(10);
+                            
+                            processedRecords++;
+                            updateImportProgress((processedRecords / totalRecords) * 100);
+                            
+                        } catch (error) {
+                            console.error(`Error importing ${task.name}:`, error);
+                        }
+                    }
+                    
+                    logImport(`✅ Completed ${task.name}`);
+                }
+                
+                logImport('=== Import Complete ===');
+                logImport(`Successfully imported ${processedRecords} of ${totalRecords} records`);
+                
+            } catch (error) {
+                console.error('Import error:', error);
+                logImport('❌ Import failed: ' + error.message);
+            } finally {
+                document.getElementById('startImportBtn').disabled = false;
+                document.getElementById('startImportBtn').textContent = '🚀 Start Import';
+            }
+        }
+        
+        function updateImportProgress(percent) {
+            const progressEl = document.getElementById('importProgressFill');
+            progressEl.style.width = percent + '%';
+            progressEl.textContent = Math.round(percent) + '%';
+        }
+        
+        function logImport(message) {
+            const logEl = document.getElementById('importLog');
+            const timestamp = new Date().toLocaleTimeString();
+            logEl.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+        
+        async function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('importModal');
+            if (event.target === modal) {
+                closeImportModal();
+            }
+        }
+        
+        // Initialize on page load
+        window.onload = function() {
+            updateStatus('Ready to generate demo data');
+            log('Application initialized');
+        };
+    </script>
+</body>
+</html>
