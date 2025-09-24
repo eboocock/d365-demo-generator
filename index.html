@@ -556,17 +556,254 @@
 
         async function authenticate() {
             try {
-                showStatus('Connecting...', 'info');
+                showStatus('Initializing authentication...', 'info');
                 
-                // Simulate authentication for demo
-                setTimeout(() => {
-                    state.authenticated = true;
-                    showStatus('✅ Connected to D365', 'success');
-                    updateGenerateButton();
-                }, 2000);
+                // Initialize MSAL
+                await initializeMSAL();
+                
+                showStatus('Opening sign-in window...', 'info');
+                
+                // Step 1: Authenticate with Microsoft
+                const loginRequest = {
+                    scopes: ['https://admin.services.crm.dynamics.com/user_impersonation'],
+                    prompt: 'select_account'
+                };
+
+                const response = await state.msalInstance.loginPopup(loginRequest);
+                state.accessToken = response.accessToken;
+                
+                showStatus('Loading your Dynamics 365 organizations...', 'info');
+                
+                // Step 2: Get available D365 organizations
+                await loadD365Organizations();
                 
             } catch (error) {
-                showStatus('Authentication failed', 'error');
+                console.error('Authentication failed:', error);
+                if (error.name === 'BrowserAuthError') {
+                    showStatus('❌ Authentication cancelled or failed. Please try again.', 'error');
+                } else if (error.message.includes('popup_window_error')) {
+                    showStatus('❌ Popup blocked. Please allow popups and try again.', 'error');
+                } else {
+                    showStatus('❌ Authentication failed: ' + error.message, 'error');
+                }
+            }
+        }
+
+        async function initializeMSAL() {
+            if (state.msalInstance) return;
+            
+            const msalConfig = {
+                auth: {
+                    clientId: '51f81489-12ee-4a9e-aaae-a2591f45987d', // Microsoft's common client ID
+                    authority: 'https://login.microsoftonline.com/common',
+                    redirectUri: window.location.origin
+                },
+                cache: {
+                    cacheLocation: 'sessionStorage',
+                    storeAuthStateInCookie: false
+                },
+                system: {
+                    loggerOptions: {
+                        loggerCallback: (level, message) => {
+                            if (level === msal.LogLevel.Error) {
+                                console.error('MSAL Error:', message);
+                            }
+                        },
+                        piiLoggingEnabled: false,
+                        logLevel: msal.LogLevel.Warning
+                    }
+                }
+            };
+
+            state.msalInstance = new msal.PublicClientApplication(msalConfig);
+            await state.msalInstance.initialize();
+        }
+
+        async function loadD365Organizations() {
+            try {
+                const response = await fetch('https://admin.services.crm.dynamics.com/api/v1.0/instances', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${state.accessToken}`,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    if (response.status === 403) {
+                        throw new Error('Access denied. You may not have permissions to view Dynamics 365 organizations.');
+                    } else if (response.status === 401) {
+                        throw new Error('Authentication token expired. Please try signing in again.');
+                    } else {
+                        throw new Error(`Failed to load organizations (${response.status})`);
+                    }
+                }
+
+                const data = await response.json();
+                const organizations = data.value || [];
+
+                if (organizations.length === 0) {
+                    showStatus('❌ No Dynamics 365 organizations found in your tenant.', 'warning');
+                    return;
+                }
+
+                showOrganizationSelector(organizations);
+
+            } catch (error) {
+                console.error('Failed to load D365 organizations:', error);
+                showStatus('❌ Failed to load organizations: ' + error.message, 'error');
+            }
+        }
+
+        function showOrganizationSelector(organizations) {
+            // Clear existing auth status and show org selector
+            const authSection = document.querySelector('#authStatus').parentElement;
+            
+            // Create organization selector UI
+            const orgSelector = document.createElement('div');
+            orgSelector.id = 'orgSelector';
+            orgSelector.innerHTML = `
+                <div style="margin: 15px 0;">
+                    <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #323130;">
+                        Select your Dynamics 365 organization:
+                    </label>
+                    <div id="orgList" style="border: 1px solid #edebe9; border-radius: 4px; max-height: 200px; overflow-y: auto;">
+                        ${organizations.map(org => `
+                            <div class="org-item" data-org-id="${org.Id}" data-org-url="${org.Url}" style="
+                                padding: 12px; 
+                                border-bottom: 1px solid #f3f2f1; 
+                                cursor: pointer;
+                                transition: background 0.2s;
+                            " onmouseover="this.style.background='#f3f9fd'" onmouseout="this.style.background='white'">
+                                <div style="font-weight: 600; color: #323130;">${org.FriendlyName}</div>
+                                <div style="font-size: 0.85em; color: #605e5c; margin-top: 2px;">${org.Url}</div>
+                                <div style="font-size: 0.8em; color: #605e5c;">Region: ${org.Region || 'Not specified'} | Version: ${org.Version || 'Unknown'}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button class="btn" id="confirmOrgBtn" disabled style="margin-top: 15px;">
+                        Connect to Selected Organization
+                    </button>
+                    <button class="btn btn-secondary" id="cancelAuthBtn" style="margin-top: 15px;">
+                        Cancel
+                    </button>
+                </div>
+            `;
+
+            // Remove existing org selector if present
+            const existing = document.getElementById('orgSelector');
+            if (existing) existing.remove();
+
+            // Add new org selector
+            authSection.appendChild(orgSelector);
+
+            // Add click handlers for organization selection
+            const orgItems = orgSelector.querySelectorAll('.org-item');
+            orgItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    // Remove selection from all items
+                    orgItems.forEach(i => {
+                        i.style.background = 'white';
+                        i.style.borderLeft = 'none';
+                    });
+                    
+                    // Select clicked item
+                    item.style.background = '#deecf9';
+                    item.style.borderLeft = '3px solid #0078d4';
+                    
+                    // Store selected organization
+                    state.selectedOrg = {
+                        id: item.dataset.orgId,
+                        url: item.dataset.orgUrl,
+                        name: item.querySelector('div').textContent
+                    };
+                    
+                    // Enable confirm button
+                    document.getElementById('confirmOrgBtn').disabled = false;
+                });
+            });
+
+            // Add confirm button handler
+            document.getElementById('confirmOrgBtn').addEventListener('click', confirmOrganization);
+            
+            // Add cancel button handler
+            document.getElementById('cancelAuthBtn').addEventListener('click', () => {
+                orgSelector.remove();
+                showStatus('Authentication cancelled', 'info');
+                state.authenticated = false;
+                state.selectedOrg = null;
+                updateGenerateButton();
+            });
+
+            showStatus('✅ Organizations loaded. Please select one to continue.', 'success');
+        }
+
+        async function confirmOrganization() {
+            if (!state.selectedOrg) {
+                showStatus('❌ Please select an organization first', 'error');
+                return;
+            }
+
+            try {
+                showStatus('Connecting to your organization...', 'info');
+
+                // Get organization-specific token
+                const tokenRequest = {
+                    scopes: [state.selectedOrg.url + 'user_impersonation'],
+                    account: state.msalInstance.getAllAccounts()[0]
+                };
+
+                const response = await state.msalInstance.acquireTokenSilent(tokenRequest);
+                state.accessToken = response.accessToken;
+                state.d365BaseUrl = state.selectedOrg.url.endsWith('/') ? state.selectedOrg.url : state.selectedOrg.url + '/';
+
+                // Test the connection
+                await testD365Connection();
+
+                // Success - clean up UI and update state
+                const orgSelector = document.getElementById('orgSelector');
+                if (orgSelector) orgSelector.remove();
+
+                state.authenticated = true;
+                showStatus(`✅ Connected to ${state.selectedOrg.name}`, 'success');
+                updateGenerateButton();
+
+                showLog(`Connected to D365 organization: ${state.selectedOrg.name}`);
+                showLog(`Organization URL: ${state.selectedOrg.url}`);
+
+            } catch (error) {
+                console.error('Failed to connect to organization:', error);
+                
+                if (error.name === 'InteractionRequiredAuthError') {
+                    showStatus('❌ Additional authentication required. Please try signing in again.', 'error');
+                } else {
+                    showStatus('❌ Failed to connect to organization: ' + error.message, 'error');
+                }
+            }
+        }
+
+        async function testD365Connection() {
+            try {
+                const response = await fetch(state.d365BaseUrl + 'api/data/v9.2/WhoAmI', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${state.accessToken}`,
+                        'Accept': 'application/json',
+                        'OData-MaxVersion': '4.0',
+                        'OData-Version': '4.0'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Connection test failed (${response.status})`);
+                }
+
+                const data = await response.json();
+                showLog(`Connection verified - User ID: ${data.UserId}`);
+                
+            } catch (error) {
+                throw new Error(`Unable to connect to D365: ${error.message}`);
             }
         }
 
