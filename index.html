@@ -1,1461 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamics 365 Sales Demo Data Generator</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-            color: #333;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .header h1 {
-            color: #2c3e50;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .header p {
-            color: #666;
-            font-size: 1.1rem;
-        }
-        
-        .config-section {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 25px;
-            border-left: 5px solid #667eea;
-        }
-        
-        .section-title {
-            font-size: 1.3rem;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .form-group label {
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 8px;
-        }
-        
-        .form-group input, .form-group select {
-            padding: 12px;
-            border: 2px solid #e1e8ed;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-        
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .checkbox-group input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .stat-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            border: 1px solid #e1e8ed;
-            transition: transform 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 5px;
-        }
-        
-        .stat-label {
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        .button-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-        
-        .btn {
-            padding: 15px 30px;
-            font-size: 1rem;
-            font-weight: 600;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            min-width: 150px;
-            justify-content: center;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #5a6fd8, #6a4190);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            color: white;
-        }
-        
-        .btn-secondary:hover {
-            background: linear-gradient(135deg, #27ae60, #229954);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
-        }
-        
-        .btn-info {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            color: white;
-        }
-        
-        .btn-info:hover {
-            background: linear-gradient(135deg, #2980b9, #21618c);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
-        }
-        
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: #e1e8ed;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 20px;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-        
-        .log {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 20px;
-            border-radius: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            max-height: 200px;
-            overflow-y: auto;
-            margin-top: 20px;
-            display: none;
-        }
-        
-        .info-box {
-            background: #e8f4fd;
-            border: 1px solid #3498db;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-        
-        .info-box h4 {
-            color: #2980b9;
-            margin-bottom: 10px;
-        }
-        
-        .info-box ul {
-            margin-left: 20px;
-            color: #34495e;
-        }
-        
-        .info-box li {
-            margin-bottom: 5px;
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .button-group {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dynamics 365 Sales Demo Data Generator</title>
+  <style>
+    :root { --bg1:#667eea; --bg2:#764ba2; --ink:#1f2937; --muted:#6b7280; --ring:#d1d5db; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:"Segoe UI",Tahoma,Verdana,sans-serif;min-height:100vh;display:grid;place-items:start;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:var(--ink);padding:24px}
+    .container{width:min(1100px,100%);margin-inline:auto;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-radius:20px;box-shadow:0 18px 40px rgba(0,0,0,.12);padding:28px}
+    h1{margin:0 0 6px;background:linear-gradient(135deg,var(--bg1),var(--bg2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-size:clamp(22px,3vw,34px);}
+    p.lead{margin:0 0 20px;color:var(--muted)}
+    .section{background:#f8fafc;border-left:5px solid var(--bg1);border-radius:14px;padding:18px;margin:16px 0}
+    .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+    label{font-weight:600;color:#0f172a;margin-bottom:6px;display:block}
+    select,input[type="text"],input[type="file"]{width:100%;padding:12px;border:2px solid var(--ring);border-radius:10px;font-size:15px}
+    select:focus,input:focus{outline:none;border-color:var(--bg1);box-shadow:0 0 0 3px rgba(102,126,234,.15)}
+    .hint{color:var(--muted);font-size:13px;margin-top:6px}
+    .hidden{display:none}
+    .buttons{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:18px}
+    .btn{border:0;border-radius:999px;padding:14px 22px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:10px;min-width:180px;justify-content:center}
+    .primary{color:white;background:linear-gradient(135deg,var(--bg1),var(--bg2))}
+    .secondary{color:white;background:linear-gradient(135deg,#2ecc71,#27ae60)}
+    .btn:disabled{opacity:.6;cursor:not-allowed}
+    .progress{height:8px;background:#e5e7eb;border-radius:99px;overflow:hidden;margin-top:14px}
+    .fill{height:100%;width:0;background:linear-gradient(90deg,var(--bg1),var(--bg2));transition:width .25s ease}
+    pre.log{background:#0f172a;color:#e5e7eb;border-radius:12px;padding:14px;max-height:220px;overflow:auto;font-family:Consolas,monospace;font-size:12.5px;margin-top:16px;display:none}
+    ul.key{margin:10px 0 0 18px;color:#334155}
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🚀 Dynamics 365 Sales Demo Data Generator</h1>
-            <p>Generate realistic 5-year sales engagement data with full referential integrity</p>
-        </div>
+  <div class="container">
+    <header>
+      <h1>🚀 Dynamics 365 Sales Demo Data Generator</h1>
+      <p class="lead">Two inputs only—pick your demo type and user list, then download CSVs.</p>
+    </header>
 
-        <div class="config-section">
-            <div class="section-title">
-                🎯 Business Configuration
-            </div>
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="businessType">Business Type</label>
-                    <select id="businessType">
-                        <option value="contoso-coffee">Contoso Coffee (Coffee & Equipment)</option>
-                        <option value="custom">Custom Industry</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="companyName">Company Name</label>
-                    <input type="text" id="companyName" value="Contoso Coffee">
-                </div>
-                <div class="form-group">
-                    <label for="timeFrame">Data Time Frame</label>
-                    <select id="timeFrame">
-                        <option value="5-years">5 Years (2020-2025)</option>
-                        <option value="3-years">3 Years (2022-2025)</option>
-                        <option value="1-year">1 Year (2024-2025)</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="checkbox-group">
-                <input type="checkbox" id="includeDealCloseAgent" checked>
-                <label for="includeDealCloseAgent">Include Deal Close Agent (AI-powered seller with 1-7 day cycles, 85% win rate)</label>
-            </div>
-            
-            <div class="checkbox-group">
-                <input type="checkbox" id="recentGrowth" checked>
-                <label for="recentGrowth">Emphasize recent growth (last 2 months pipeline & revenue increase)</label>
-            </div>
+    <!-- Input #1: Demo Type -->
+    <section class="section">
+      <h3>🎯 Demo Type</h3>
+      <div class="row">
+        <div>
+          <label for="demoType">Select demo</label>
+          <select id="demoType">
+            <option value="contoso">Contoso Coffee</option>
+            <option value="custom">Custom</option>
+          </select>
+          <p class="hint">If you choose Custom, provide a customer name. All other business config is fixed to the sample data.</p>
         </div>
-
-        <div class="config-section">
-            <div class="section-title">
-                👥 Sales Team Configuration
-            </div>
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="numSellers">Number of Sales Reps</label>
-                    <input type="number" id="numSellers" value="11" min="5" max="20">
-                </div>
-                <div class="form-group">
-                    <label for="numTerritories">Number of Territories</label>
-                    <input type="number" id="numTerritories" value="6" min="2" max="10">
-                </div>
-                <div class="form-group">
-                    <label for="avgOppsPerSeller">Avg Opportunities per Seller</label>
-                    <input type="number" id="avgOppsPerSeller" value="35" min="10" max="100">
-                </div>
-            </div>
+        <div id="customNameWrap" class="hidden">
+          <label for="customerName">Customer name (required for Custom)</label>
+          <input id="customerName" type="text" placeholder="e.g., Trey Research" />
+          <p class="hint">Used to generate a minimal businessunit.csv in the package.</p>
         </div>
+      </div>
+    </section>
 
-        <div class="config-section">
-            <div class="section-title">
-                💼 Data Volumes
-            </div>
-            <div class="stats-grid" id="dataStats">
-                <div class="stat-card">
-                    <div class="stat-value" id="totalAccounts">33</div>
-                    <div class="stat-label">Accounts</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="totalContacts">199</div>
-                    <div class="stat-label">Contacts</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="totalOpportunities">366</div>
-                    <div class="stat-label">Opportunities</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="totalEmails">1084</div>
-                    <div class="stat-label">Emails</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="totalAppointments">380</div>
-                    <div class="stat-label">Appointments</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="totalRevenue">$13.1M</div>
-                    <div class="stat-label">Won Revenue</div>
-                </div>
-            </div>
+    <!-- Input #2: Users -->
+    <section class="section">
+      <h3>👥 Demo Users</h3>
+      <div class="row">
+        <div>
+          <label for="userMode">Select users</label>
+          <select id="userMode">
+            <option value="contoso">Contoso Coffee (sample)</option>
+            <option value="custom">Custom (upload users.csv)</option>
+          </select>
+          <p class="hint">If you choose Custom, upload a CSV matching the columns in the sample <code>User.csv</code>.</p>
         </div>
-
-        <div class="button-group">
-            <button id="generateBtn" class="btn btn-primary">
-                🎲 Generate Demo Data
-            </button>
-            <button id="downloadBtn" class="btn btn-secondary" disabled>
-                💾 Download CSV Files
-            </button>
-            <button id="importBtn" class="btn btn-info" disabled>
-                ☁️ Import to D365 Online
-            </button>
+        <div id="customUsersWrap" class="hidden">
+          <label for="usersFile">Upload custom users.csv</label>
+          <input id="usersFile" type="file" accept=".csv" />
+          <p class="hint">We validate headers and replace the sample users file in the package.</p>
         </div>
+      </div>
+    </section>
 
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-
-        <div class="log" id="log"></div>
-
-        <div class="info-box">
-            <h4>📊 Key Features of Generated Data</h4>
-            <ul>
-                <li><strong>5-Year Growth Trajectory:</strong> Progressive increase in pipeline and revenue from 2020-2025</li>
-                <li><strong>Realistic Win Rates:</strong> Top performers (65-75%), Average (45-55%), Developing reps (25-35%)</li>
-                <li><strong>Deal Close Agent:</strong> AI-powered seller focusing on small/medium deals with 85% win rate</li>
-                <li><strong>Recent Pipeline Surge:</strong> 40% increase in pipeline generation over past 2 months</li>
-                <li><strong>Sales Stage Activities:</strong> Emails and meetings aligned with opportunity progression</li>
-                <li><strong>Product Performance:</strong> High-growth subscriptions, steady equipment, declining traditional products</li>
-                <li><strong>Full Referential Integrity:</strong> All relationships properly linked with GUIDs</li>
-                <li><strong>Import Ready:</strong> Direct D365 Web API import or manual CSV import</li>
-            </ul>
-        </div>
+    <div class="buttons">
+      <button id="generateBtn" class="btn primary">🎲 Prepare Demo Package</button>
+      <button id="downloadBtn" class="btn secondary" disabled>💾 Download CSV ZIP</button>
     </div>
 
-    <!-- Include required libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/papaparse/5.4.1/papaparse.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/msal/1.4.18/msal.min.js"></script>
+    <div class="progress"><div id="bar" class="fill"></div></div>
+    <pre id="log" class="log"></pre>
 
-    <script>
-        // Global variables
-        let generatedData = {};
-        let isGenerating = false;
+    <section class="section">
+      <h4>📦 What’s included</h4>
+      <ul class="key">
+        <li>Uses the sample CSVs in <code>/data/</code> (no other inputs needed).</li>
+        <li>Only two choices: <em>Demo Type</em> and <em>Users</em>.</li>
+        <li>Custom Demo Type changes the business unit name (via generated <code>businessunit.csv</code>).</li>
+        <li>Custom Users replaces <code>User.csv</code> with your uploaded file; all other datasets remain as-is.</li>
+      </ul>
+    </section>
+  </div>
 
-        // Configuration object
-        const config = {
-            businessType: 'contoso-coffee',
-            companyName: 'Contoso Coffee',
-            timeFrame: '5-years',
-            includeDealCloseAgent: true,
-            recentGrowth: true,
-            numSellers: 11,
-            numTerritories: 6,
-            avgOppsPerSeller: 35
-        };
+  <!-- libs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/papaparse/5.4.1/papaparse.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
-        // Business data templates
-        const businessTemplates = {
-            'contoso-coffee': {
-                name: 'Contoso Coffee',
-                industry: 'Food & Beverage',
-                products: [
-                    // Subscription Products (High Growth)
-                    { name: '1-Year Espresso Blend Coffee Subscription', id: 'CM-EBSUB1YR', category: 'COMMERCIAL SUBSCRIPTION', price: 2400, growth: 'high' },
-                    { name: '1-Year Fair Trade Coffee Subscription', id: 'CM-FAIR1YR', category: 'COMMERCIAL SUBSCRIPTION', price: 2600, growth: 'high' },
-                    { name: '1-Year Organic Office Coffee Subscription', id: 'CM-ORGO1YR', category: 'COMMERCIAL SUBSCRIPTION', price: 2800, growth: 'high' },
-                    { name: '6-Month Premium Roast Subscription', id: 'CM-PREM6M', category: 'COMMERCIAL SUBSCRIPTION', price: 1500, growth: 'high' },
-                    
-                    // Coffee Equipment (Steady Growth)
-                    { name: 'Café S-200 Semi-Automatic', id: 'CE-S200', category: 'COFFEE EQUIPMENT', price: 3200, growth: 'steady' },
-                    { name: 'Crema Café XL', id: 'CE-CRXL', category: 'COFFEE EQUIPMENT', price: 4500, growth: 'steady' },
-                    { name: 'Commercial Coffee Grinder Pro', id: 'CE-CGPR', category: 'COFFEE EQUIPMENT', price: 2800, growth: 'steady' },
-                    { name: 'Barista Station Deluxe', id: 'CE-BSD', category: 'COFFEE EQUIPMENT', price: 5200, growth: 'steady' },
-                    
-                    // Traditional Coffee (Declining)
-                    { name: 'Premium Coffee Beans - Dark Roast', id: 'CB-DARK', category: 'COFFEE BEANS', price: 180, growth: 'decline' },
-                    { name: 'Organic Fair Trade Blend', id: 'CB-FAIR', category: 'COFFEE BEANS', price: 220, growth: 'decline' },
-                    { name: 'Espresso Bean Blend', id: 'CB-ESP', category: 'COFFEE BEANS', price: 200, growth: 'decline' }
-                ],
-                territories: [
-                    { name: 'Americas', manager: 'Charles Lamanna' },
-                    { name: 'Northwest', manager: 'Jeff Comstock', parent: 'Americas' },
-                    { name: 'Southwest', manager: 'Eric Boocock', parent: 'Americas' },
-                    { name: 'Northeast', manager: 'Julie Strauss', parent: 'Americas' },
-                    { name: 'Southeast', manager: 'Michael Tan', parent: 'Americas' },
-                    { name: 'Central', manager: 'Pooja Bhalla', parent: 'Americas' }
-                ],
-                accounts: [
-                    { name: 'Adatum Corporation', revenue: 135000000, city: 'Redmond', state: 'Washington' },
-                    { name: 'Adventure Works Cycles', revenue: 245000000, city: 'Santa Cruz', state: 'California' },
-                    { name: 'Alpine Ski House', revenue: 185500000, city: 'Dallas', state: 'Texas' },
-                    { name: 'Contoso Pharmaceuticals', revenue: 820000000, city: 'New York', state: 'New York' },
-                    { name: 'Fabrikam, Inc.', revenue: 156000000, city: 'Seattle', state: 'Washington' },
-                    { name: 'Fourth Coffee', revenue: 89000000, city: 'Portland', state: 'Oregon' },
-                    { name: 'Humongous Insurance', revenue: 425000000, city: 'Chicago', state: 'Illinois' },
-                    { name: 'Litware, Inc.', revenue: 125000000, city: 'Miami', state: 'Florida' },
-                    { name: 'Northwind Traders', revenue: 198000000, city: 'Boston', state: 'Massachusetts' },
-                    { name: 'School of Fine Art', revenue: 25000000, city: 'Los Angeles', state: 'California' },
-                    { name: 'The Phone Company', revenue: 567000000, city: 'Houston', state: 'Texas' },
-                    { name: 'Tailspin Toys', revenue: 78000000, city: 'Denver', state: 'Colorado' },
-                    { name: 'VanArsdel, Ltd.', revenue: 234000000, city: 'Atlanta', state: 'Georgia' },
-                    { name: 'Wide World Importers', revenue: 345000000, city: 'Phoenix', state: 'Arizona' },
-                    { name: 'Wingtip Toys', revenue: 67000000, city: 'Nashville', state: 'Tennessee' },
-                    { name: 'Proseware, Inc.', revenue: 156000000, city: 'San Francisco', state: 'California' },
-                    { name: 'Blue Yonder Airlines', revenue: 890000000, city: 'Minneapolis', state: 'Minnesota' },
-                    { name: 'City Power & Light', revenue: 445000000, city: 'San Diego', state: 'California' },
-                    { name: 'Coho Vineyard', revenue: 34000000, city: 'Napa', state: 'California' },
-                    { name: 'Consolidated Messenger', revenue: 123000000, city: 'Las Vegas', state: 'Nevada' }
-                ]
-            },
-            'custom': {
-                name: 'Demo Corporation',
-                industry: 'Technology',
-                products: [
-                    { name: 'Enterprise Software License', id: 'ES-LIC', category: 'SOFTWARE', price: 50000, growth: 'high' },
-                    { name: 'Professional Services Package', id: 'PS-PKG', category: 'SERVICES', price: 25000, growth: 'steady' },
-                    { name: 'Support & Maintenance', id: 'SM-ANN', category: 'SUPPORT', price: 15000, growth: 'steady' }
-                ],
-                territories: [
-                    { name: 'North America', manager: 'Regional Manager' },
-                    { name: 'Europe', manager: 'Regional Manager' },
-                    { name: 'Asia Pacific', manager: 'Regional Manager' }
-                ],
-                accounts: [
-                    { name: 'Enterprise Client A', revenue: 500000000, city: 'New York', state: 'New York' },
-                    { name: 'Enterprise Client B', revenue: 750000000, city: 'San Francisco', state: 'California' }
-                ]
-            }
-        };
+  <script>
+    // === Settings & state ===
+    const RELATIVE_SAMPLE_FILES = [
+      'data/Territory.csv',
+      'data/Appointments.csv',
+      'data/Contact.csv',
+      'data/Goal.csv',
+      'data/Campaign.csv',
+      'data/User.csv',
+      'data/Product.csv',
+      'data/Opportunity.csv',
+      'data/Account.csv',
+      'data/Emails.csv'
+    ];
 
-        // Sales rep performance profiles
-        const salesRepProfiles = [
-            // Top Performers (65-75% win rate)
-            { firstName: 'Julie', lastName: 'Strauss', email: 'jstrauss@contoso.com', title: 'Senior Sales Representative', winRate: 0.72, dealVelocity: 0.9, avgDealSize: 1.3 },
-            { firstName: 'Eric', lastName: 'Boocock', email: 'eboocock@contoso.com', title: 'Senior Sales Representative', winRate: 0.68, dealVelocity: 0.85, avgDealSize: 1.25 },
-            { firstName: 'Michael', lastName: 'Tan', email: 'mtan@contoso.com', title: 'Senior Sales Representative', winRate: 0.65, dealVelocity: 0.8, avgDealSize: 1.2 },
-            
-            // Strong Performers (55-65% win rate)
-            { firstName: 'Deepak', lastName: 'Palled', email: 'dpalled@contoso.com', title: 'Sales Representative', winRate: 0.58, dealVelocity: 0.75, avgDealSize: 1.1 },
-            { firstName: 'Pooja', lastName: 'Bhalla', email: 'pbhalla@contoso.com', title: 'Sales Representative', winRate: 0.56, dealVelocity: 0.7, avgDealSize: 1.05 },
-            { firstName: 'Jim', lastName: 'Nakashima', email: 'jnakashima@contoso.com', title: 'Sales Representative', winRate: 0.54, dealVelocity: 0.72, avgDealSize: 1.0 },
-            { firstName: 'Jeff', lastName: 'Comstock', email: 'jcomstock@contoso.com', title: 'Sales Manager', winRate: 0.52, dealVelocity: 0.65, avgDealSize: 0.95 },
-            
-            // Average Performers (40-50% win rate)
-            { firstName: 'Alan', lastName: 'Ross', email: 'aross@contoso.com', title: 'Sales Representative', winRate: 0.46, dealVelocity: 0.6, avgDealSize: 0.9 },
-            { firstName: 'Per', lastName: 'Mikkelsen', email: 'pmikkelsen@contoso.com', title: 'Sales Representative', winRate: 0.44, dealVelocity: 0.58, avgDealSize: 0.85 },
-            
-            // Developing Performers (25-35% win rate)
-            { firstName: 'Ayushman', lastName: 'Jain', email: 'ajain@contoso.com', title: 'Junior Sales Representative', winRate: 0.32, dealVelocity: 0.5, avgDealSize: 0.8 },
-            { firstName: 'Lunaura', lastName: 'Hassinger', email: 'lhassinger@contoso.com', title: 'Junior Sales Representative', winRate: 0.28, dealVelocity: 0.45, avgDealSize: 0.75 }
-        ];
+    let packageData = {}; // { filename: [{row},...] }
+    let customUsers = null; // parsed array of rows
 
-        // Deal Close Agent profile
-        const dealCloseAgent = {
-            firstName: 'Deal Close',
-            lastName: 'Agent',
-            email: 'dealcloseagent@contoso.com',
-            title: 'AI Sales Agent',
-            winRate: 0.85,
-            dealVelocity: 5.0, // Much faster cycles
-            avgDealSize: 0.4,  // Smaller deals
-            focusArea: 'Small/Medium Business Segment'
-        };
+    // === DOM helpers ===
+    const $ = (id)=>document.getElementById(id);
+    const log = (msg)=>{ const el=$('log'); el.style.display='block'; el.textContent += `[${new Date().toLocaleTimeString()}] ${msg}\n`; el.scrollTop=el.scrollHeight; };
+    const setBar = (p)=>{ $('bar').style.width = `${p}%`; };
 
-        // Utility functions
-        function generateGUID() {
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                const r = Math.random() * 16 | 0;
-                const v = c == 'x' ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            });
+    // === UI behavior ===
+    $('demoType').addEventListener('change', (e)=>{
+      const isCustom = e.target.value === 'custom';
+      $('customNameWrap').classList.toggle('hidden', !isCustom);
+    });
+    $('userMode').addEventListener('change', (e)=>{
+      const isCustom = e.target.value === 'custom';
+      $('customUsersWrap').classList.toggle('hidden', !isCustom);
+    });
+
+    $('usersFile').addEventListener('change', async (e)=>{
+      const file = e.target.files?.[0];
+      if(!file){ customUsers=null; return; }
+      const text = await file.text();
+      const parsed = Papa.parse(text, {header:true, skipEmptyLines:true});
+      if(parsed.errors?.length){
+        log(`❌ users.csv parse errors: ${parsed.errors[0].message}`);
+        customUsers=null; return;
+      }
+      // Basic header validation against sample file once it's loaded
+      if(packageData['data/User.csv']){
+        const sampleHeaders = Object.keys(packageData['data/User.csv'][0]||{});
+        const uploadedHeaders = parsed.meta.fields || [];
+        const missing = sampleHeaders.filter(h=>!uploadedHeaders.includes(h));
+        if(missing.length){
+          log(`❌ users.csv missing column(s): ${missing.join(', ')}`);
+          customUsers=null; return;
         }
+      }
+      customUsers = parsed.data;
+      log(`✅ Loaded custom users.csv with ${customUsers.length} rows.`);
+    });
 
-        function getRandomDate(start, end) {
-            return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-        }
+    // === Data loading ===
+    async function fetchCSV(path){
+      const res = await fetch(path, { cache: 'no-store' });
+      if(!res.ok) throw new Error(`${path} not found (ensure CSVs are in /data/)`);
+      const text = await res.text();
+      const parsed = Papa.parse(text, {header:true, skipEmptyLines:true});
+      if(parsed.errors?.length){
+        throw new Error(`${path} parse error: ${parsed.errors[0].message}`);
+      }
+      return parsed.data;
+    }
 
-        function addDays(date, days) {
-            const result = new Date(date);
-            result.setDate(result.getDate() + days);
-            return result;
-        }
+    async function loadSamples(){
+      packageData = {};
+      setBar(0);
+      const step = 80/RELATIVE_SAMPLE_FILES.length; // first 80% of bar used for reads
+      for(let i=0;i<RELATIVE_SAMPLE_FILES.length;i++){
+        const f = RELATIVE_SAMPLE_FILES[i];
+        log(`⬇️ Loading ${f} ...`);
+        packageData[f] = await fetchCSV(f);
+        setBar(Math.min(80, (i+1)*step));
+      }
+      log('✅ All sample CSVs loaded.');
+    }
 
-        function formatDate(date) {
-            return date.toISOString().replace('T', ' ').substring(0, 16);
-        }
+    // === Light transforms ===
+    function applyCustomizations(){
+      const isCustomDemo = $('demoType').value === 'custom';
+      const newName = $('customerName').value?.trim();
+      const out = {...packageData};
 
-        function getRandomItem(array) {
-            return array[Math.floor(Math.random() * array.length)];
-        }
-
-        function getWeightedRandom(items, weights) {
-            const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
-            let random = Math.random() * totalWeight;
-            
-            for (let i = 0; i < items.length; i++) {
-                random -= weights[i];
-                if (random <= 0) return items[i];
-            }
-            return items[items.length - 1];
-        }
-
-        function updateStats() {
-            const multiplier = config.timeFrame === '5-years' ? 1 : config.timeFrame === '3-years' ? 0.6 : 0.2;
-            const baseOpps = config.numSellers * config.avgOppsPerSeller;
-            const dealCloseOpps = config.includeDealCloseAgent ? Math.floor(baseOpps * 0.15) : 0;
-            
-            document.getElementById('totalAccounts').textContent = Math.floor(33 * multiplier);
-            document.getElementById('totalContacts').textContent = Math.floor(199 * multiplier);
-            document.getElementById('totalOpportunities').textContent = Math.floor((baseOpps + dealCloseOpps) * multiplier);
-            document.getElementById('totalEmails').textContent = Math.floor(1084 * multiplier);
-            document.getElementById('totalAppointments').textContent = Math.floor(380 * multiplier);
-            document.getElementById('totalRevenue').textContent = `${(13.1 * multiplier).toFixed(1)}M`;
-        }
-
-        function log(message) {
-            const logElement = document.getElementById('log');
-            logElement.style.display = 'block';
-            logElement.textContent += new Date().toLocaleTimeString() + ': ' + message + '\n';
-            logElement.scrollTop = logElement.scrollHeight;
-        }
-
-        function updateProgress(percentage) {
-            document.getElementById('progressFill').style.width = percentage + '%';
-        }
-
-        // Data generation functions
-        function generateBusinessUnits() {
-            return [{
-                'Business Unit ID': generateGUID(),
-                'Name': config.companyName,
-                'Description': `Primary business unit for ${config.companyName}`,
-                'Parent Business Unit': '',
-                'Address 1: City': 'Seattle',
-                'Address 1: State/Province': 'Washington',
-                'Email Address': `info@${config.companyName.toLowerCase().replace(/\s+/g, '')}.com`,
-                'Website': `www.${config.companyName.toLowerCase().replace(/\s+/g, '')}.com`
-            }];
-        }
-
-        function generateUsers() {
-            const users = [];
-            const businessUnit = generatedData.businessUnits[0];
-            
-            // Add managers first
-            const territoryManagers = new Set(businessTemplates[config.businessType].territories.map(t => t.manager));
-            territoryManagers.forEach(manager => {
-                const [firstName, lastName] = manager.split(' ');
-                users.push({
-                    'User ID': generateGUID(),
-                    'First Name': firstName,
-                    'Last Name': lastName,
-                    'Full Name': manager,
-                    'Primary Email': `${firstName.toLowerCase()}.${lastName.toLowerCase()}@contoso.com`,
-                    'Title': 'Sales Manager',
-                    'Business Unit': businessUnit['Business Unit ID'],
-                    'Manager': '',
-                    'Is Active': 'Yes'
-                });
-            });
-            
-            // Add sales reps
-            salesRepProfiles.slice(0, config.numSellers).forEach(profile => {
-                users.push({
-                    'User ID': generateGUID(),
-                    'First Name': profile.firstName,
-                    'Last Name': profile.lastName,
-                    'Full Name': `${profile.firstName} ${profile.lastName}`,
-                    'Primary Email': profile.email,
-                    'Title': profile.title,
-                    'Business Unit': businessUnit['Business Unit ID'],
-                    'Manager': getRandomItem(users.filter(u => u.Title === 'Sales Manager'))['User ID'],
-                    'Is Active': 'Yes'
-                });
-            });
-            
-            // Add Deal Close Agent if enabled
-            if (config.includeDealCloseAgent) {
-                users.push({
-                    'User ID': generateGUID(),
-                    'First Name': dealCloseAgent.firstName,
-                    'Last Name': dealCloseAgent.lastName,
-                    'Full Name': `${dealCloseAgent.firstName} ${dealCloseAgent.lastName}`,
-                    'Primary Email': dealCloseAgent.email,
-                    'Title': dealCloseAgent.title,
-                    'Business Unit': businessUnit['Business Unit ID'],
-                    'Manager': getRandomItem(users.filter(u => u.Title === 'Sales Manager'))['User ID'],
-                    'Is Active': 'Yes'
-                });
-            }
-            
-            return users;
-        }
-
-        function generateTerritories() {
-            const territories = [];
-            const users = generatedData.users;
-            const territoryData = businessTemplates[config.businessType].territories.slice(0, config.numTerritories);
-            
-            territoryData.forEach(territory => {
-                const manager = users.find(u => u['Full Name'] === territory.manager);
-                const parentTerritory = territory.parent ? territories.find(t => t['Territory Name'] === territory.parent) : null;
-                
-                territories.push({
-                    'Territory ID': generateGUID(),
-                    'Territory Name': territory.name,
-                    'Manager': manager ? manager['User ID'] : '',
-                    'Parent Territory': parentTerritory ? parentTerritory['Territory ID'] : '',
-                    'Description': `Sales territory for ${territory.name}`,
-                    'Is Active': 'Yes'
-                });
-            });
-            
-            return territories;
-        }
-
-        function generateCampaigns() {
-            const campaigns = [];
-            const users = generatedData.users;
-            const campaignTypes = ['Email Marketing', 'Trade Show', 'Digital Campaign', 'Partner Event', 'Webinar Series'];
-            const campaignNames = [
-                'Q1 Coffee Excellence Campaign',
-                'Spring Equipment Promotion',
-                'Subscription Growth Initiative',
-                'Enterprise Coffee Solutions',
-                'Small Business Coffee Program',
-                'Holiday Blend Special',
-                'New Product Launch Campaign',
-                'Customer Appreciation Event'
-            ];
-            
-            campaignNames.forEach(name => {
-                campaigns.push({
-                    'Campaign ID': generateGUID(),
-                    'Name': name,
-                    'Campaign Type': getRandomItem(campaignTypes),
-                    'Status': 'Active',
-                    'Start Date': formatDate(getRandomDate(new Date(2020, 0, 1), new Date(2024, 11, 31))),
-                    'End Date': formatDate(getRandomDate(new Date(2025, 0, 1), new Date(2025, 11, 31))),
-                    'Budget': Math.floor(Math.random() * 50000) + 10000,
-                    'Owner': getRandomItem(users.filter(u => u.Title.includes('Manager')))['User ID']
-                });
-            });
-            
-            return campaigns;
-        }
-
-        function generateProducts() {
-            const products = [];
-            const priceListId = generateGUID();
-            
-            // Generate price list first
-            generatedData.priceLists = [{
-                'Price List ID': priceListId,
-                'Name': `${config.companyName} Price List`,
-                'Currency': 'USD',
-                'Start Date': '2020-01-01',
-                'End Date': '2025-12-31',
-                'Description': `Standard pricing for ${config.companyName} products`
-            }];
-            
-            // Generate products
-            businessTemplates[config.businessType].products.forEach(product => {
-                const productId = generateGUID();
-                products.push({
-                    'Product ID': productId,
-                    'Name': product.name,
-                    'Product Number': product.id,
-                    'Product Structure': 'Product',
-                    'Product Type': 'Sales Inventory',
-                    'Status': 'Active',
-                    'Valid From': '2020-01-01',
-                    'Valid To': '2025-12-31',
-                    'Unit Group': product.category,
-                    'Default Unit': 'Each',
-                    'Hierarchy Path': product.category,
-                    'List Price': product.price,
-                    'Standard Cost': Math.floor(product.price * 0.6),
-                    'Subject': product.category
-                });
-                
-                // Generate price list item
-                if (!generatedData.priceListItems) generatedData.priceListItems = [];
-                generatedData.priceListItems.push({
-                    'Price List Item ID': generateGUID(),
-                    'Price List': priceListId,
-                    'Product': productId,
-                    'Unit': 'Each',
-                    'Amount': product.price,
-                    'Pricing Method': 'Currency Amount',
-                    'Percentage': 0,
-                    'Rounding Policy': 'None',
-                    'Rounding Option': 'Ends in',
-                    'Quantity Selling Option': 'No Control'
-                });
-            });
-            
-            return products;
-        }
-
-        function generateAccounts() {
-            const accounts = [];
-            const users = generatedData.users;
-            const territories = generatedData.territories;
-            const accountData = businessTemplates[config.businessType].accounts;
-            
-            accountData.forEach(account => {
-                const territory = getRandomItem(territories.filter(t => t['Parent Territory'] !== ''));
-                const owner = getRandomItem(users.filter(u => u.Title.includes('Sales')));
-                
-                accounts.push({
-                    'Account ID': generateGUID(),
-                    'Account Name': account.name,
-                    'Account Number': `ACC-${Math.random().toString(36).substr(2, 6).toUpperCase()}`,
-                    'Primary Contact': '',
-                    'Main Phone': `${Math.floor(Math.random() * 900) + 100}-555-${Math.floor(Math.random() * 9000) + 1000}`,
-                    'Address 1: Street 1': `${Math.floor(Math.random() * 9999) + 1} ${getRandomItem(['Main St', 'Oak Ave', 'First St', 'Park Blvd', 'Market St'])}`,
-                    'Address 1: City': account.city,
-                    'Address 1: State/Province': account.state,
-                    'Address 1: ZIP/Postal Code': Math.floor(Math.random() * 90000) + 10000,
-                    'Address 1: Country/Region': 'United States',
-                    'Website': `www.${account.name.toLowerCase().replace(/[^a-z0-9]/g, '')}.com`,
-                    'Annual Revenue': account.revenue,
-                    'Number of Employees': Math.floor(account.revenue / 100000),
-                    'Industry': businessTemplates[config.businessType].industry,
-                    'Territory': territory['Territory ID'],
-                    'Owner': owner['User ID'],
-                    'Customer Size': account.revenue > 500000000 ? 'Large' : account.revenue > 100000000 ? 'Medium' : 'Small'
-                });
-            });
-            
-            return accounts;
-        }
-
-        function generateContacts() {
-            const contacts = [];
-            const accounts = generatedData.accounts;
-            const firstNames = ['John', 'Sarah', 'Michael', 'Jessica', 'David', 'Emily', 'Robert', 'Amanda', 'Daniel', 'Lisa', 'Christopher', 'Michelle', 'Matthew', 'Jennifer', 'Joshua', 'Ashley', 'Andrew', 'Stephanie', 'Kevin', 'Nicole'];
-            const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez', 'Hernandez', 'Lopez', 'Gonzalez', 'Wilson', 'Anderson', 'Thomas', 'Taylor', 'Moore', 'Jackson', 'Martin'];
-            const jobTitles = ['CEO', 'CTO', 'CFO', 'VP Sales', 'VP Marketing', 'Director IT', 'Purchasing Manager', 'Operations Manager', 'Facilities Manager', 'Office Manager'];
-            
-            accounts.forEach(account => {
-                // Generate 1-3 contacts per account
-                const numContacts = Math.floor(Math.random() * 3) + 1;
-                for (let i = 0; i < numContacts; i++) {
-                    const firstName = getRandomItem(firstNames);
-                    const lastName = getRandomItem(lastNames);
-                    const domain = account['Website'].replace('www.', '').replace('.com', '');
-                    
-                    contacts.push({
-                        'Contact ID': generateGUID(),
-                        'First Name': firstName,
-                        'Last Name': lastName,
-                        'Full Name': `${firstName} ${lastName}`,
-                        'Job Title': getRandomItem(jobTitles),
-                        'Account': account['Account ID'],
-                        'Email': `${firstName.toLowerCase()}.${lastName.toLowerCase()}@${domain}.com`,
-                        'Business Phone': account['Main Phone'],
-                        'Mobile Phone': `${Math.floor(Math.random() * 900) + 100}-555-${Math.floor(Math.random() * 9000) + 1000}`,
-                        'Address 1: Street 1': account['Address 1: Street 1'],
-                        'Address 1: City': account['Address 1: City'],
-                        'Address 1: State/Province': account['Address 1: State/Province'],
-                        'Address 1: ZIP/Postal Code': account['Address 1: ZIP/Postal Code'],
-                        'Address 1: Country/Region': 'United States',
-                        'Lead Source': getRandomItem(['Website', 'Referral', 'Cold Call', 'Trade Show', 'Marketing Campaign']),
-                        'Customer Profile': getRandomItem(['Influencer', 'Decision Maker', 'Economic Buyer', 'User', 'Coach']),
-                        'Decision Influence': getRandomItem(['High', 'Medium', 'Low'])
-                    });
-                }
-            });
-            
-            return contacts;
-        }
-
-        async function generateOpportunities() {
-            return new Promise(resolve => {
-                setTimeout(() => {
-                    const opportunities = [];
-                    const accounts = generatedData.accounts;
-                    const contacts = generatedData.contacts;
-                    const users = generatedData.users;
-                    const products = generatedData.products;
-                    const campaigns = generatedData.campaigns;
-                    const salesReps = users.filter(u => u.Title.includes('Sales') && !u.Title.includes('Manager'));
-                    const dealCloseAgentUser = users.find(u => u['Full Name'] === 'Deal Close Agent');
-                    
-                    const startDate = config.timeFrame === '5-years' ? new Date(2020, 0, 1) : 
-                                     config.timeFrame === '3-years' ? new Date(2022, 0, 1) : 
-                                     new Date(2024, 0, 1);
-                    const endDate = new Date(2025, 8, 25); // Current date
-                    
-                    const salesStages = ['Qualify', 'Develop', 'Propose', 'Close'];
-                    const statuses = ['Open', 'Won', 'Lost'];
-                    const ratings = ['Hot', 'Warm', 'Cold'];
-                    
-                    // Generate opportunities for regular sales reps
-                    salesReps.forEach((rep, repIndex) => {
-                        const profile = salesRepProfiles[repIndex] || salesRepProfiles[salesRepProfiles.length - 1];
-                        const numOpps = Math.floor(config.avgOppsPerSeller * (0.8 + Math.random() * 0.4));
-                        
-                        for (let i = 0; i < numOpps; i++) {
-                            const account = getRandomItem(accounts);
-                            const contact = getRandomItem(contacts.filter(c => c.Account === account['Account ID']));
-                            const product = getRandomItem(products);
-                            const campaign = Math.random() > 0.7 ? getRandomItem(campaigns) : null;
-                            
-                            // Weight creation dates towards recent months if recentGrowth is enabled
-                            let createdDate;
-                            if (config.recentGrowth && Math.random() > 0.6) {
-                                // 40% of opportunities in last 2 months
-                                createdDate = getRandomDate(new Date(2025, 6, 25), endDate);
-                            } else {
-                                createdDate = getRandomDate(startDate, endDate);
-                            }
-                            
-                            // Determine if opportunity is won, lost, or open based on creation date and profile
-                            const daysSinceCreated = (endDate - createdDate) / (1000 * 60 * 60 * 24);
-                            const expectedCycleDays = Math.floor((60 + Math.random() * 60) / profile.dealVelocity); // 60-120 days base
-                            
-                            let status, actualCloseDate, actualRevenue, probability, salesStage, forecastCategory;
-                            
-                            if (daysSinceCreated > expectedCycleDays) {
-                                // Opportunity should be closed
-                                status = Math.random() < profile.winRate ? 'Won' : 'Lost';
-                                actualCloseDate = addDays(createdDate, expectedCycleDays + Math.floor(Math.random() * 20 - 10));
-                                salesStage = 'Close';
-                                probability = status === 'Won' ? 100 : 0;
-                                forecastCategory = status === 'Won' ? 'Won' : 'Lost';
-                                
-                                if (status === 'Won') {
-                                    // Apply growth multiplier based on year and product growth trend
-                                    const year = createdDate.getFullYear();
-                                    const yearMultiplier = 1 + (year - 2020) * 0.15; // 15% growth per year
-                                    const productMultiplier = product.growth === 'high' ? 1.3 : 
-                                                            product.growth === 'steady' ? 1.0 : 0.7;
-                                    
-                                    actualRevenue = Math.floor(product.price * (2 + Math.random() * 8) * 
-                                                             profile.avgDealSize * yearMultiplier * productMultiplier);
-                                } else {
-                                    actualRevenue = 0;
-                                }
-                            } else {
-                                // Opportunity is still open
-                                status = 'Open';
-                                actualCloseDate = null;
-                                actualRevenue = 0;
-                                
-                                // Sales stage based on time in cycle
-                                const cycleProgress = daysSinceCreated / expectedCycleDays;
-                                if (cycleProgress < 0.25) {
-                                    salesStage = 'Qualify';
-                                    probability = 25;
-                                } else if (cycleProgress < 0.5) {
-                                    salesStage = 'Develop';
-                                    probability = 50;
-                                } else if (cycleProgress < 0.75) {
-                                    salesStage = 'Propose';
-                                    probability = 75;
-                                } else {
-                                    salesStage = 'Close';
-                                    probability = 90;
-                                }
-                                forecastCategory = 'Pipeline';
-                            }
-                            
-                            const estimatedRevenue = Math.floor(product.price * (2 + Math.random() * 8) * profile.avgDealSize);
-                            
-                            opportunities.push({
-                                'Opportunity ID': generateGUID(),
-                                'Topic': `${product.name} for ${account['Account Name']}`,
-                                'Account': account['Account ID'],
-                                'Contact': contact ? contact['Contact ID'] : '',
-                                'Owner': rep['User ID'],
-                                'Est. Revenue': estimatedRevenue,
-                                'Actual Revenue': actualRevenue,
-                                'Currency': 'USD',
-                                'Est. Close Date': formatDate(addDays(createdDate, expectedCycleDays)),
-                                'Actual Close Date': actualCloseDate ? formatDate(actualCloseDate) : '',
-                                'Created On': formatDate(createdDate),
-                                'Status': status,
-                                'Status Reason': status === 'Won' ? 'Won' : status === 'Lost' ? 'Lost' : 'In Progress',
-                                'Sales Stage': salesStage,
-                                'Probability': probability,
-                                'Rating': getRandomItem(ratings),
-                                'Forecast Category': forecastCategory,
-                                'Source Campaign': campaign ? campaign['Campaign ID'] : '',
-                                'Purchase Process': getRandomItem(['Individual', 'Committee', 'Unknown']),
-                                'Purchase Timeframe': getRandomItem(['Immediate', 'This Quarter', 'This Year', 'Unknown']),
-                                'Description': `${product.name} opportunity for ${account['Account Name']} - AI-assisted sale`,
-                                'Revenue': 'System Calculated'
-                            });
-                        }
-                    }
-                    
-                    resolve(opportunities);
-                }, 100);
-            });
-        }
-
-        function generateEmails() {
-            const emails = [];
-            const opportunities = generatedData.opportunities;
-            const users = generatedData.users;
-            const contacts = generatedData.contacts;
-            
-            opportunities.forEach(opp => {
-                const owner = users.find(u => u['User ID'] === opp.Owner);
-                const contact = contacts.find(c => c['Contact ID'] === opp.Contact);
-                
-                if (!owner || !contact) return;
-                
-                const createdDate = new Date(opp['Created On']);
-                const salesStage = opp['Sales Stage'];
-                const status = opp.Status;
-                
-                // Generate emails based on sales stage and opportunity progression
-                let emailCount = 0;
-                
-                if (salesStage === 'Qualify') {
-                    emailCount = 1 + Math.floor(Math.random() * 2); // 1-2 emails
-                } else if (salesStage === 'Develop') {
-                    emailCount = 2 + Math.floor(Math.random() * 3); // 2-4 emails
-                } else if (salesStage === 'Propose') {
-                    emailCount = 3 + Math.floor(Math.random() * 4); // 3-6 emails
-                } else if (salesStage === 'Close') {
-                    emailCount = 4 + Math.floor(Math.random() * 5); // 4-8 emails
-                }
-                
-                // If opportunity is closed, add final emails
-                if (status === 'Won') {
-                    emailCount += 2; // Contract and follow-up emails
-                } else if (status === 'Lost') {
-                    emailCount += 1; // Follow-up email
-                }
-                
-                const emailTemplates = {
-                    'initial': [
-                        `Introduction: ${opp.Topic}`,
-                        `Follow-up: Coffee solutions discussion`,
-                        `Meeting request: ${opp.Topic}`
-                    ],
-                    'develop': [
-                        `Proposal: ${opp.Topic}`,
-                        `Technical specifications: ${opp.Topic}`,
-                        `Pricing information: ${opp.Topic}`,
-                        `Implementation timeline: ${opp.Topic}`
-                    ],
-                    'propose': [
-                        `Formal proposal: ${opp.Topic}`,
-                        `Contract terms: ${opp.Topic}`,
-                        `Final pricing: ${opp.Topic}`,
-                        `Implementation planning: ${opp.Topic}`
-                    ],
-                    'close': [
-                        `Contract review: ${opp.Topic}`,
-                        `Final approval: ${opp.Topic}`,
-                        `Delivery schedule: ${opp.Topic}`,
-                        `Payment terms: ${opp.Topic}`
-                    ],
-                    'won': [
-                        `Contract signed: ${opp.Topic}`,
-                        `Welcome and next steps: ${opp.Topic}`,
-                        `Implementation kickoff: ${opp.Topic}`
-                    ],
-                    'lost': [
-                        `Thank you and future opportunities: ${opp.Topic}`
-                    ]
-                };
-                
-                // Generate emails throughout the sales cycle
-                for (let i = 0; i < emailCount; i++) {
-                    let emailDate, subject, templateCategory;
-                    
-                    if (i === 0) {
-                        // First email near opportunity creation
-                        emailDate = addDays(createdDate, Math.floor(Math.random() * 3));
-                        templateCategory = 'initial';
-                    } else if (status === 'Won' && i >= emailCount - 2) {
-                        // Win emails
-                        const closeDate = new Date(opp['Actual Close Date']);
-                        emailDate = addDays(closeDate, Math.floor(Math.random() * 7));
-                        templateCategory = 'won';
-                    } else if (status === 'Lost' && i === emailCount - 1) {
-                        // Lost email
-                        const closeDate = new Date(opp['Actual Close Date']);
-                        emailDate = addDays(closeDate, Math.floor(Math.random() * 3));
-                        templateCategory = 'lost';
-                    } else {
-                        // Progressive emails based on stage
-                        const daysBetween = status !== 'Open' ? 
-                            (new Date(opp['Actual Close Date']) - createdDate) / (1000 * 60 * 60 * 24) :
-                            (new Date() - createdDate) / (1000 * 60 * 60 * 24);
-                        
-                        emailDate = addDays(createdDate, Math.floor((i / emailCount) * daysBetween));
-                        
-                        if (salesStage === 'Qualify') templateCategory = 'initial';
-                        else if (salesStage === 'Develop') templateCategory = 'develop';
-                        else if (salesStage === 'Propose') templateCategory = 'propose';
-                        else templateCategory = 'close';
-                    }
-                    
-                    subject = getRandomItem(emailTemplates[templateCategory]);
-                    
-                    emails.push({
-                        'Email ID': generateGUID(),
-                        'Subject': subject,
-                        'From': owner['Primary Email'],
-                        'To': contact['Email'],
-                        'Regarding': opp['Opportunity ID'],
-                        'Priority': getRandomItem(['Normal', 'High', 'Low']),
-                        'Status': 'Completed',
-                        'Status Reason': 'Completed',
-                        'Direction': 'Outgoing',
-                        'Owner': owner['User ID'],
-                        'Start Date': formatDate(emailDate),
-                        'Date Sent': formatDate(emailDate),
-                        'Actual Start': formatDate(emailDate),
-                        'Actual End': formatDate(addDays(emailDate, 0, 5)), // 5 minutes later
-                        'Activity Type': 'Email',
-                        'Activity Status': 'Completed',
-                        'Description': `Email regarding ${opp.Topic}.`
-                    });
-                }
-            });
-            
-            return emails;
-        }
-
-        function generateAppointments() {
-            const appointments = [];
-            const opportunities = generatedData.opportunities;
-            const users = generatedData.users;
-            const contacts = generatedData.contacts;
-            
-            opportunities.forEach(opp => {
-                const owner = users.find(u => u['User ID'] === opp.Owner);
-                const contact = contacts.find(c => c['Contact ID'] === opp.Contact);
-                
-                if (!owner || !contact) return;
-                
-                const createdDate = new Date(opp['Created On']);
-                const salesStage = opp['Sales Stage'];
-                const status = opp.Status;
-                
-                // Generate meetings based on sales stage and deal size
-                let meetingCount = 0;
-                const isDCADeal = owner['Full Name'] === 'Deal Close Agent';
-                
-                if (isDCADeal) {
-                    // DCA has fewer, shorter meetings
-                    meetingCount = salesStage === 'Close' ? 1 : 0;
-                } else {
-                    // Regular sales reps have more meetings
-                    if (salesStage === 'Qualify') {
-                        meetingCount = 1; // Discovery call
-                    } else if (salesStage === 'Develop') {
-                        meetingCount = 1 + Math.floor(Math.random() * 2); // 1-2 meetings
-                    } else if (salesStage === 'Propose') {
-                        meetingCount = 2 + Math.floor(Math.random() * 2); // 2-3 meetings
-                    } else if (salesStage === 'Close') {
-                        meetingCount = 2 + Math.floor(Math.random() * 3); // 2-4 meetings
-                    }
-                    
-                    if (status === 'Won') {
-                        meetingCount += 1; // Implementation kickoff
-                    }
-                }
-                
-                const meetingTemplates = [
-                    `Discovery call (${opp.Topic})`,
-                    `Product demonstration (${opp.Topic})`,
-                    `Technical discussion (${opp.Topic})`,
-                    `Proposal presentation (${opp.Topic})`,
-                    `Contract negotiation (${opp.Topic})`,
-                    `Final approval meeting (${opp.Topic})`,
-                    `Implementation planning (${opp.Topic})`,
-                    `Kickoff meeting (${opp.Topic})`
-                ];
-                
-                for (let i = 0; i < meetingCount; i++) {
-                    let meetingDate, duration, subject;
-                    
-                    if (status !== 'Open') {
-                        const daysBetween = (new Date(opp['Actual Close Date']) - createdDate) / (1000 * 60 * 60 * 24);
-                        meetingDate = addDays(createdDate, Math.floor((i + 1) / meetingCount * daysBetween));
-                    } else {
-                        const daysSinceCreated = (new Date() - createdDate) / (1000 * 60 * 60 * 24);
-                        meetingDate = addDays(createdDate, Math.floor((i + 1) / meetingCount * daysSinceCreated));
-                    }
-                    
-                    duration = isDCADeal ? 30 : 60; // DCA meetings are shorter
-                    subject = getRandomItem(meetingTemplates);
-                    
-                    const endTime = new Date(meetingDate.getTime() + duration * 60000);
-                    
-                    appointments.push({
-                        'Appointment ID': generateGUID(),
-                        'Subject': subject,
-                        'Regarding': opp['Opportunity ID'],
-                        'Required Attendees': contact['Full Name'],
-                        'Priority': 'Normal',
-                        'Start Time': formatDate(meetingDate),
-                        'End Time': formatDate(endTime),
-                        'Duration': duration,
-                        'Location': Math.random() > 0.6 ? 'Microsoft Teams Meeting' : 'Customer Office',
-                        'Is Online Meeting': Math.random() > 0.6 ? 'Yes' : 'No',
-                        'Status': 'Completed',
-                        'Status Reason': 'Completed',
-                        'Owner': owner['User ID'],
-                        'Organizer': owner['Full Name'],
-                        'Created On': formatDate(addDays(meetingDate, -7)), // Created a week before
-                        'Created By': owner['Full Name'],
-                        'Actual Start': formatDate(meetingDate),
-                        'Actual End': formatDate(endTime),
-                        'Description': `Meeting regarding ${opp.Topic}.`
-                    });
-                }
-            });
-            
-            return appointments;
-        }
-
-        function generateOpportunityProducts() {
-            const opportunityProducts = [];
-            const opportunities = generatedData.opportunities;
-            const products = generatedData.products;
-            
-            opportunities.forEach(opp => {
-                // Extract product info from opportunity topic
-                const topicWords = opp.Topic.toLowerCase();
-                let selectedProduct = products.find(p => topicWords.includes(p.Name.toLowerCase().split(' ')[0]));
-                
-                if (!selectedProduct) {
-                    selectedProduct = getRandomItem(products);
-                }
-                
-                const quantity = Math.floor(Math.random() * 10) + 1;
-                const unitPrice = selectedProduct['List Price'];
-                const extendedAmount = quantity * unitPrice;
-                
-                opportunityProducts.push({
-                    'Opportunity Product ID': generateGUID(),
-                    'Opportunity': opp['Opportunity ID'],
-                    'Product': selectedProduct['Product ID'],
-                    'Product Name': selectedProduct.Name,
-                    'Unit': 'Each',
-                    'Quantity': quantity,
-                    'Price Per Unit': unitPrice,
-                    'Extended Amount': extendedAmount,
-                    'Manual Discount': 0,
-                    'Tax': Math.floor(extendedAmount * 0.08), // 8% tax
-                    'Description': `${selectedProduct.Name} for this opportunity`
-                });
-            });
-            
-            return opportunityProducts;
-        }
-
-        // Main generation function
-        async function generateData() {
-            if (isGenerating) return;
-            
-            isGenerating = true;
-            document.getElementById('generateBtn').disabled = true;
-            document.getElementById('downloadBtn').disabled = true;
-            document.getElementById('importBtn').disabled = true;
-            
-            try {
-                log('Starting data generation...');
-                updateProgress(0);
-                
-                // Update config from form
-                config.businessType = document.getElementById('businessType').value;
-                config.companyName = document.getElementById('companyName').value;
-                config.timeFrame = document.getElementById('timeFrame').value;
-                config.includeDealCloseAgent = document.getElementById('includeDealCloseAgent').checked;
-                config.recentGrowth = document.getElementById('recentGrowth').checked;
-                config.numSellers = parseInt(document.getElementById('numSellers').value);
-                config.numTerritories = parseInt(document.getElementById('numTerritories').value);
-                config.avgOppsPerSeller = parseInt(document.getElementById('avgOppsPerSeller').value);
-                
-                log('Generating business units...');
-                generatedData.businessUnits = generateBusinessUnits();
-                updateProgress(10);
-                
-                log('Generating users and sales team...');
-                generatedData.users = generateUsers();
-                updateProgress(20);
-                
-                log('Generating territories...');
-                generatedData.territories = generateTerritories();
-                updateProgress(30);
-                
-                log('Generating campaigns...');
-                generatedData.campaigns = generateCampaigns();
-                updateProgress(40);
-                
-                log('Generating products and price lists...');
-                generatedData.products = generateProducts();
-                updateProgress(50);
-                
-                log('Generating accounts...');
-                generatedData.accounts = generateAccounts();
-                updateProgress(60);
-                
-                log('Generating contacts...');
-                generatedData.contacts = generateContacts();
-                updateProgress(70);
-                
-                log('Generating opportunities (this may take a moment)...');
-                generatedData.opportunities = await generateOpportunities();
-                updateProgress(80);
-                
-                log('Generating emails and activities...');
-                generatedData.emails = generateEmails();
-                updateProgress(90);
-                
-                log('Generating appointments...');
-                generatedData.appointments = generateAppointments();
-                
-                log('Generating opportunity products...');
-                generatedData.opportunityProducts = generateOpportunityProducts();
-                
-                updateProgress(100);
-                log('Data generation complete!');
-                
-                // Update final stats
-                updateStats();
-                
-                document.getElementById('downloadBtn').disabled = false;
-                document.getElementById('importBtn').disabled = false;
-                
-            } catch (error) {
-                log('Error during generation: ' + error.message);
-                console.error(error);
-            } finally {
-                isGenerating = false;
-                document.getElementById('generateBtn').disabled = false;
-            }
-        }
-
-        // Download function
-        function downloadCSVFiles() {
-            if (!generatedData.businessUnits) {
-                alert('Please generate data first!');
-                return;
-            }
-            
-            const zip = new JSZip();
-            
-            // Convert each dataset to CSV and add to ZIP
-            const datasets = [
-                { name: 'businessunit.csv', data: generatedData.businessUnits },
-                { name: 'systemuser.csv', data: generatedData.users },
-                { name: 'territory.csv', data: generatedData.territories },
-                { name: 'campaign.csv', data: generatedData.campaigns },
-                { name: 'product.csv', data: generatedData.products },
-                { name: 'pricelist.csv', data: generatedData.priceLists },
-                { name: 'pricelistitem.csv', data: generatedData.priceListItems },
-                { name: 'account.csv', data: generatedData.accounts },
-                { name: 'contact.csv', data: generatedData.contacts },
-                { name: 'opportunity.csv', data: generatedData.opportunities },
-                { name: 'opportunityproduct.csv', data: generatedData.opportunityProducts },
-                { name: 'email.csv', data: generatedData.emails },
-                { name: 'appointment.csv', data: generatedData.appointments }
-            ];
-            
-            datasets.forEach(dataset => {
-                if (dataset.data && dataset.data.length > 0) {
-                    const csv = Papa.unparse(dataset.data);
-                    zip.file(dataset.name, csv);
-                }
-            });
-            
-            // Add instructions
-            const instructions = `
-D365 DEMO DATA IMPORT INSTRUCTIONS
-
-This package contains realistic 5-year sales engagement data for Dynamics 365 Sales.
-
-IMPORT ORDER (Important - follow this sequence):
-1. businessunit.csv
-2. systemuser.csv  
-3. territory.csv
-4. campaign.csv
-5. product.csv
-6. pricelist.csv
-7. pricelistitem.csv
-8. account.csv
-9. contact.csv
-10. opportunity.csv
-11. opportunityproduct.csv
-12. email.csv
-13. appointment.csv
-
-KEY FEATURES:
-- 5-year growth trajectory (2020-2025)
-- Realistic seller performance variations
-- Deal Close Agent with 1-7 day cycles, 85% win rate
-- Recent pipeline surge (last 2 months)
-- Full referential integrity with GUIDs
-- Sales activities aligned with opportunity stages
-
-TOTAL RECORDS:
-- ${generatedData.opportunities?.length || 0} Opportunities
-- ${generatedData.accounts?.length || 0} Accounts  
-- ${generatedData.contacts?.length || 0} Contacts
-- ${generatedData.emails?.length || 0} Emails
-- ${generatedData.appointments?.length || 0} Appointments
-
-For D365 Online import, use Data Import Wizard or Power Platform dataflows.
-For manual import, use Excel or CSV import functionality.
-
-Generated on: ${new Date().toLocaleString()}
-            `.trim();
-            
-            zip.file('INSTRUCTIONS.txt', instructions);
-            
-            // Generate and download ZIP
-            zip.generateAsync({type: 'blob'}).then(function(content) {
-                const url = window.URL.createObjectURL(content);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `D365-Demo-Data-${new Date().toISOString().split('T')[0]}.zip`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-                
-                log('CSV files downloaded successfully!');
-            });
-        }
-
-        // D365 Import function (placeholder for OAuth integration)
-        function importToD365() {
-            alert('D365 Online import feature requires OAuth configuration. Please download CSV files for manual import.');
-            // TODO: Implement OAuth flow and Web API integration
-        }
-
-        // Event listeners
-        document.getElementById('generateBtn').addEventListener('click', generateData);
-        document.getElementById('downloadBtn').addEventListener('click', downloadCSVFiles);
-        document.getElementById('importBtn').addEventListener('click', importToD365);
-        
-        // Update stats when config changes
-        document.getElementById('numSellers').addEventListener('input', updateStats);
-        document.getElementById('avgOppsPerSeller').addEventListener('input', updateStats);
-        document.getElementById('timeFrame').addEventListener('change', updateStats);
-        document.getElementById('includeDealCloseAgent').addEventListener('change', updateStats);
-        
-        // Initialize stats
-        updateStats();
-        
-        // Add some CSS animation for better UX
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.stat-card');
-            cards.forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.1}s`;
-                card.style.animation = 'fadeInUp 0.6s ease forwards';
-            });
+      // Generate a minimal businessunit.csv
+      const businessUnit = [];
+      if(isCustomDemo){
+        if(!newName){ throw new Error('Customer name is required for Custom demo.'); }
+        businessUnit.push({
+          'Business Unit ID': (crypto.randomUUID && crypto.randomUUID()) || Math.random().toString(36).slice(2),
+          'Name': newName,
+          'Description': `Primary business unit for ${newName}`,
+          'Parent Business Unit': '',
+          'Address 1: City': 'Seattle',
+          'Address 1: State/Province': 'Washington',
+          'Email Address': `info@${newName.toLowerCase().replace(/\s+/g,'')}.com`,
+          'Website': `www.${newName.toLowerCase().replace(/\s+/g,'')}.com`
         });
-        
-        // Add CSS keyframes
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            
-            .stat-card {
-                opacity: 0;
-            }
-        `;
-        document.head.appendChild(style);
-        
-        log('D365 Demo Data Generator initialized and ready!');
-    </script>
+        log(`✏️ Set Business Unit name to "${newName}".`);
+      } else {
+        businessUnit.push({
+          'Business Unit ID': (crypto.randomUUID && crypto.randomUUID()) || Math.random().toString(36).slice(2),
+          'Name': 'Contoso Coffee',
+          'Description': 'Primary business unit for Contoso Coffee',
+          'Parent Business Unit': '',
+          'Address 1: City': 'Seattle',
+          'Address 1: State/Province': 'Washington',
+          'Email Address': 'info@contosocoffee.com',
+          'Website': 'www.contosocoffee.com'
+        });
+      }
+      out['businessunit.csv'] = businessUnit;
+
+      // Swap users dataset if custom uploaded
+      if($('userMode').value === 'custom'){
+        if(!customUsers){ throw new Error('Please upload a users.csv before preparing the package.'); }
+        out['data/User.csv'] = customUsers;
+        log(`👥 Replaced User.csv with your custom upload (${customUsers.length} rows).`);
+      }
+
+      return out;
+    }
+
+    // === Package & download ===
+    function toCSV(rows){ return Papa.unparse(rows || []); }
+
+    async function buildZip(finalData){
+      const zip = new JSZip();
+      // Write the datasets we actually have
+      Object.keys(finalData).forEach(fname=>{
+        const rows = finalData[fname];
+        if(Array.isArray(rows) && rows.length){
+          // strip any leading "data/" in names for the ZIP so imports stay clean
+          const cleanName = fname.replace(/^data\//, '');
+          zip.file(cleanName, toCSV(rows));
+        }
+      });
+
+      // Add an INSTRUCTIONS.txt
+      const instructions = `D365 DEMO DATA PACKAGE\n\nCONTENTS:\n- Sample datasets from /data.\n- businessunit.csv generated from your Demo Type selection.\n- User.csv may be replaced by your uploaded users.csv if chosen.\n\nHOW TO IMPORT (typical order):\n1. businessunit.csv\n2. User.csv\n3. Territory.csv\n4. Campaign.csv\n5. Product.csv\n6. Account.csv\n7. Contact.csv\n8. Opportunity.csv\n9. Emails.csv\n10. Appointments.csv\n\nNOTE: Adjust order to match your org’s schema & dependencies.`;
+      zip.file('INSTRUCTIONS.txt', instructions);
+
+      const blob = await zip.generateAsync({type:'blob'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `D365-Demo-Data-${new Date().toISOString().slice(0,10)}.zip`;
+      document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+      log('📦 ZIP download started.');
+    }
+
+    // === Orchestrate ===
+    $('generateBtn').addEventListener('click', async ()=>{
+      try{
+        $('downloadBtn').disabled = true;
+        $('log').textContent = '';
+        setBar(0); log('Starting…');
+        await loadSamples();
+        setBar(85);
+        const finalData = applyCustomizations();
+        setBar(95); log('Package prepared. Ready to download.');
+        window.__finalData = finalData;
+        $('downloadBtn').disabled = false;
+        setBar(100);
+      }catch(err){
+        log(`❌ ${err.message}`);
+      }
+    });
+
+    $('downloadBtn').addEventListener('click', async ()=>{
+      try{
+        if(!window.__finalData){ throw new Error('Nothing to download yet. Click "Prepare Demo Package" first.'); }
+        await buildZip(window.__finalData);
+      }catch(err){ log(`❌ ${err.message}`) }
+    });
+
+    // Initial state
+    (function init(){
+      log('Ready. Ensure your CSVs live in /data next to this page, then click Prepare.');
+    })();
+  </script>
 </body>
 </html>

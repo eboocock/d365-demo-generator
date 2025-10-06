@@ -1,0 +1,221 @@
+﻿Name,Goal Owner,Target,Status Reason,Fiscal Period,Fiscal Year,Goal Metric,Parent Goal,From,To,Goal Period Type,Metric Type (Goal Metric) (Goal Metric),Name (Goal Metric) (Goal Metric)
+Sales Team Q1 FY2025,Charles Lamanna,"$7,450,000.00 ",Open,Quarter 1,FY2025,Revenue,,1/1/2025,3/31/2025,Fiscal Period,Amount,Revenue
+Sales Q1 FY2025 - Eric,Eric Boocock,"$1,500,000.00 ",Open,Quarter 1,FY2025,Revenue,Sales Team Q1 FY2025,1/1/2025,3/31/2025,Fiscal Period,Amount,Revenue
+Sales Q1 FY2025 - Alan,Alan Ross,"$900,000.00 ",Open,Quarter 1,FY2025,Revenue,Sales Team Q1 FY2025,1/1/2025,3/31/2025,Fiscal Period,Amount,Revenue
+Sales Q1 FY2025 - Jeff,Jeff Comstock,"$850,000.00 ",Open,Quarter 1,FY2025,Revenue,Sales Team Q1 FY2025,1/1/2025,3/31/2025,Fiscal Period,Amount,Revenue
+Sales Q1 FY2025 - Charles,Charles Lamanna,,Open,Quarter 1,FY2025,Revenue,Sales Team Q1 FY2025,1/1/2025,3/31/2025,Fiscal Period,Amount,Revenue
+Sales Q1 FY2025 - Lunaura,Lunaura Hassinger,"$800,000.00 ",Open,Quarter 1,FY2025,Revenue,Sales Team Q1 FY2025,1/1/2025,3/31/2025,Fiscal Period,Amount,Revenue
+Sales Q1 FY2025 - Ayushman,Ayushman Jain,"$550,000.00 ",Open,Quarter 1,FY2025,Revenue,Sales Team Q1 FY2025,1/1/2025,3/31/2025,Fiscal Period,Amount,Revenue
+Sales Q1 FY2025 - Pooja,Pooja Bhalla,"$1,000,000.00 ",Open,Quarter 1,FY2025,Revenue,Sales Team Q1 FY2025,1/1/2025,3/31/2025,Fiscal Period,Amount,Revenue
+Sales Q1 FY2025 - Jim,Jim Nakashima,"$600,000.00 ",Open,Quarter 1,FY2025,Revenue,Sales Team Q1 FY2025,1/1/2025,3/31/2025,Fiscal Period,Amount,Revenue
+Sales Q1 FY2025 - Julie ,Julie Strauss,"$750,000.00 ",Open,Quarter 1,FY2025,Revenue,Sales Team Q1 FY2025,1/1/2025,3/31/2025,Fiscal Period,Amount,Revenue
+Sales Q1 FY2025 - Per,Per Mikkelsen,"$500,000.00 ",Open,Quarter 1,FY2025,Revenue,Sales Team Q1 FY2025,1/1/2025,3/31/2025,Fiscal Period,Amount,Revenue
+Sales Team Q2 FY2025,Charles Lamanna,"$8,000,000.00 ",Open,Quarter 2,FY2025,Revenue,,4/1/2025,6/30/2025,Fiscal Period,Amount,Revenue
+Sales Q2 FY2025 - Eric,Eric Boocock,"$2,000,000.00 ",Open,Quarter 2,FY2025,Revenue,Sales Team Q2 FY2025,4/1/2025,6/30/2025,Fiscal Period,Amount,Revenue
+Sales Q2 FY2025 - Alan,Alan Ross,"$1,000,000.00 ",Open,Quarter 2,FY2025,Revenue,Sales Team Q2 FY2025,4/1/2025,6/30/2025,Fiscal Period,Amount,Revenue
+Sales Q2 FY2025 - Jeff,Jeff Comstock,"$750,000.00 ",Open,Quarter 2,FY2025,Revenue,Sales Team Q2 FY2025,4/1/2025,6/30/2025,Fiscal Period,Amount,Revenue
+Sales Q2 FY2025 - Charles,Charles Lamanna,,Open,Quarter 2,FY2025,Revenue,Sales Team Q2 FY2025,4/1/2025,6/30/2025,Fiscal Period,Amount,Revenue
+Sales Q2 FY2025 - Lunaura,Lunaura Hassinger,"$500,000.00 ",Open,Quarter 2,FY2025,Revenue,Sales Team Q2 FY2025,4/1/2025,6/30/2025,Fiscal Period,Amount,Revenue
+Sales Q2 FY2025 - Ayushman,Ayushman Jain,"$750,000.00 ",Open,Quarter 2,FY2025,Revenue,Sales Team Q2 FY2025,4/1/2025,6/30/2025,Fiscal Period,Amount,Revenue
+Sales Q2 FY2025 - Pooja,Pooja Bhalla,"$1,000,000.00 ",Open,Quarter 2,FY2025,Revenue,Sales Team Q2 FY2025,4/1/2025,6/30/2025,Fiscal Period,Amount,Revenue
+Sales Q2 FY2025 - Jim,Jim Nakashima,"$850,000.00 ",Open,Quarter 2,FY2025,Revenue,Sales Team Q2 FY2025,4/1/2025,6/30/2025,Fiscal Period,Amount,Revenue
+Sales Q2 FY2025 - Julie ,Julie Strauss,"$950,000.00 ",Open,Quarter 2,FY2025,Revenue,Sales Team Q2 FY2025,4/1/2025,6/30/2025,Fiscal Period,Amount,Revenue
+Sales Q2 FY2025 - Per,Per Mikkelsen,"$200,000.00 ",Open,Quarter 2,FY2025,Revenue,Sales Team Q2 FY2025,4/1/2025,6/30/2025,Fiscal Period,Amount,Revenue
+Sales Team Q3 FY2025,Charles Lamanna,"$8,400,000.00 ",Open,Quarter 3,FY2025,Revenue,,7/1/2025,9/30/2025,Fiscal Period,Amount,Revenue
+Sales Q3 FY2025 - Eric,Eric Boocock,"$2,000,000.00 ",Open,Quarter 3,FY2025,Revenue,Sales Team Q3 FY2025,7/1/2025,9/30/2025,Fiscal Period,Amount,Revenue
+Sales Q3 FY2025 - Alan,Alan Ross,"$500,000.00 ",Open,Quarter 3,FY2025,Revenue,Sales Team Q3 FY2025,7/1/2025,9/30/2025,Fiscal Period,Amount,Revenue
+Sales Q3 FY2025 - Jeff,Jeff Comstock,"$1,500,000.00 ",Open,Quarter 3,FY2025,Revenue,Sales Team Q3 FY2025,7/1/2025,9/30/2025,Fiscal Period,Amount,Revenue
+Sales Q3 FY2025 - Charles,Charles Lamanna,,Open,Quarter 3,FY2025,Revenue,Sales Team Q3 FY2025,7/1/2025,9/30/2025,Fiscal Period,Amount,Revenue
+Sales Q3 FY2025 - Lunaura,Lunaura Hassinger,"$900,000.00 ",Open,Quarter 3,FY2025,Revenue,Sales Team Q3 FY2025,7/1/2025,9/30/2025,Fiscal Period,Amount,Revenue
+Sales Q3 FY2025 - Ayushman,Ayushman Jain,"$1,500,000.00 ",Open,Quarter 3,FY2025,Revenue,Sales Team Q3 FY2025,7/1/2025,9/30/2025,Fiscal Period,Amount,Revenue
+Sales Q3 FY2025 - Pooja,Pooja Bhalla,"$500,000.00 ",Open,Quarter 3,FY2025,Revenue,Sales Team Q3 FY2025,7/1/2025,9/30/2025,Fiscal Period,Amount,Revenue
+Sales Q3 FY2025 - Jim,Jim Nakashima,"$1,000,000.00 ",Open,Quarter 3,FY2025,Revenue,Sales Team Q3 FY2025,7/1/2025,9/30/2025,Fiscal Period,Amount,Revenue
+Sales Q3 FY2025 - Julie ,Julie Strauss,"$400,000.00 ",Open,Quarter 3,FY2025,Revenue,Sales Team Q3 FY2025,7/1/2025,9/30/2025,Fiscal Period,Amount,Revenue
+Sales Q3 FY2025 - Per,Per Mikkelsen,"$100,000.00 ",Open,Quarter 3,FY2025,Revenue,Sales Team Q3 FY2025,7/1/2025,9/30/2025,Fiscal Period,Amount,Revenue
+Sales Team Q4 FY2025,Charles Lamanna,"$6,150,000.00 ",Open,Quarter 4,FY2025,Revenue,,10/1/2025,12/31/2025,Fiscal Period,Amount,Revenue
+Sales Q4 FY2025 - Eric,Eric Boocock,"$1,500,000.00 ",Open,Quarter 4,FY2025,Revenue,Sales Team Q4 FY2025,10/1/2025,12/31/2025,Fiscal Period,Amount,Revenue
+Sales Q4 FY2025 - Alan,Alan Ross,"$1,200,000.00 ",Open,Quarter 4,FY2025,Revenue,Sales Team Q4 FY2025,10/1/2025,12/31/2025,Fiscal Period,Amount,Revenue
+Sales Q4 FY2025 - Jeff,Jeff Comstock,"$600,000.00 ",Open,Quarter 4,FY2025,Revenue,Sales Team Q4 FY2025,10/1/2025,12/31/2025,Fiscal Period,Amount,Revenue
+Sales Q4 FY2025 - Charles,Charles Lamanna,,Open,Quarter 4,FY2025,Revenue,Sales Team Q4 FY2025,10/1/2025,12/31/2025,Fiscal Period,Amount,Revenue
+Sales Q4 FY2025 - Lunaura,Lunaura Hassinger,"$350,000.00 ",Open,Quarter 4,FY2025,Revenue,Sales Team Q4 FY2025,10/1/2025,12/31/2025,Fiscal Period,Amount,Revenue
+Sales Q4 FY2025 - Ayushman,Ayushman Jain,"$400,000.00 ",Open,Quarter 4,FY2025,Revenue,Sales Team Q4 FY2025,10/1/2025,12/31/2025,Fiscal Period,Amount,Revenue
+Sales Q4 FY2025 - Pooja,Pooja Bhalla,"$1,000,000.00 ",Open,Quarter 4,FY2025,Revenue,Sales Team Q4 FY2025,10/1/2025,12/31/2025,Fiscal Period,Amount,Revenue
+Sales Q4 FY2025 - Jim,Jim Nakashima,"$550,000.00 ",Open,Quarter 4,FY2025,Revenue,Sales Team Q4 FY2025,10/1/2025,12/31/2025,Fiscal Period,Amount,Revenue
+Sales Q4 FY2025 - Julie ,Julie Strauss,"$500,000.00 ",Open,Quarter 4,FY2025,Revenue,Sales Team Q4 FY2025,10/1/2025,12/31/2025,Fiscal Period,Amount,Revenue
+Sales Q4 FY2025 - Per,Per Mikkelsen,"$50,000.00 ",Open,Quarter 4,FY2025,Revenue,Sales Team Q4 FY2025,10/1/2025,12/31/2025,Fiscal Period,Amount,Revenue
+Sales Q1 FY2024 - Lunaura,Lunaura Hassinger,"$800,000.00 ",Open,Quarter 1,FY2024,Revenue,Sales Team Q1 FY2024,1/1/2024,3/31/2024,Fiscal Period,Amount,Revenue
+Sales Q1 FY2024 - Ayushman,Ayushman Jain,"$400,000.00 ",Open,Quarter 1,FY2024,Revenue,Sales Team Q1 FY2024,1/1/2024,3/31/2024,Fiscal Period,Amount,Revenue
+Sales Q1 FY2024 - Pooja,Pooja Bhalla,"$200,000.00 ",Open,Quarter 1,FY2024,Revenue,Sales Team Q1 FY2024,1/1/2024,3/31/2024,Fiscal Period,Amount,Revenue
+Sales Q1 FY2024 - Jim,Jim Nakashima,"$400,000.00 ",Open,Quarter 1,FY2024,Revenue,Sales Team Q1 FY2024,1/1/2024,3/31/2024,Fiscal Period,Amount,Revenue
+Sales Q1 FY2024 - Julie ,Julie Strauss,"$600,000.00 ",Open,Quarter 1,FY2024,Revenue,Sales Team Q1 FY2024,1/1/2024,3/31/2024,Fiscal Period,Amount,Revenue
+Sales Team Q1 FY2024,Charles Lamanna,"$4,000,000.00 ",Open,Quarter 1,FY2024,Revenue,,1/1/2024,3/31/2024,Fiscal Period,Amount,Revenue
+Sales Q1 FY2024 - Per,Per Mikkelsen,"$200,000.00 ",Open,Quarter 1,FY2024,Revenue,Sales Team Q1 FY2024,1/1/2024,3/31/2024,Fiscal Period,Amount,Revenue
+Sales Q1 FY2024 - Eric,Eric Boocock,"$600,000.00 ",Open,Quarter 1,FY2024,Revenue,Sales Team Q1 FY2024,1/1/2024,3/31/2024,Fiscal Period,Amount,Revenue
+Sales Q1 FY2024 - Alan,Alan Ross,"$400,000.00 ",Open,Quarter 1,FY2024,Revenue,Sales Team Q1 FY2024,1/1/2024,3/31/2024,Fiscal Period,Amount,Revenue
+Sales Q1 FY2024 - Jeff,Jeff Comstock,"$400,000.00 ",Open,Quarter 1,FY2024,Revenue,Sales Team Q1 FY2024,1/1/2024,3/31/2024,Fiscal Period,Amount,Revenue
+Sales Q1 FY2024 - Charles,Charles Lamanna,$0.00 ,Open,Quarter 1,FY2024,Revenue,Sales Team Q1 FY2024,1/1/2024,3/31/2024,Fiscal Period,Amount,Revenue
+Sales Q2 FY2024 - Lunaura,Lunaura Hassinger,"$125,000.00 ",Open,Quarter 2,FY2024,Revenue,Sales Team Q2 FY2024,4/1/2024,6/30/2024,Fiscal Period,Amount,Revenue
+Sales Q2 FY2024 - Ayushman,Ayushman Jain,"$250,000.00 ",Open,Quarter 2,FY2024,Revenue,Sales Team Q2 FY2024,4/1/2024,6/30/2024,Fiscal Period,Amount,Revenue
+Sales Q2 FY2024 - Pooja,Pooja Bhalla,"$750,000.00 ",Open,Quarter 2,FY2024,Revenue,Sales Team Q2 FY2024,4/1/2024,6/30/2024,Fiscal Period,Amount,Revenue
+Sales Q2 FY2024 - Jim,Jim Nakashima,"$125,000.00 ",Open,Quarter 2,FY2024,Revenue,Sales Team Q2 FY2024,4/1/2024,6/30/2024,Fiscal Period,Amount,Revenue
+Sales Q2 FY2024 - Julie ,Julie Strauss,"$125,000.00 ",Open,Quarter 2,FY2024,Revenue,Sales Team Q2 FY2024,4/1/2024,6/30/2024,Fiscal Period,Amount,Revenue
+Sales Team Q2 FY2024,Charles Lamanna,"$2,500,000.00 ",Open,Quarter 2,FY2024,Revenue,,4/1/2024,6/30/2024,Fiscal Period,Amount,Revenue
+Sales Q2 FY2024 - Per,Per Mikkelsen,"$375,000.00 ",Open,Quarter 2,FY2024,Revenue,Sales Team Q2 FY2024,4/1/2024,6/30/2024,Fiscal Period,Amount,Revenue
+Sales Q2 FY2024 - Eric,Eric Boocock,"$375,000.00 ",Open,Quarter 2,FY2024,Revenue,Sales Team Q2 FY2024,4/1/2024,6/30/2024,Fiscal Period,Amount,Revenue
+Sales Q2 FY2024 - Alan,Alan Ross,"$250,000.00 ",Open,Quarter 2,FY2024,Revenue,Sales Team Q2 FY2024,4/1/2024,6/30/2024,Fiscal Period,Amount,Revenue
+Sales Q2 FY2024 - Jeff,Jeff Comstock,"$125,000.00 ",Open,Quarter 2,FY2024,Revenue,Sales Team Q2 FY2024,4/1/2024,6/30/2024,Fiscal Period,Amount,Revenue
+Sales Q2 FY2024 - Charles,Charles Lamanna,$0.00 ,Open,Quarter 2,FY2024,Revenue,Sales Team Q2 FY2024,4/1/2024,6/30/2024,Fiscal Period,Amount,Revenue
+Sales Q3 FY2024 - Lunaura,Lunaura Hassinger,"$350,000.00 ",Open,Quarter 3,FY2024,Revenue,Sales Team Q3 FY2024,7/1/2024,9/30/2024,Fiscal Period,Amount,Revenue
+Sales Q3 FY2024 - Ayushman,Ayushman Jain,"$700,000.00 ",Open,Quarter 3,FY2024,Revenue,Sales Team Q3 FY2024,7/1/2024,9/30/2024,Fiscal Period,Amount,Revenue
+Sales Q3 FY2024 - Pooja,Pooja Bhalla,"$525,000.00 ",Open,Quarter 3,FY2024,Revenue,Sales Team Q3 FY2024,7/1/2024,9/30/2024,Fiscal Period,Amount,Revenue
+Sales Q3 FY2024 - Jim,Jim Nakashima,"$175,000.00 ",Open,Quarter 3,FY2024,Revenue,Sales Team Q3 FY2024,7/1/2024,9/30/2024,Fiscal Period,Amount,Revenue
+Sales Q3 FY2024 - Julie ,Julie Strauss,"$525,000.00 ",Open,Quarter 3,FY2024,Revenue,Sales Team Q3 FY2024,7/1/2024,9/30/2024,Fiscal Period,Amount,Revenue
+Sales Team Q3 FY2024,Charles Lamanna,"$3,500,000.00 ",Open,Quarter 3,FY2024,Revenue,,7/1/2024,9/30/2024,Fiscal Period,Amount,Revenue
+Sales Q3 FY2024 - Per,Per Mikkelsen,"$175,000.00 ",Open,Quarter 3,FY2024,Revenue,Sales Team Q3 FY2024,7/1/2024,9/30/2024,Fiscal Period,Amount,Revenue
+Sales Q3 FY2024 - Eric,Eric Boocock,"$525,000.00 ",Open,Quarter 3,FY2024,Revenue,Sales Team Q3 FY2024,7/1/2024,9/30/2024,Fiscal Period,Amount,Revenue
+Sales Q3 FY2024 - Alan,Alan Ross,"$175,000.00 ",Open,Quarter 3,FY2024,Revenue,Sales Team Q3 FY2024,7/1/2024,9/30/2024,Fiscal Period,Amount,Revenue
+Sales Q3 FY2024 - Jeff,Jeff Comstock,"$350,000.00 ",Open,Quarter 3,FY2024,Revenue,Sales Team Q3 FY2024,7/1/2024,9/30/2024,Fiscal Period,Amount,Revenue
+Sales Q3 FY2024 - Charles,Charles Lamanna,$0.00 ,Open,Quarter 3,FY2024,Revenue,Sales Team Q3 FY2024,7/1/2024,9/30/2024,Fiscal Period,Amount,Revenue
+Sales Q4 FY2024 - Lunaura,Lunaura Hassinger,"$250,000.00 ",Open,Quarter 4,FY2024,Revenue,Sales Team Q4 FY2024,10/1/2024,12/31/2024,Fiscal Period,Amount,Revenue
+Sales Q4 FY2024 - Ayushman,Ayushman Jain,"$250,000.00 ",Open,Quarter 4,FY2024,Revenue,Sales Team Q4 FY2024,10/1/2024,12/31/2024,Fiscal Period,Amount,Revenue
+Sales Q4 FY2024 - Pooja,Pooja Bhalla,"$750,000.00 ",Open,Quarter 4,FY2024,Revenue,Sales Team Q4 FY2024,10/1/2024,12/31/2024,Fiscal Period,Amount,Revenue
+Sales Q4 FY2024 - Jim,Jim Nakashima,"$500,000.00 ",Open,Quarter 4,FY2024,Revenue,Sales Team Q4 FY2024,10/1/2024,12/31/2024,Fiscal Period,Amount,Revenue
+Sales Q4 FY2024 - Julie ,Julie Strauss,"$250,000.00 ",Open,Quarter 4,FY2024,Revenue,Sales Team Q4 FY2024,10/1/2024,12/31/2024,Fiscal Period,Amount,Revenue
+Sales Team Q4 FY2024,Charles Lamanna,"$5,000,000.00 ",Open,Quarter 4,FY2024,Revenue,,10/1/2024,12/31/2024,Fiscal Period,Amount,Revenue
+Sales Q4 FY2024 - Per,Per Mikkelsen,"$250,000.00 ",Open,Quarter 4,FY2024,Revenue,Sales Team Q4 FY2024,10/1/2024,12/31/2024,Fiscal Period,Amount,Revenue
+Sales Q4 FY2024 - Eric,Eric Boocock,"$1,000,000.00 ",Open,Quarter 4,FY2024,Revenue,Sales Team Q4 FY2024,10/1/2024,12/31/2024,Fiscal Period,Amount,Revenue
+Sales Q4 FY2024 - Alan,Alan Ross,"$1,250,000.00 ",Open,Quarter 4,FY2024,Revenue,Sales Team Q4 FY2024,10/1/2024,12/31/2024,Fiscal Period,Amount,Revenue
+Sales Q4 FY2024 - Jeff,Jeff Comstock,"$500,000.00 ",Open,Quarter 4,FY2024,Revenue,Sales Team Q4 FY2024,10/1/2024,12/31/2024,Fiscal Period,Amount,Revenue
+Sales Q4 FY2024 - Charles,Charles Lamanna,$0.00 ,Open,Quarter 4,FY2024,Revenue,Sales Team Q4 FY2024,10/1/2024,12/31/2024,Fiscal Period,Amount,Revenue
+Sales Q1 FY2023 - Lunaura,Lunaura Hassinger,"$200,000.00 ",Open,Quarter 1,FY2023,Revenue,Sales Team Q1 FY2023,1/1/2023,3/31/2023,Fiscal Period,Amount,Revenue
+Sales Q1 FY2023 - Ayushman,Ayushman Jain,"$200,000.00 ",Open,Quarter 1,FY2023,Revenue,Sales Team Q1 FY2023,1/1/2023,3/31/2023,Fiscal Period,Amount,Revenue
+Sales Q1 FY2023 - Pooja,Pooja Bhalla,"$400,000.00 ",Open,Quarter 1,FY2023,Revenue,Sales Team Q1 FY2023,1/1/2023,3/31/2023,Fiscal Period,Amount,Revenue
+Sales Q1 FY2023 - Jim,Jim Nakashima,"$1,000,000.00 ",Open,Quarter 1,FY2023,Revenue,Sales Team Q1 FY2023,1/1/2023,3/31/2023,Fiscal Period,Amount,Revenue
+Sales Q1 FY2023 - Julie ,Julie Strauss,"$600,000.00 ",Open,Quarter 1,FY2023,Revenue,Sales Team Q1 FY2023,1/1/2023,3/31/2023,Fiscal Period,Amount,Revenue
+Sales Q1 FY2023 - Eric,Eric Boocock,"$700,000.00 ",Open,Quarter 1,FY2023,Revenue,Sales Team Q1 FY2023,1/1/2023,3/31/2023,Fiscal Period,Amount,Revenue
+Sales Q1 FY2023 - Alan,Alan Ross,"$450,000.00 ",Open,Quarter 1,FY2023,Revenue,Sales Team Q1 FY2023,1/1/2023,3/31/2023,Fiscal Period,Amount,Revenue
+Sales Team Q1 FY2023,Charles Lamanna,"$2,500,000.00 ",Open,Quarter 1,FY2023,Revenue,,1/1/2023,3/31/2023,Fiscal Period,Amount,Revenue
+Sales Q1 FY2023 - Jeff,Jeff Comstock,"$400,000.00 ",Open,Quarter 1,FY2023,Revenue,Sales Team Q1 FY2023,1/1/2023,3/31/2023,Fiscal Period,Amount,Revenue
+Sales Q1 FY2023 - Charles,Charles Lamanna,"$550,000.00 ",Open,Quarter 1,FY2023,Revenue,Sales Team Q1 FY2023,1/1/2023,3/31/2023,Fiscal Period,Amount,Revenue
+Sales Q1 FY2023 - Per,Per Mikkelsen,"$600,000.00 ",Open,Quarter 1,FY2023,Revenue,Sales Team Q1 FY2023,1/1/2023,3/31/2023,Fiscal Period,Amount,Revenue
+Sales Q2 FY2023 - Lunaura,Lunaura Hassinger,"$300,000.00 ",Open,Quarter 2,FY2023,Revenue,Sales Team Q2 FY2023,4/1/2023,6/30/2023,Fiscal Period,Amount,Revenue
+Sales Q2 FY2023 - Ayushman,Ayushman Jain,$0.00 ,Open,Quarter 2,FY2023,Revenue,Sales Team Q2 FY2023,4/1/2023,6/30/2023,Fiscal Period,Amount,Revenue
+Sales Q2 FY2023 - Pooja,Pooja Bhalla,"$75,000.00 ",Open,Quarter 2,FY2023,Revenue,Sales Team Q2 FY2023,4/1/2023,6/30/2023,Fiscal Period,Amount,Revenue
+Sales Q2 FY2023 - Jim,Jim Nakashima,"$300,000.00 ",Open,Quarter 2,FY2023,Revenue,Sales Team Q2 FY2023,4/1/2023,6/30/2023,Fiscal Period,Amount,Revenue
+Sales Q2 FY2023 - Julie ,Julie Strauss,"$150,000.00 ",Open,Quarter 2,FY2023,Revenue,Sales Team Q2 FY2023,4/1/2023,6/30/2023,Fiscal Period,Amount,Revenue
+Sales Q2 FY2023 - Eric,Eric Boocock,"$700,000.00 ",Open,Quarter 2,FY2023,Revenue,Sales Team Q2 FY2023,4/1/2023,6/30/2023,Fiscal Period,Amount,Revenue
+Sales Team Q2 FY2023,Charles Lamanna,"$2,500,000.00 ",Open,Quarter 2,FY2023,Revenue,,4/1/2023,6/30/2023,Fiscal Period,Amount,Revenue
+Sales Q2 FY2023 - Alan,Alan Ross,"$450,000.00 ",Open,Quarter 2,FY2023,Revenue,Sales Team Q2 FY2023,4/1/2023,6/30/2023,Fiscal Period,Amount,Revenue
+Sales Q2 FY2023 - Jeff,Jeff Comstock,"$400,000.00 ",Open,Quarter 2,FY2023,Revenue,Sales Team Q2 FY2023,4/1/2023,6/30/2023,Fiscal Period,Amount,Revenue
+Sales Q2 FY2023 - Charles,Charles Lamanna,"$550,000.00 ",Open,Quarter 2,FY2023,Revenue,Sales Team Q2 FY2023,4/1/2023,6/30/2023,Fiscal Period,Amount,Revenue
+Sales Q2 FY2023 - Per,Per Mikkelsen,"$225,000.00 ",Open,Quarter 2,FY2023,Revenue,Sales Team Q2 FY2023,4/1/2023,6/30/2023,Fiscal Period,Amount,Revenue
+Sales Q3 FY2023 - Lunaura,Lunaura Hassinger,"$1,350,000.00 ",Open,Quarter 3,FY2023,Revenue,Sales Team Q3 FY2023,7/1/2023,9/30/2023,Fiscal Period,Amount,Revenue
+Sales Q3 FY2023 - Ayushman,Ayushman Jain,"$450,000.00 ",Open,Quarter 3,FY2023,Revenue,Sales Team Q3 FY2023,7/1/2023,9/30/2023,Fiscal Period,Amount,Revenue
+Sales Q3 FY2023 - Pooja,Pooja Bhalla,"$450,000.00 ",Open,Quarter 3,FY2023,Revenue,Sales Team Q3 FY2023,7/1/2023,9/30/2023,Fiscal Period,Amount,Revenue
+Sales Q3 FY2023 - Jim,Jim Nakashima,"$675,000.00 ",Open,Quarter 3,FY2023,Revenue,Sales Team Q3 FY2023,7/1/2023,9/30/2023,Fiscal Period,Amount,Revenue
+Sales Q3 FY2023 - Julie ,Julie Strauss,"$225,000.00 ",Open,Quarter 3,FY2023,Revenue,Sales Team Q3 FY2023,7/1/2023,9/30/2023,Fiscal Period,Amount,Revenue
+Sales Q3 FY2023 - Eric,Eric Boocock,"$700,000.00 ",Open,Quarter 3,FY2023,Revenue,Sales Team Q3 FY2023,7/1/2023,9/30/2023,Fiscal Period,Amount,Revenue
+Sales Team Q3 FY2023,Charles Lamanna,"$2,500,000.00 ",Open,Quarter 3,FY2023,Revenue,,7/1/2023,9/30/2023,Fiscal Period,Amount,Revenue
+Sales Q3 FY2023 - Alan,Alan Ross,"$450,000.00 ",Open,Quarter 3,FY2023,Revenue,Sales Team Q3 FY2023,7/1/2023,9/30/2023,Fiscal Period,Amount,Revenue
+Sales Q3 FY2023 - Jeff,Jeff Comstock,"$400,000.00 ",Open,Quarter 3,FY2023,Revenue,Sales Team Q3 FY2023,7/1/2023,9/30/2023,Fiscal Period,Amount,Revenue
+Sales Q3 FY2023 - Charles,Charles Lamanna,"$550,000.00 ",Open,Quarter 3,FY2023,Revenue,Sales Team Q3 FY2023,7/1/2023,9/30/2023,Fiscal Period,Amount,Revenue
+Sales Q3 FY2023 - Per,Per Mikkelsen,"$450,000.00 ",Open,Quarter 3,FY2023,Revenue,Sales Team Q3 FY2023,7/1/2023,9/30/2023,Fiscal Period,Amount,Revenue
+Sales Q4 FY2023 - Lunaura,Lunaura Hassinger,"$150,000.00 ",Open,Quarter 4,FY2023,Revenue,Sales Team Q4 FY2023,10/1/2023,12/31/2023,Fiscal Period,Amount,Revenue
+Sales Q4 FY2023 - Ayushman,Ayushman Jain,"$450,000.00 ",Open,Quarter 4,FY2023,Revenue,Sales Team Q4 FY2023,10/1/2023,12/31/2023,Fiscal Period,Amount,Revenue
+Sales Q4 FY2023 - Pooja,Pooja Bhalla,"$150,000.00 ",Open,Quarter 4,FY2023,Revenue,Sales Team Q4 FY2023,10/1/2023,12/31/2023,Fiscal Period,Amount,Revenue
+Sales Q4 FY2023 - Jim,Jim Nakashima,"$300,000.00 ",Open,Quarter 4,FY2023,Revenue,Sales Team Q4 FY2023,10/1/2023,12/31/2023,Fiscal Period,Amount,Revenue
+Sales Q4 FY2023 - Julie ,Julie Strauss,"$450,000.00 ",Open,Quarter 4,FY2023,Revenue,Sales Team Q4 FY2023,10/1/2023,12/31/2023,Fiscal Period,Amount,Revenue
+Sales Team Q4 FY2023,Charles Lamanna,"$2,500,000.00 ",Open,Quarter 4,FY2023,Revenue,,10/1/2023,12/31/2023,Fiscal Period,Amount,Revenue
+Sales Q4 FY2023 - Alan,Alan Ross,"$450,000.00 ",Open,Quarter 4,FY2023,Revenue,Sales Team Q4 FY2023,10/1/2023,12/31/2023,Fiscal Period,Amount,Revenue
+Sales Q4 FY2023 - Eric,Eric Boocock,"$700,000.00 ",Open,Quarter 4,FY2023,Revenue,Sales Team Q4 FY2023,10/1/2023,12/31/2023,Fiscal Period,Amount,Revenue
+Sales Q4 FY2023 - Jeff,Jeff Comstock,"$400,000.00 ",Open,Quarter 4,FY2023,Revenue,Sales Team Q4 FY2023,10/1/2023,12/31/2023,Fiscal Period,Amount,Revenue
+Sales Q4 FY2023 - Charles,Charles Lamanna,"$550,000.00 ",Open,Quarter 4,FY2023,Revenue,Sales Team Q4 FY2023,10/1/2023,12/31/2023,Fiscal Period,Amount,Revenue
+Sales Q4 FY2023 - Per,Per Mikkelsen,"$300,000.00 ",Open,Quarter 4,FY2023,Revenue,Sales Team Q4 FY2023,10/1/2023,12/31/2023,Fiscal Period,Amount,Revenue
+Sales Q1 FY2022 - Eric,Eric Boocock,"$450,000.00 ",Open,Quarter 1,FY2022,Revenue,Sales Team Q1 FY2022,1/1/2022,3/31/2022,Fiscal Period,Amount,Revenue
+Sales Q1 FY2022 - Alan,Alan Ross,"$675,000.00 ",Open,Quarter 1,FY2022,Revenue,Sales Team Q1 FY2022,1/1/2022,3/31/2022,Fiscal Period,Amount,Revenue
+Sales Q1 FY2022 - Jeff,Jeff Comstock,"$450,000.00 ",Open,Quarter 1,FY2022,Revenue,Sales Team Q1 FY2022,1/1/2022,3/31/2022,Fiscal Period,Amount,Revenue
+Sales Q1 FY2022 - Charles,Charles Lamanna,,Open,Quarter 1,FY2022,Revenue,Sales Team Q1 FY2022,1/1/2022,3/31/2022,Fiscal Period,Amount,Revenue
+Sales Q1 FY2022 - Lunaura,Lunaura Hassinger,"$450,000.00 ",Open,Quarter 1,FY2022,Revenue,Sales Team Q1 FY2022,1/1/2022,3/31/2022,Fiscal Period,Amount,Revenue
+Sales Q1 FY2022 - Ayushman,Ayushman Jain,"$1,125,000.00 ",Open,Quarter 1,FY2022,Revenue,Sales Team Q1 FY2022,1/1/2022,3/31/2022,Fiscal Period,Amount,Revenue
+Sales Q1 FY2022 - Pooja,Pooja Bhalla,"$450,000.00 ",Open,Quarter 1,FY2022,Revenue,Sales Team Q1 FY2022,1/1/2022,3/31/2022,Fiscal Period,Amount,Revenue
+Sales Q1 FY2022 - Jim,Jim Nakashima,"$450,000.00 ",Open,Quarter 1,FY2022,Revenue,Sales Team Q1 FY2022,1/1/2022,3/31/2022,Fiscal Period,Amount,Revenue
+Sales Q1 FY2022 - Julie ,Julie Strauss,"$225,000.00 ",Open,Quarter 1,FY2022,Revenue,Sales Team Q1 FY2022,1/1/2022,3/31/2022,Fiscal Period,Amount,Revenue
+Sales Team Q1 FY2022,Charles Lamanna,"$4,500,000.00 ",Open,Quarter 1,FY2022,Revenue,,1/1/2022,3/31/2022,Fiscal Period,Amount,Revenue
+Sales Q1 FY2022 - Per,Per Mikkelsen,"$225,000.00 ",Open,Quarter 1,FY2022,Revenue,Sales Team Q1 FY2022,1/1/2022,3/31/2022,Fiscal Period,Amount,Revenue
+Sales Q2 FY2022 - Eric,Eric Boocock,"$675,000.00 ",Open,Quarter 2,FY2022,Revenue,Sales Team Q2 FY2022,4/1/2022,6/30/2022,Fiscal Period,Amount,Revenue
+Sales Q2 FY2022 - Alan,Alan Ross,"$225,000.00 ",Open,Quarter 2,FY2022,Revenue,Sales Team Q2 FY2022,4/1/2022,6/30/2022,Fiscal Period,Amount,Revenue
+Sales Q2 FY2022 - Jeff,Jeff Comstock,"$900,000.00 ",Open,Quarter 2,FY2022,Revenue,Sales Team Q2 FY2022,4/1/2022,6/30/2022,Fiscal Period,Amount,Revenue
+Sales Q2 FY2022 - Charles,Charles Lamanna,$0.00 ,Open,Quarter 2,FY2022,Revenue,Sales Team Q2 FY2022,4/1/2022,6/30/2022,Fiscal Period,Amount,Revenue
+Sales Q2 FY2022 - Lunaura,Lunaura Hassinger,"$450,000.00 ",Open,Quarter 2,FY2022,Revenue,Sales Team Q2 FY2022,4/1/2022,6/30/2022,Fiscal Period,Amount,Revenue
+Sales Q2 FY2022 - Ayushman,Ayushman Jain,"$675,000.00 ",Open,Quarter 2,FY2022,Revenue,Sales Team Q2 FY2022,4/1/2022,6/30/2022,Fiscal Period,Amount,Revenue
+Sales Q2 FY2022 - Pooja,Pooja Bhalla,"$675,000.00 ",Open,Quarter 2,FY2022,Revenue,Sales Team Q2 FY2022,4/1/2022,6/30/2022,Fiscal Period,Amount,Revenue
+Sales Q2 FY2022 - Jim,Jim Nakashima,"$225,000.00 ",Open,Quarter 2,FY2022,Revenue,Sales Team Q2 FY2022,4/1/2022,6/30/2022,Fiscal Period,Amount,Revenue
+Sales Q2 FY2022 - Julie ,Julie Strauss,"$225,000.00 ",Open,Quarter 2,FY2022,Revenue,Sales Team Q2 FY2022,4/1/2022,6/30/2022,Fiscal Period,Amount,Revenue
+Sales Team Q2 FY2022,Charles Lamanna,"$4,500,000.00 ",Open,Quarter 2,FY2022,Revenue,,4/1/2022,6/30/2022,Fiscal Period,Amount,Revenue
+Sales Q2 FY2022 - Per,Per Mikkelsen,"$450,000.00 ",Open,Quarter 2,FY2022,Revenue,Sales Team Q2 FY2022,4/1/2022,6/30/2022,Fiscal Period,Amount,Revenue
+Sales Q3 FY2022 - Eric,Eric Boocock,"$1,000,000.00 ",Open,Quarter 3,FY2022,Revenue,Sales Team Q3 FY2022,7/1/2022,9/30/2022,Fiscal Period,Amount,Revenue
+Sales Q3 FY2022 - Alan,Alan Ross,"$1,000,000.00 ",Open,Quarter 3,FY2022,Revenue,Sales Team Q3 FY2022,7/1/2022,9/30/2022,Fiscal Period,Amount,Revenue
+Sales Q3 FY2022 - Jeff,Jeff Comstock,"$500,000.00 ",Open,Quarter 3,FY2022,Revenue,Sales Team Q3 FY2022,7/1/2022,9/30/2022,Fiscal Period,Amount,Revenue
+Sales Q3 FY2022 - Charles,Charles Lamanna,,Open,Quarter 3,FY2022,Revenue,Sales Team Q3 FY2022,7/1/2022,9/30/2022,Fiscal Period,Amount,Revenue
+Sales Q3 FY2022 - Lunaura,Lunaura Hassinger,"$250,000.00 ",Open,Quarter 3,FY2022,Revenue,Sales Team Q3 FY2022,7/1/2022,9/30/2022,Fiscal Period,Amount,Revenue
+Sales Q3 FY2022 - Ayushman,Ayushman Jain,"$500,000.00 ",Open,Quarter 3,FY2022,Revenue,Sales Team Q3 FY2022,7/1/2022,9/30/2022,Fiscal Period,Amount,Revenue
+Sales Q3 FY2022 - Pooja,Pooja Bhalla,"$250,000.00 ",Open,Quarter 3,FY2022,Revenue,Sales Team Q3 FY2022,7/1/2022,9/30/2022,Fiscal Period,Amount,Revenue
+Sales Q3 FY2022 - Jim,Jim Nakashima,"$250,000.00 ",Open,Quarter 3,FY2022,Revenue,Sales Team Q3 FY2022,7/1/2022,9/30/2022,Fiscal Period,Amount,Revenue
+Sales Q3 FY2022 - Julie ,Julie Strauss,"$1,000,000.00 ",Open,Quarter 3,FY2022,Revenue,Sales Team Q3 FY2022,7/1/2022,9/30/2022,Fiscal Period,Amount,Revenue
+Sales Team Q3 FY2022,Charles Lamanna,"$5,000,000.00 ",Open,Quarter 3,FY2022,Revenue,,7/1/2022,9/30/2022,Fiscal Period,Amount,Revenue
+Sales Q3 FY2022 - Per,Per Mikkelsen,"$250,000.00 ",Open,Quarter 3,FY2022,Revenue,Sales Team Q3 FY2022,7/1/2022,9/30/2022,Fiscal Period,Amount,Revenue
+Sales Q4 FY2022 - Eric,Eric Boocock,"$700,000.00 ",Open,Quarter 4,FY2022,Revenue,Sales Team Q4 FY2022,10/1/2022,12/31/2022,Fiscal Period,Amount,Revenue
+Sales Q4 FY2022 - Alan,Alan Ross,"$350,000.00 ",Open,Quarter 4,FY2022,Revenue,Sales Team Q4 FY2022,10/1/2022,12/31/2022,Fiscal Period,Amount,Revenue
+Sales Q4 FY2022 - Jeff,Jeff Comstock,"$350,000.00 ",Open,Quarter 4,FY2022,Revenue,Sales Team Q4 FY2022,10/1/2022,12/31/2022,Fiscal Period,Amount,Revenue
+Sales Q4 FY2022 - Charles,Charles Lamanna,,Open,Quarter 4,FY2022,Revenue,Sales Team Q4 FY2022,10/1/2022,12/31/2022,Fiscal Period,Amount,Revenue
+Sales Q4 FY2022 - Lunaura,Lunaura Hassinger,"$350,000.00 ",Open,Quarter 4,FY2022,Revenue,Sales Team Q4 FY2022,10/1/2022,12/31/2022,Fiscal Period,Amount,Revenue
+Sales Q4 FY2022 - Ayushman,Ayushman Jain,"$175,000.00 ",Open,Quarter 4,FY2022,Revenue,Sales Team Q4 FY2022,10/1/2022,12/31/2022,Fiscal Period,Amount,Revenue
+Sales Q4 FY2022 - Pooja,Pooja Bhalla,"$700,000.00 ",Open,Quarter 4,FY2022,Revenue,Sales Team Q4 FY2022,10/1/2022,12/31/2022,Fiscal Period,Amount,Revenue
+Sales Q4 FY2022 - Jim,Jim Nakashima,"$525,000.00 ",Open,Quarter 4,FY2022,Revenue,Sales Team Q4 FY2022,10/1/2022,12/31/2022,Fiscal Period,Amount,Revenue
+Sales Q4 FY2022 - Julie ,Julie Strauss,"$175,000.00 ",Open,Quarter 4,FY2022,Revenue,Sales Team Q4 FY2022,10/1/2022,12/31/2022,Fiscal Period,Amount,Revenue
+Sales Team Q4 FY2022,Charles Lamanna,"$3,500,000.00 ",Open,Quarter 4,FY2022,Revenue,,10/1/2022,12/31/2022,Fiscal Period,Amount,Revenue
+Sales Q4 FY2022 - Per,Per Mikkelsen,"$175,000.00 ",Open,Quarter 4,FY2022,Revenue,Sales Team Q4 FY2022,10/1/2022,12/31/2022,Fiscal Period,Amount,Revenue
+Sales Q1 FY2021 - Eric,Eric Boocock,$0.00 ,Open,Quarter 1,FY2021,Revenue,Sales Team Q1 FY2021,1/1/2021,3/31/2021,Fiscal Period,Amount,Revenue
+Sales Q1 FY2021 - Alan,Alan Ross,$0.00 ,Open,Quarter 1,FY2021,Revenue,Sales Team Q1 FY2021,1/1/2021,3/31/2021,Fiscal Period,Amount,Revenue
+Sales Q1 FY2021 - Jeff,Jeff Comstock,$0.00 ,Open,Quarter 1,FY2021,Revenue,Sales Team Q1 FY2021,1/1/2021,3/31/2021,Fiscal Period,Amount,Revenue
+Sales Q1 FY2021 - Charles,Charles Lamanna,,Open,Quarter 1,FY2021,Revenue,Sales Team Q1 FY2021,1/1/2021,3/31/2021,Fiscal Period,Amount,Revenue
+Sales Q1 FY2021 - Lunaura,Lunaura Hassinger,$0.00 ,Open,Quarter 1,FY2021,Revenue,Sales Team Q1 FY2021,1/1/2021,3/31/2021,Fiscal Period,Amount,Revenue
+Sales Q1 FY2021 - Ayushman,Ayushman Jain,$0.00 ,Open,Quarter 1,FY2021,Revenue,Sales Team Q1 FY2021,1/1/2021,3/31/2021,Fiscal Period,Amount,Revenue
+Sales Q1 FY2021 - Pooja,Pooja Bhalla,$0.00 ,Open,Quarter 1,FY2021,Revenue,Sales Team Q1 FY2021,1/1/2021,3/31/2021,Fiscal Period,Amount,Revenue
+Sales Q1 FY2021 - Jim,Jim Nakashima,$0.00 ,Open,Quarter 1,FY2021,Revenue,Sales Team Q1 FY2021,1/1/2021,3/31/2021,Fiscal Period,Amount,Revenue
+Sales Q1 FY2021 - Julie ,Julie Strauss,$0.00 ,Open,Quarter 1,FY2021,Revenue,Sales Team Q1 FY2021,1/1/2021,3/31/2021,Fiscal Period,Amount,Revenue
+Sales Team Q1 FY2021,Charles Lamanna,$0.00 ,Open,Quarter 1,FY2021,Revenue,,1/1/2021,3/31/2021,Fiscal Period,Amount,Revenue
+Sales Q1 FY2021 - Per,Per Mikkelsen,$0.00 ,Open,Quarter 1,FY2021,Revenue,Sales Team Q1 FY2021,1/1/2021,3/31/2021,Fiscal Period,Amount,Revenue
+Sales Q2 FY2021 - Eric,Eric Boocock,$0.00 ,Open,Quarter 2,FY2021,Revenue,Sales Team Q2 FY2021,4/1/2021,6/30/2021,Fiscal Period,Amount,Revenue
+Sales Q2 FY2021 - Alan,Alan Ross,$0.00 ,Open,Quarter 2,FY2021,Revenue,Sales Team Q2 FY2021,4/1/2021,6/30/2021,Fiscal Period,Amount,Revenue
+Sales Q2 FY2021 - Jeff,Jeff Comstock,"$37,500.00 ",Open,Quarter 2,FY2021,Revenue,Sales Team Q2 FY2021,4/1/2021,6/30/2021,Fiscal Period,Amount,Revenue
+Sales Q2 FY2021 - Charles,Charles Lamanna,,Open,Quarter 2,FY2021,Revenue,Sales Team Q2 FY2021,4/1/2021,6/30/2021,Fiscal Period,Amount,Revenue
+Sales Q2 FY2021 - Lunaura,Lunaura Hassinger,"$60,000.00 ",Open,Quarter 2,FY2021,Revenue,Sales Team Q2 FY2021,4/1/2021,6/30/2021,Fiscal Period,Amount,Revenue
+Sales Q2 FY2021 - Ayushman,Ayushman Jain,$0.00 ,Open,Quarter 2,FY2021,Revenue,Sales Team Q2 FY2021,4/1/2021,6/30/2021,Fiscal Period,Amount,Revenue
+Sales Q2 FY2021 - Pooja,Pooja Bhalla,"$15,000.00 ",Open,Quarter 2,FY2021,Revenue,Sales Team Q2 FY2021,4/1/2021,6/30/2021,Fiscal Period,Amount,Revenue
+Sales Q2 FY2021 - Jim,Jim Nakashima,"$37,500.00 ",Open,Quarter 2,FY2021,Revenue,Sales Team Q2 FY2021,4/1/2021,6/30/2021,Fiscal Period,Amount,Revenue
+Sales Q2 FY2021 - Julie ,Julie Strauss,$0.00 ,Open,Quarter 2,FY2021,Revenue,Sales Team Q2 FY2021,4/1/2021,6/30/2021,Fiscal Period,Amount,Revenue
+Sales Team Q2 FY2021,Charles Lamanna,"$150,000.00 ",Open,Quarter 2,FY2021,Revenue,,4/1/2021,6/30/2021,Fiscal Period,Amount,Revenue
+Sales Q2 FY2021 - Per,Per Mikkelsen,$0.00 ,Open,Quarter 2,FY2021,Revenue,Sales Team Q2 FY2021,4/1/2021,6/30/2021,Fiscal Period,Amount,Revenue
+Sales Q3 FY2021 - Eric,Eric Boocock,"$225,000.00 ",Open,Quarter 3,FY2021,Revenue,Sales Team Q3 FY2021,7/1/2021,9/30/2021,Fiscal Period,Amount,Revenue
+Sales Q3 FY2021 - Alan,Alan Ross,"$450,000.00 ",Open,Quarter 3,FY2021,Revenue,Sales Team Q3 FY2021,7/1/2021,9/30/2021,Fiscal Period,Amount,Revenue
+Sales Q3 FY2021 - Jeff,Jeff Comstock,"$150,000.00 ",Open,Quarter 3,FY2021,Revenue,Sales Team Q3 FY2021,7/1/2021,9/30/2021,Fiscal Period,Amount,Revenue
+Sales Q3 FY2021 - Charles,Charles Lamanna,,Open,Quarter 3,FY2021,Revenue,Sales Team Q3 FY2021,7/1/2021,9/30/2021,Fiscal Period,Amount,Revenue
+Sales Q3 FY2021 - Lunaura,Lunaura Hassinger,$0.00 ,Open,Quarter 3,FY2021,Revenue,Sales Team Q3 FY2021,7/1/2021,9/30/2021,Fiscal Period,Amount,Revenue
+Sales Q3 FY2021 - Ayushman,Ayushman Jain,$0.00 ,Open,Quarter 3,FY2021,Revenue,Sales Team Q3 FY2021,7/1/2021,9/30/2021,Fiscal Period,Amount,Revenue
+Sales Q3 FY2021 - Pooja,Pooja Bhalla,"$75,000.00 ",Open,Quarter 3,FY2021,Revenue,Sales Team Q3 FY2021,7/1/2021,9/30/2021,Fiscal Period,Amount,Revenue
+Sales Q3 FY2021 - Jim,Jim Nakashima,"$375,000.00 ",Open,Quarter 3,FY2021,Revenue,Sales Team Q3 FY2021,7/1/2021,9/30/2021,Fiscal Period,Amount,Revenue
+Sales Q3 FY2021 - Julie ,Julie Strauss,$0.00 ,Open,Quarter 3,FY2021,Revenue,Sales Team Q3 FY2021,7/1/2021,9/30/2021,Fiscal Period,Amount,Revenue
+Sales Team Q3 FY2021,Charles Lamanna,"$1,500,000.00 ",Open,Quarter 3,FY2021,Revenue,,7/1/2021,9/30/2021,Fiscal Period,Amount,Revenue
+Sales Q3 FY2021 - Per,Per Mikkelsen,"$225,000.00 ",Open,Quarter 3,FY2021,Revenue,Sales Team Q3 FY2021,7/1/2021,9/30/2021,Fiscal Period,Amount,Revenue
+Sales Q4 FY2021 - Eric,Eric Boocock,"$500,000.00 ",Open,Quarter 4,FY2021,Revenue,Sales Team Q4 FY2021,10/1/2021,12/31/2021,Fiscal Period,Amount,Revenue
+Sales Q4 FY2021 - Alan,Alan Ross,"$375,000.00 ",Open,Quarter 4,FY2021,Revenue,Sales Team Q4 FY2021,10/1/2021,12/31/2021,Fiscal Period,Amount,Revenue
+Sales Q4 FY2021 - Jeff,Jeff Comstock,"$375,000.00 ",Open,Quarter 4,FY2021,Revenue,Sales Team Q4 FY2021,10/1/2021,12/31/2021,Fiscal Period,Amount,Revenue
+Sales Q4 FY2021 - Charles,Charles Lamanna,,Open,Quarter 4,FY2021,Revenue,Sales Team Q4 FY2021,10/1/2021,12/31/2021,Fiscal Period,Amount,Revenue
+Sales Q4 FY2021 - Lunaura,Lunaura Hassinger,"$500,000.00 ",Open,Quarter 4,FY2021,Revenue,Sales Team Q4 FY2021,10/1/2021,12/31/2021,Fiscal Period,Amount,Revenue
+Sales Q4 FY2021 - Ayushman,Ayushman Jain,$0.00 ,Open,Quarter 4,FY2021,Revenue,Sales Team Q4 FY2021,10/1/2021,12/31/2021,Fiscal Period,Amount,Revenue
+Sales Q4 FY2021 - Pooja,Pooja Bhalla,"$625,000.00 ",Open,Quarter 4,FY2021,Revenue,Sales Team Q4 FY2021,10/1/2021,12/31/2021,Fiscal Period,Amount,Revenue
+Sales Q4 FY2021 - Jim,Jim Nakashima,"$75,000.00 ",Open,Quarter 4,FY2021,Revenue,Sales Team Q4 FY2021,10/1/2021,12/31/2021,Fiscal Period,Amount,Revenue
+Sales Q4 FY2021 - Julie ,Julie Strauss,"$50,000.00 ",Open,Quarter 4,FY2021,Revenue,Sales Team Q4 FY2021,10/1/2021,12/31/2021,Fiscal Period,Amount,Revenue
+Sales Team Q4 FY2021,Charles Lamanna,"$2,500,000.00 ",Open,Quarter 4,FY2021,Revenue,,10/1/2021,12/31/2021,Fiscal Period,Amount,Revenue
+Sales Q4 FY2021 - Per,Per Mikkelsen,$0.00 ,Open,Quarter 4,FY2021,Revenue,Sales Team Q4 FY2021,10/1/2021,12/31/2021,Fiscal Period,Amount,Revenue

@@ -1,0 +1,98 @@
+﻿Name,Product ID,Hierarchy Path,Valid From,Valid To,Status,Product Structure,List Price,Standard Cost,Default Unit,Default Price List,Current Cost,Product Type,Purchase Name,Unit Group,Subject,Description,Decimals Supported
+Barista Home Express,USRTBAHMC,,1/1/2023,12/31/2023,Retired,Product,,594.00,Quantity,,594.00,Sales Inventory,Barista Home,Quantity,,,2
+Precision Brew Lite,USRTPRBRLC,,1/2/2025,12/31/2025,Active,Product,,231.00,Quantity,,231.00,Sales Inventory,Precision Brew Lite,Quantity,,,2
+Cafe A-100 Automatic,USRTCA100AB,,1/3/2025,12/31/2025,Retired,Product,,15380.00,Quantity,Contoso Coffee Price List,15380.00,Sales Inventory,Café A-100 Automatic,Quantity,,,2
+Smart Brew 300 LED Screen,USRTSTCAN,,1/4/2025,12/31/2025,Active,Product,,125.00,Quantity,,125.00,Sales Inventory,Smart Brew 300 LED Screen,Quantity,,,2
+Smart Brew 300 - Circuit Board,USRTDXDCTR,,1/5/2025,12/31/2025,Active,Product,,175.00,Quantity,,175.00,Sales Inventory,Smart Brew 300 - Circuit Board,Quantity,,,2
+Smart Brew 300 Wiring,USRTSMW300,,1/6/2025,12/31/2025,Active,Product,,75.00,Quantity,,75.00,Sales Inventory,Smart Brew 300 Wiring,Quantity,,,2
+Brew Filter,USRTBRFI-SP,,1/7/2025,12/31/2025,Retired,Product,,19.00,Quantity,,19.00,Sales Inventory,Brew Filters,Quantity,Subscription,,2
+SUBSCRIPTION-CM,CM-SUBS,,1/8/2025,12/31/2025,Active,Product Family,,,,,,Sales Inventory,SUBSCRIPTION-CM,,,Parent Commercial Subscription.,
+COFFEE BEANS,COBNS,,1/9/2025,12/31/2025,Active,Product Family,,,,,,Sales Inventory,COFFEE BEANS,,,Parent coffee beans.,
+CONSUMER ESPRESSO,CS-ESP,,1/10/2025,12/31/2025,Active,Product Family,,,Primary Unit,,,Sales Inventory,CONSUMER ESPRESSO,Default Unit,,,2
+CONSUMER COFFEE MAKERS,CS-CFM,,1/11/2025,12/31/2025,Active,Product Family,,,Primary Unit,,,Sales Inventory,CONSUMER COFFEE MAKERS,Default Unit,,,2
+COMMERCIAL ESPRESSO,CM-ESP,,1/12/2025,12/31/2025,Active,Product Family,,,Primary Unit,,,Sales Inventory,COMMERCIAL ESPRESSO,Default Unit,,,2
+COMMERCIAL COFFEE MAKERS,CM-CFM,,1/13/2025,12/31/2025,Active,Product Family,,,Primary Unit,,,Sales Inventory,COMMERCIAL COFFEE MAKERS,Default Unit,,,2
+CONSUMER COFFEE GRINDERS,CS-GRD,,1/14/2025,12/31/2025,Active,Product Family,,,Primary Unit,,,Sales Inventory,CONSUMER COFFEE GRINDERS,Default Unit,,,2
+COMMERCIAL COFFEE GRINDERS,CM-GRD,,1/15/2025,12/31/2025,Active,Product Family,,,Primary Unit,,,Sales Inventory,COMMERCIAL COFFEE GRINDERS,Default Unit,,,2
+DRINKWARE,ACS-DRW,,1/16/2025,12/31/2025,Active,Product Family,,,Primary Unit,,,Sales Inventory,DRINKWARE,Default Unit,,,2
+SERVICES,SRC,,1/17/2025,12/31/2025,Active,Product Family,,,,,,Sales Inventory,SERVICES,,,,
+Classic Roast,COF-CLASSIC,COFFEE BEANS,1/18/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Classic Roast,Default Unit,,"Discover the timeless flavors of our Classic Roasts Coffee Pack, a curated selection of premium coffee blends that celebrate the rich heritage of coffee roasting. Perfect for coffee enthusiasts and casual drinkers alike, this pack offers a delightful journey through some of the most beloved coffee profiles.",0
+Columbian Roasts,COF-COLUMBIAN,COFFEE BEANS,1/19/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Columbian Roasts,Default Unit,,"Experience the rich and smooth flavors of our Colombian Coffee Pack, featuring premium beans sourced from the lush, high-altitude regions of Colombia. Known for their balanced acidity and full-bodied taste, these beans are perfect for any coffee lover.",0
+Decaf Roast,COFF-DECAF,COFFEE BEANS,1/20/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Decaf Roast,Default Unit,,,2
+Ethopian,COFF-ETHIOPIAN,COFFEE BEANS,1/21/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Ethopian,Default Unit,,"Embark on a sensory journey with our Ethiopian Coffee Pack, featuring some of the finest coffee beans from the birthplace of coffee. Known for their vibrant and complex flavors, these beans offer a truly unique and unforgettable coffee experience.",2
+Café BG-1,CABG1,COMMERCIAL COFFEE GRINDERS,1/22/2025,12/31/2025,Active,Product,4999.00,,Primary Unit,Contoso Coffee Price List,,Services,Café BG-1,Default Unit,,,2
+Café PG-1,CAPG1,COMMERCIAL COFFEE GRINDERS,1/23/2025,12/31/2025,Active,Product,3999.00,,Primary Unit,Contoso Coffee Price List,,Services,Café PG-1,Default Unit,,,2
+Café BG-1 Pro,CAB1PB,COMMERCIAL COFFEE GRINDERS,1/24/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Café BG-1 Pro,Default Unit,,,2
+Café PG-1 Pro,CAP1PB,COMMERCIAL COFFEE GRINDERS,1/25/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Café PG-1 Pro,Default Unit,,,2
+Airpot,AP,COMMERCIAL COFFEE MAKERS,1/26/2025,12/31/2025,Active,Product,1699.00,,Primary Unit,Contoso Coffee Price List,,Services,Airpot,Default Unit,,"Serving large-batch gourmet coffee just got a whole lot easier! With precision technology and easy-to-use features, this striking brewer takes the cake when it comes to providing impeccable coffee in fast-paced environments.",2
+Airpot XL,APXL,COMMERCIAL COFFEE MAKERS,1/27/2025,12/31/2025,Active,Product,499.00,,Primary Unit,Contoso Coffee Price List,,Services,Airpot XL,Default Unit,,"The Airpot XL provides flexibility in high-volume, large sized venues such as Banquet Halls, Cafeterias and Restaurants. This machine helps simplify your daily operations, while giving you total control of your brew.",2
+Airpot Duo,APD,COMMERCIAL COFFEE MAKERS,1/28/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Airpot Duo,Default Unit,,,2
+Airpot Lite,APL,COMMERCIAL COFFEE MAKERS,1/29/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Airpot Lite,Default Unit,,,2
+Café Lite,USRTCALTB,COMMERCIAL ESPRESSO,1/30/2025,12/31/2025,Active,Product,,7103.00,Quantity,Contoso Coffee Price List,7103.00,Sales Inventory,Café Lite,Quantity,,,2
+Café A-100 Automatic,CAA100AU,COMMERCIAL ESPRESSO,1/31/2025,12/31/2025,Active,Product,21900.00,,Primary Unit,Contoso Coffee Price List,,Services,Café A-100 Automatic,Default Unit,,"The Café A-100 Automatic is the ideal machine for baristas looking for amazingly consistent coffee. This machine allows baristas to program desired volumes and consistently pull shots at that volume throughout the day. Because the barista no longer has to monitor each and every shot, they are given precious time to interact with customers or perhaps begin another order.",2
+Café Corto,CACO,COMMERCIAL ESPRESSO,2/1/2025,12/31/2025,Active,Product,16900.00,,Primary Unit,Contoso Coffee Price List,,Services,Café Corto,Default Unit,,"Featuring an eye-catching design and lower profile to invite customer engagement, the Café Corto is a cutting-edge café centerpiece that encourages engagement, barista experimentation and coffee conversations, while delivering the world’s best coffee extraction.",2
+Café Duo,CADU,COMMERCIAL ESPRESSO,2/2/2025,12/31/2025,Active,Product,12900.00,,Primary Unit,Contoso Coffee Price List,,Services,Café Duo,Default Unit,,"Providing high quality espresso and coffee for large and small shops alike, the Café Duo best accommodates smaller operations that serve a range of 50-80 drinks per day.",2
+Café Grande,CAGR,COMMERCIAL ESPRESSO,2/3/2025,12/31/2025,Active,Product,14900.00,,Primary Unit,Contoso Coffee Price List,,Services,Café Grande,Default Unit,,Keep brewing through the busiest crowds with the simple design and user-friendly features of the Café Grande.,2
+Café S-100 Semi-Automatic,CAS100SA,COMMERCIAL ESPRESSO,2/4/2025,12/31/2025,Active,Product,17900.00,,Primary Unit,Contoso Coffee Price List,,Services,Café S-100 Semi-Automatic,Default Unit,,"The Cafe S-100 Semiautomatic is in a league of its own when it comes to the functionality, style and available customizations. This well-designed commercial espresso machine produces high quality and consistent espresso. It's the perfect size for a small to mid-sized cafe with light to moderate traffic.",2
+Barista Express,BAECOMM,COMMERCIAL ESPRESSO,2/5/2025,12/31/2025,Active,Product,21900.00,,Primary Unit,Contoso Coffee Price List,,Services,Café A-100 Automatic,Default Unit,,"Barista Express – Professional Performance, Effortless Precision
+Elevate your café or restaurant with the Barista Express, the ultimate commercial espresso machine designed for speed, consistency, and exceptional coffee quality. Engineered by Contoso Coffee, a leader in high-end coffee equipment, the Barista Express delivers precision brewing and intuitive operation to meet the demands of busy coffee professionals.
+
+Key Features:
+✔ Dual Boiler System – Ensures simultaneous brewing and steaming for maximum efficiency and faster service.
+✔ PID Temperature Control – Maintains precise water temperature for consistent espresso extraction.
+✔ Pre-Infusion Technology – Gently expands coffee grounds before full-pressure extraction for a richer, more balanced flavor.
+✔ Commercial-Grade Steam Wand – Create silky, barista-quality microfoam for perfect lattes and cappuccinos.
+✔ Programmable Shot Volume & Manual Control – Customize every espresso to match your signature style.
+✔ Integrated Rotary Pump – Delivers steady, professional-grade water pressure for café-quality results.
+✔ Durable Stainless-Steel Construction – Built to withstand the demands of high-traffic environments.
+
+Whether you're a specialty coffee shop, restaurant, or high-volume café, the Barista Express combines cutting-edge technology with an intuitive workflow to help baristas craft exceptional coffee with ease.",2
+Café A-200 Automatic,CA200AB,COMMERCIAL ESPRESSO,2/6/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Café A-200 Automatic,Default Unit,,,2
+Café S-200 Semi-Automatic,CA200SB,COMMERCIAL ESPRESSO,2/7/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Café S-200 Semi-Automatic,Default Unit,,,2
+Precision Grind Travel,PRGRTRC,CONSUMER COFFEE GRINDERS,2/8/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Precision Grind Travel,Default Unit,,,2
+Smart Grind Travel,SMGRTRC,CONSUMER COFFEE GRINDERS,2/9/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Smart Grind Travel,Default Unit,,,2
+Precision Grind Home,PGH,CONSUMER COFFEE GRINDERS,2/10/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Precision Grind Home,Default Unit,,,2
+Smart Grind Home,SMGRHMC,CONSUMER COFFEE GRINDERS,2/11/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Smart Grind Home,Default Unit,,,2
+Travel Brew,USRTTRBRC,CONSUMER COFFEE MAKERS,2/12/2025,12/31/2025,Active,Product,,213.00,Quantity,Contoso Coffee Price List,213.00,Sales Inventory,Travel Brew,Quantity,,,2
+Smart Brew 300,USRTSMBRC,CONSUMER COFFEE MAKERS,2/13/2025,12/31/2025,Active,Product,,238.00,Quantity,Contoso Coffee Price List,238.00,Sales Inventory,Smart Brew 300,Quantity,,,2
+Precision Brew 100,USRTPBRC,CONSUMER COFFEE MAKERS,2/14/2025,12/31/2025,Active,Product,,313.00,Quantity,Contoso Coffee Price List,313.00,Sales Inventory,Precision Brew 100,Quantity,,,2
+AutoDrip XL,USRTADXL,CONSUMER COFFEE MAKERS,2/15/2025,12/31/2025,Active,Product,,219.00,Quantity,Contoso Coffee Price List,219.00,Sales Inventory,AutoDrip XL,Quantity,,,2
+AutoDrip Lite,USRTADLITE,CONSUMER COFFEE MAKERS,2/16/2025,12/31/2025,Active,Product,,149.00,Quantity,Contoso Coffee Price List,149.00,Sales Inventory,AutoDrip Lite,Quantity,,,2
+Travel Brew 100,TRBRC,CONSUMER COFFEE MAKERS,2/17/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Travel Brew 100,Default Unit,,,2
+AutoDrip,AD,CONSUMER COFFEE MAKERS,2/18/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,AutoDrip,Default Unit,,,2
+Barista Home,BAHMC,CONSUMER ESPRESSO,2/19/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Barista Home,Default Unit,,,2
+Barista Lite,BALTC,CONSUMER ESPRESSO,2/20/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Barista Lite,Default Unit,,,2
+Crema Café,CRCAC,CONSUMER ESPRESSO,2/21/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Crema Café,Default Unit,,,2
+Crema Café XL,CRCAXLC,CONSUMER ESPRESSO,2/22/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Crema Café XL,Default Unit,,,2
+Crema Quatro,CRQTC,CONSUMER ESPRESSO,2/23/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Crema Quatro,Default Unit,,,2
+Accu Scale,ACSC-SP,DRINKWARE,2/24/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Accu Scale,Default Unit,,,2
+Cleaning Kit,DXDCTR,DRINKWARE,2/25/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Cleaning Kit,Default Unit,,,2
+Travel Mug,TRMU-SP,DRINKWARE,2/26/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Travel Mug,Default Unit,,,2
+Travel Mug XL,TRMUXL-SP,DRINKWARE,2/27/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Travel Mug XL,Default Unit,,,2
+Brew Filters,BRFI-SP,DRINKWARE,2/28/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Brew Filters,Default Unit,,,2
+Carafe Pro,CAPR-SP,DRINKWARE,3/1/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Carafe Pro,Default Unit,,,2
+CP Cappuccino Cup with Saucer,CPCASA-SP,DRINKWARE,3/2/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,CP Cappuccino Cup with Saucer,Default Unit,,,2
+CP Latte Cup with Saucer,CPLASA-SP,DRINKWARE,3/3/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,CP Latte Cup with Saucer,Default Unit,,,2
+Cupping Glass,CUGL-SP,DRINKWARE,3/4/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Cupping Glass,Default Unit,,,2
+Deluxe Decanter,DEDE-SP,DRINKWARE,3/5/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Deluxe Decanter,Default Unit,,,2
+Drink Spoon,DRSP-SP,DRINKWARE,3/6/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Drink Spoon,Default Unit,,,2
+Frothing Pitcher,FRPI-SP,DRINKWARE,3/7/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Frothing Pitcher,Default Unit,,,2
+Quick Kettle,QUKE-SP,DRINKWARE,3/8/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Quick Kettle,Default Unit,,,2
+Stainless Steel Tamper,STSTTA-SP,DRINKWARE,3/9/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Stainless Steel Tamper,Default Unit,,,2
+Storage Canister,SMW300,DRINKWARE,3/10/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Storage Canister,Default Unit,,,2
+Diner Mug,DIMU-SP,DRINKWARE,3/11/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Diner Mug,Default Unit,,,2
+Equipment Installation,INST-EQUIP001,SERVICES,3/12/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Equipment Installation,Default Unit,,,2
+Water Filter,PART-WTRFILT001,SERVICES,3/13/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Water Filter,Default Unit,,"Unlock the full potential of your coffee with our specialized water filter, designed to enhance the quality and taste of your brew. Compatible with most coffee machines, this filter ensures every cup is brewed with the purest water possible.",0
+Water line,CAWATLN,SERVICES,3/14/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Water line,Default Unit,,,2
+Capacity IoT sensor,CACAPIOTSENS,SERVICES,3/15/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Capacity IoT sensor,Default Unit,,,2
+Descaling Solution,CADESCSOL,SERVICES,3/16/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Descaling Solution,Default Unit,,,2
+Silver Coffee Subscription,SUB-SLVRCOFF,SUBSCRIPTION-CM,3/17/2025,12/31/2025,Active,Product Bundle,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Silver Coffee Subscription,Default Unit,Subscription,"Enjoy a monthly supply of 500 cups of premium coffee, featuring a delightful mix of classic and decaf roasts.",0
+Gold Coffee Subscription,SUB-GOLDCOFF,SUBSCRIPTION-CM,3/18/2025,12/31/2025,Active,Product Bundle,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Silver Coffee Subscription,Default Unit,Subscription,"Enjoy a monthly supply of 1000 cups of premium coffee, featuring an exquisite selection of classic and specialty roasts.",0
+Platinum Coffee Subscription,SUB-PLATCOFF,SUBSCRIPTION-CM,3/19/2025,12/31/2025,Active,Product Bundle,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,Silver Coffee Subscription,Default Unit,Subscription,"Designed for true coffee aficionados and businesses, this subscription offers an unparalleled coffee experience with a generous supply of 2000 cups per month, including a diverse selection of roasts and all necessary supplies.",0
+1-Year Fair Trade Coffee Subscription,CM-FAIR1YR,SUBSCRIPTION-CM,3/20/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,1-Year Fair Trade Coffee Subscription,Default Unit,Subscription,1-year fair trade coffee beans subscription for commercial customers.,0
+2-Year Fair Trade Coffee Subscription,CM-FAIR2YR,SUBSCRIPTION-CM,3/21/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,2-Year Fair Trade Coffee Subscription,Default Unit,Subscription,2-year fair trade coffee beans subscriptions for commercial customers.,0
+1-Year Espresso Blend Coffee Subscription,CM-EBSUB1YR,SUBSCRIPTION-CM,3/22/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,1-Year Espresso Blend Coffee Subscription,Default Unit,Subscription,1-year espresso blend subscriptions for commercial customers.,0
+2-Year Espresso Blend Subscription,CM-EBSUB2YR,SUBSCRIPTION-CM,3/23/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,2-Year Espresso Blend Subscription,Default Unit,Subscription,2-year espresso blend subscription for commercial customers.,0
+1-Year Organic Office Coffee Subscription,CM-ORGO1YR,SUBSCRIPTION-CM,3/24/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,1-Year Organic Office Coffee Subscription,Default Unit,Subscription,1-year organic office coffee subscriptions for commercial customers.,0
+2-Year Organic Office Coffee Subscription,CM-ORGO2YR,SUBSCRIPTION-CM,3/25/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,2-Year Organic Office Coffee Subscription,Default Unit,Subscription,2-year organic office coffee subscriptions for commercial customers.,0
+6-Month Fair Trade Coffee Subscription,CM-FAIR6MTH,SUBSCRIPTION-CM,3/26/2025,12/31/2025,Active,Product,,,Primary Unit,Contoso Coffee Price List,,Sales Inventory,6-Month Fair Trade Coffee Subscription,Default Unit,Subscription,6-month fair trade coffee beans subscription for commercial customers.,0
