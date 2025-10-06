@@ -1,66 +1,115 @@
 # D365 Sales Demo Data Generator (GitHub Pages)
 
-This single-page app packages Contoso Coffee demo CSVs (or your own) into a ZIP for quick import into Dynamics 365 Sales. It requires only **two inputs**:
+This repo hosts a **single‑page app** that packages a complete **Dynamics 365 Sales demo dataset** for quick import. It is intentionally streamlined to require only **two inputs** (Demo Type and Users) so you can generate a ZIP of CSVs in seconds and start demoing immediately.
+
+---
+
+## 🧩 What this demo deploys (full contents)
+
+The exported ZIP contains a cohesive data pack representing **Contoso Coffee** (or your custom brand) with realistic sales activity over time. Files are CSVs designed for import into Dataverse/Dynamics 365 Sales. By default, the app reads the sample data from the repo’s `data/` folder and outputs the same structure in the ZIP, plus a generated `businessunit.csv`.
+
+**Included datasets:**
+
+- **businessunit.csv** *(generated)* – Minimal business unit record.  
+  - Uses **Contoso Coffee** by default or the **Customer name** you enter when “Custom” is selected.
+- **User.csv** – Demo users (sellers, system users).  
+  - Can be replaced by your uploaded `users.csv` when “Custom users” is selected. Header validation is applied.
+- **Territory.csv** – Sales territories to support assignment and segmentation.
+- **Campaign.csv** – Marketing campaigns that act as sources for opportunities/leads.
+- **Product.csv** – Product catalog (espresso machines, coffee, accessories, subscriptions) used by opportunities.
+- **Account.csv** – Customer accounts (B2B) with varied industries and sizes.
+- **Contact.csv** – Contacts tied to accounts (B2B personas) used in emails/appointments.
+- **Opportunity.csv** – Opportunities across multiple sellers and time ranges, mixing open/won/lost states.  
+  - Represents realistic pipeline and sales cycles with products and estimated revenue.
+- **Emails.csv** – Email activities aligned to opportunity stage (fewer early, more for late-stage deals).
+- **Appointments.csv** – Meetings/calls aligned to advancing opportunities (discovery, demo, technical review, close).
+
+> The sample data emphasizes **realistic sales engagement** over multiple months/years with varied outcomes, product mixes, and activity volume—useful for showcasing Sales research/insights agents, pipeline analytics, and seller productivity scenarios.
+
+---
+
+## ✨ How the app works (two inputs only)
 
 1) **Demo Type**: `Contoso Coffee` or `Custom`  
-   - If `Custom`, provide a **Customer name**. The app will generate a minimal `businessunit.csv` using that name.
+   - If `Custom`, enter a **Customer name**. The app generates `businessunit.csv` using that name; all other business config comes from the sample CSVs.
 
 2) **Demo Users**: `Contoso Coffee` or `Custom`  
-   - If `Custom`, upload a `users.csv` **with the same headers as the sample**. This replaces `User.csv` in the package. All other data uses the sample CSVs in this repo.
+   - If `Custom`, upload a `users.csv` **with the same headers as the sample**. The app validates headers and replaces `User.csv` in the output package. All other datasets stay as defined by the sample files.
+
+That’s it—no other configuration is required. Click **Prepare Demo Package**, then **Download CSV ZIP**.
 
 ---
 
-## 🗂 Repo layout
-
-Place your CSVs under `data/` **with these exact filenames** (case-sensitive):
+## 📁 Repo layout
 
 ```
-data/
-├─ Territory.csv
-├─ Appointments.csv
-├─ Contact.csv
-├─ Goal.csv
-├─ Campaign.csv
-├─ User.csv
-├─ Product.csv
-├─ Opportunity.csv
-├─ Account.csv
-└─ Emails.csv
+/ (repo root)
+├─ index.html          # the single‑page app (loads data from /data/)
+├─ README.md
+└─ data/
+   ├─ Territory.csv
+   ├─ Appointments.csv
+   ├─ Contact.csv
+   ├─ Goal.csv
+   ├─ Campaign.csv
+   ├─ User.csv
+   ├─ Product.csv
+   ├─ Opportunity.csv
+   ├─ Account.csv
+   └─ Emails.csv
 ```
 
-`index.html` is in the repo root and fetches the files from `/data/` by default.
-
-> If you keep the CSVs in the root instead of `data/`, edit `RELATIVE_SAMPLE_FILES` in `index.html` accordingly.
+> **Paths matter.** Keep filenames **exact** (case‑sensitive). The app expects all CSVs under `data/`. The ZIP removes the `data/` prefix so the output files have clean names for import.
 
 ---
 
-## 🚀 Deploy on GitHub Pages
+## 🚀 Publish on GitHub Pages
 
-1. Commit `index.html` (from this repo) at the **repo root** and all CSVs in the **`data/` folder**.
-2. Go to **Settings → Pages** and set:
-   - **Source**: *Deploy from a branch*
+1. Commit `index.html` at repo root and all CSVs under `data/`.
+2. In GitHub: **Settings → Pages**  
+   - **Source**: *Deploy from a branch*  
    - **Branch**: `main` and **/(root)** folder
-3. Wait for the Pages URL to appear (e.g., `https://<user>.github.io/<repo>/`).
+3. Open the Pages URL when it’s ready (e.g., `https://<user>.github.io/<repo>/`).
 
 ---
 
-## ✅ Smoke test (2 minutes)
+## ✅ Smoke test
 
-1. Open your Pages URL.
-2. Click **Prepare Demo Package**. You should see logs for each CSV loading and the progress bar reach 100%.
-3. Click **Download CSV ZIP** and confirm a ZIP downloads.
-4. Test both modes:
-   - **Contoso / Contoso** (no uploads)
-   - **Custom / Custom** (enter Customer Name, upload your `users.csv` that matches sample headers)
+1. Visit your Pages URL.  
+2. Click **Prepare Demo Package** — you’ll see logs for each `data/*.csv`.  
+3. Click **Download CSV ZIP** — confirm the ZIP downloads.  
+4. Try both flows:  
+   - **Contoso / Contoso** (no upload)  
+   - **Custom / Custom** (enter Customer name + upload your `users.csv` with matching headers)
+
+---
+
+## 🔒 Import guidance (typical order)
+
+While your environment and dependencies may vary, this order is commonly successful:
+
+1. `businessunit.csv` *(generated)*  
+2. `User.csv`  
+3. `Territory.csv`  
+4. `Campaign.csv`  
+5. `Product.csv`  
+6. `Account.csv`  
+7. `Contact.csv`  
+8. `Opportunity.csv`  
+9. `Emails.csv`  
+10. `Appointments.csv`
+
+> Adjust as needed for your Dataverse solution dependencies, lookups, or customizations.
 
 ---
 
 ## 🔧 Notes & Troubleshooting
 
-- **Header validation for users**: The app checks your uploaded `users.csv` against the sample headers and will log any missing columns.
-- **Cache**: Use a hard refresh (Ctrl/Cmd+Shift+R) after updating CSVs.
-- **businessunit.csv**: Generated on the fly using your Demo Type selection.
-- **No other inputs**: All other configuration is fixed to the sample data files for a consistent demo.
+- **PapaParse/JSZip CDNs**: The page uses multi‑CDN fallbacks. If all CDNs are blocked, host `papaparse.min.js` and `jszip.min.js` locally and update the loader to local paths.  
+- **Header validation for users**: If your uploaded `users.csv` is missing columns found in the sample `User.csv`, the app will log the missing headers.  
+- **Cache**: Use a hard refresh (Ctrl/Cmd+Shift+R) if your browser caches CSVs.  
+- **ASCII‑only**: Keep text ASCII if your import tooling is sensitive to encodings.  
+- **Non‑routable emails**: Consider using non‑routable or sandbox domains for contacts to avoid accidental emails.
 
 ---
 
