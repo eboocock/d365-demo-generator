@@ -25,9 +25,10 @@
     .btn:disabled{opacity:.6;cursor:not-allowed}
     .progress{height:8px;background:#e5e7eb;border-radius:99px;overflow:hidden;margin-top:14px}
     .fill{height:100%;width:0;background:linear-gradient(90deg,var(--bg1),var(--bg2));transition:width .25s ease}
-    pre.log{background:#0f172a;color:#e5e7eb;border-radius:12px;padding:14px;max-height:220px;overflow:auto;font-family:Consolas,monospace;font-size:12.5px;margin-top:16px;display:none}
+    pre.log{background:#0f172a;color:#e5e7eb;border-radius:12px;padding:14px;max-height:260px;overflow:auto;font-family:Consolas,monospace;font-size:12.5px;margin-top:16px;display:none}
     ul.key{margin:10px 0 0 18px;color:#334155}
     .warn{background:#fff7ed;border:1px solid #fdba74;color:#9a3412;padding:10px;border-radius:10px;margin:10px 0;display:none}
+    code.k{background:#eef2ff;padding:1px 6px;border-radius:6px}
   </style>
 </head>
 <body>
@@ -35,10 +36,9 @@
     <header>
       <h1>🚀 Dynamics 365 Sales Demo Data Generator</h1>
       <p class="lead">Two inputs only—pick your demo type and user list, then download CSVs.</p>
-      <div id="cdnWarn" class="warn">Having trouble loading libraries from CDNs. If this persists, check network/ad-block settings or host papaparse/jszip locally.</div>
+      <div id="cdnWarn" class="warn">Trouble loading CDNs? Whitelist cdnjs/jsDelivr/unpkg or host papaparse/jszip locally.</div>
     </header>
 
-    <!-- Input #1: Demo Type -->
     <section class="section">
       <h3>🎯 Demo Type</h3>
       <div class="row">
@@ -48,17 +48,16 @@
             <option value="contoso">Contoso Coffee</option>
             <option value="custom">Custom</option>
           </select>
-          <p class="hint">If you choose Custom, provide a customer name. All other business config is fixed to the sample data.</p>
+          <p class="hint">If Custom, provide a customer name. The app personalizes content around that brand.</p>
         </div>
         <div id="customNameWrap" class="hidden">
           <label for="customerName">Customer name (required for Custom)</label>
           <input id="customerName" type="text" placeholder="e.g., Trey Research" />
-          <p class="hint">Used to generate a minimal businessunit.csv in the package.</p>
+          <p class="hint">Used for <code class="k">businessunit.csv</code> and text personalization.</p>
         </div>
       </div>
     </section>
 
-    <!-- Input #2: Users -->
     <section class="section">
       <h3>👥 Demo Users</h3>
       <div class="row">
@@ -68,12 +67,12 @@
             <option value="contoso">Contoso Coffee (sample)</option>
             <option value="custom">Custom (upload users.csv)</option>
           </select>
-          <p class="hint">If you choose Custom, upload a CSV matching the columns in the sample <code>User.csv</code>.</p>
+          <p class="hint">If Custom, upload a CSV matching the columns in the sample <code>User.csv</code>.</p>
         </div>
         <div id="customUsersWrap" class="hidden">
           <label for="usersFile">Upload custom users.csv</label>
           <input id="usersFile" type="file" accept=".csv" />
-          <p class="hint">We validate headers and replace the sample users file in the package.</p>
+          <p class="hint">We validate headers and will assign record ownership based on your users for scenarios (2) and (4).</p>
         </div>
       </div>
     </section>
@@ -87,25 +86,22 @@
     <pre id="log" class="log"></pre>
 
     <section class="section">
-      <h4>📦 What’s included</h4>
+      <h4>📦 Scenarios implemented</h4>
       <ul class="key">
-        <li>Uses the sample CSVs in <code>/data/</code> (no other inputs needed).</li>
-        <li>Only two choices: <em>Demo Type</em> and <em>Users</em>.</li>
-        <li>Custom Demo Type changes the business unit name (via generated <code>businessunit.csv</code>).</li>
-        <li>Custom Users replaces <code>User.csv</code> with your uploaded file; all other datasets remain as-is.</li>
+        <li><strong>(1)</strong> Demo=Contoso, Users=Contoso → output sample data as-is.</li>
+        <li><strong>(2)</strong> Demo=Contoso, Users=Custom → sample data, but reassign Owner columns round-robin to your uploaded users.</li>
+        <li><strong>(3)</strong> Demo=Custom, Users=Contoso → personalize text content to your Customer name (keep sample ownership).</li>
+        <li><strong>(4)</strong> Demo=Custom, Users=Custom → personalize text + assign ownership using your uploaded users.</li>
       </ul>
     </section>
   </div>
 
   <script>
-    // Robust multi-CDN loader
     function loadScriptSequential(urls, testFn, timeoutMs = 120000) {
       return new Promise((resolve, reject) => {
-        let i = 0;
-        let done = false;
+        let i = 0, done = false;
         const warn = document.getElementById('cdnWarn');
         const start = Date.now();
-
         const next = () => {
           if (done) return;
           if (testFn()) { done = true; return resolve(); }
@@ -113,31 +109,18 @@
             warn.style.display = 'block';
             return reject(new Error('Failed to load required library from all CDNs.'));
           }
-          const url = urls[i++];
           const s = document.createElement('script');
-          s.src = url;
-          s.async = true;
+          s.src = urls[i++]; s.async = true;
           s.onload = () => { if (testFn()) { done = true; resolve(); } else { next(); } };
-          s.onerror = () => { next(); };
+          s.onerror = next;
           document.head.appendChild(s);
-
-          const checkTimeout = () => {
-            if (done) return;
-            if (Date.now() - start > timeoutMs) {
-              warn.style.display = 'block';
-              reject(new Error('CDN load timeout.'));
-            } else {
-              setTimeout(() => {
-                if (!done && !testFn()) { /* keep waiting */ }
-              }, 500);
-            }
-          };
-          setTimeout(checkTimeout, 5000);
+          setTimeout(()=>{
+            if (!done && (Date.now()-start)>timeoutMs){ warn.style.display='block'; reject(new Error('CDN load timeout.')); }
+          }, 5000);
         };
         next();
       });
     }
-
     const papaCDNs = [
       "https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js",
       "https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js",
@@ -149,204 +132,227 @@
       "https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"
     ];
 
-    // Bootstrap
     (async function bootstrap(){
       try{
         await loadScriptSequential(papaCDNs, ()=>window.Papa !== undefined);
         await loadScriptSequential(jszipCDNs, ()=>window.JSZip !== undefined);
-        window.__libsReady = true;
         initApp();
       }catch(err){
         console.error(err);
-        const log = (msg)=>{ const el=document.getElementById('log'); el.style.display='block'; el.textContent += `[${new Date().toLocaleTimeString()}] ${msg}\n`; el.scrollTop=el.scrollHeight; };
-        log('❌ Could not load required libraries. If you are on a restricted network, allow cdnjs/jsDelivr/unpkg or host papaparse/jszip locally.');
+        const log = (msg)=>{ const el=document.getElementById('log'); el.style.display='block'; el.textContent += `[${new Date().toLocaleTimeString()}] ${msg}
+`; el.scrollTop=el.scrollHeight; };
+        log('❌ Could not load required libraries. If your network blocks CDNs, host papaparse/jszip locally.');
       }
     })();
+  </script>
 
-    function initApp(){
-      // === Settings & state ===
-      const RELATIVE_SAMPLE_FILES = [
-        'data/Territory.csv',
-        'data/Appointments.csv',
-        'data/Contact.csv',
-        'data/Goal.csv',
-        'data/Campaign.csv',
-        'data/User.csv',
-        'data/Product.csv',
-        'data/Opportunity.csv',
-        'data/Account.csv',
-        'data/Emails.csv'
-      ];
+  <script>
+    const RELATIVE_SAMPLE_FILES = [
+      'data/Territory.csv','data/Appointments.csv','data/Contact.csv','data/Goal.csv','data/Campaign.csv','data/User.csv','data/Product.csv','data/Opportunity.csv','data/Account.csv','data/Emails.csv'
+    ];
+    let packageData = {}; let customUsers = null;
+    const $ = (id)=>document.getElementById(id);
+    const log = (msg)=>{ const el=$('log'); el.style.display='block'; el.textContent += `[${new Date().toLocaleTimeString()}] ${msg}
+`; el.scrollTop=el.scrollHeight; };
+    const setBar = (p)=>{ $('bar').style.width = `${p}%`; };
 
-      let packageData = {}; // { filename: [{row},...] }
-      let customUsers = null; // parsed array of rows
+    $('demoType').addEventListener('change', (e)=>{ $('customNameWrap').classList.toggle('hidden', e.target.value !== 'custom'); });
+    $('userMode').addEventListener('change', (e)=>{ $('customUsersWrap').classList.toggle('hidden', e.target.value !== 'custom'); });
 
-      // === DOM helpers ===
-      const $ = (id)=>document.getElementById(id);
-      const log = (msg)=>{ const el=$('log'); el.style.display='block'; el.textContent += `[${new Date().toLocaleTimeString()}] ${msg}\n`; el.scrollTop=el.scrollHeight; };
-      const setBar = (p)=>{ $('bar').style.width = `${p}%`; };
-
-      // === UI behavior ===
-      $('demoType').addEventListener('change', (e)=>{
-        const isCustom = e.target.value === 'custom';
-        $('customNameWrap').classList.toggle('hidden', !isCustom);
-      });
-      $('userMode').addEventListener('change', (e)=>{
-        const isCustom = e.target.value === 'custom';
-        $('customUsersWrap').classList.toggle('hidden', !isCustom);
-      });
-
-      $('usersFile').addEventListener('change', async (e)=>{
-        const file = e.target.files?.[0];
-        if(!file){ customUsers=null; return; }
-        const text = await file.text();
-        const parsed = Papa.parse(text, {header:true, skipEmptyLines:true});
-        if(parsed.errors?.length){
-          log(`❌ users.csv parse errors: ${parsed.errors[0].message}`);
-          customUsers=null; return;
-        }
-        // Basic header validation against sample file once it's loaded
-        if(packageData['data/User.csv']){
-          const sampleHeaders = Object.keys(packageData['data/User.csv'][0]||{});
-          const uploadedHeaders = parsed.meta.fields || [];
-          const missing = sampleHeaders.filter(h=>!uploadedHeaders.includes(h));
-          if(missing.length){
-            log(`❌ users.csv missing column(s): ${missing.join(', ')}`);
-            customUsers=null; return;
-          }
-        }
-        customUsers = parsed.data;
-        log(`✅ Loaded custom users.csv with ${customUsers.length} rows.`);
-      });
-
-      // === Data loading ===
-      async function fetchCSV(path){
-        const res = await fetch(path, { cache: 'no-store' });
-        if(!res.ok) throw new Error(`${path} not found (ensure CSVs are in /data/)`);
-        const text = await res.text();
-        const parsed = Papa.parse(text, {header:true, skipEmptyLines:true});
-        if(parsed.errors?.length){
-          throw new Error(`${path} parse error: ${parsed.errors[0].message}`);
-        }
-        return parsed.data;
+    $('usersFile').addEventListener('change', async (e)=>{
+      const file = e.target.files && e.target.files[0];
+      if(!file){ customUsers=null; return; }
+      const text = await file.text();
+      const parsed = Papa.parse(text, {header:true, skipEmptyLines:true});
+      if(parsed.errors && parsed.errors.length){ log(`❌ users.csv parse errors: ${parsed.errors[0].message}`); customUsers=null; return; }
+      if(packageData['data/User.csv']){
+        const sampleHeaders = Object.keys(packageData['data/User.csv'][0]||{});
+        const uploadedHeaders = parsed.meta.fields || [];
+        const missing = sampleHeaders.filter(h=>uploadedHeaders.indexOf(h)===-1);
+        if(missing.length){ log(`❌ users.csv missing column(s): ${missing.join(', ')}`); customUsers=null; return; }
       }
+      customUsers = parsed.data;
+      log(`✅ Loaded custom users.csv with ${customUsers.length} rows.`);
+    });
 
-      async function loadSamples(){
-        packageData = {};
-        setBar(0);
-        const step = 80/RELATIVE_SAMPLE_FILES.length; // first 80% of bar used for reads
-        for(let i=0;i<RELATIVE_SAMPLE_FILES.length;i++){
-          const f = RELATIVE_SAMPLE_FILES[i];
-          log(`⬇️ Loading ${f} ...`);
-          packageData[f] = await fetchCSV(f);
-          setBar(Math.min(80, (i+1)*step));
-        }
-        log('✅ All sample CSVs loaded.');
+    async function fetchCSV(path){
+      const res = await fetch(path, { cache: 'no-store' });
+      if(!res.ok) throw new Error(`${path} not found (ensure CSVs are in /data/)`);
+      const text = await res.text();
+      const parsed = Papa.parse(text, {header:true, skipEmptyLines:true});
+      if(parsed.errors && parsed.errors.length){ throw new Error(`${path} parse error: ${parsed.errors[0].message}`); }
+      return parsed.data;
+    }
+    async function loadSamples(){
+      packageData = {}; setBar(0);
+      const step = 70/RELATIVE_SAMPLE_FILES.length;
+      for(let i=0;i<RELATIVE_SAMPLE_FILES.length;i++){
+        const f = RELATIVE_SAMPLE_FILES[i];
+        log(`⬇️ Loading ${f} ...`);
+        packageData[f] = await fetchCSV(f);
+        setBar(Math.min(70,(i+1)*step));
       }
+      log('✅ All sample CSVs loaded.');
+    }
 
-      // === Light transforms ===
-      function applyCustomizations(){
-        const isCustomDemo = $('demoType').value === 'custom';
-        const newName = $('customerName').value?.trim();
-        const out = {...packageData};
+    // column detection without regex literals (header includes checks)
+    function detectOwnerCols(row){
+      const keys = Object.keys(row || {});
+      return keys.filter(k=>{
+        const s=k.toLowerCase();
+        return s.includes('owning user') || s.includes('owning team') || (s.includes('owner') && !s.includes('account owner') && !s.includes('created') && !s.includes('modified'));
+      });
+    }
+    function detectBuCols(row){
+      const keys = Object.keys(row || {});
+      return keys.filter(k=>{
+        const s=k.toLowerCase();
+        return s.includes('owning business unit') || (s.includes('business') && s.includes('unit'));
+      });
+    }
+    const TEXT_TOKENS = ['name','title','subject','topic','description','campaign','opportun','appointment','meeting','activity','regarding','note'];
+    function detectTextCols(row){
+      const keys = Object.keys(row || {});
+      return keys.filter(k=>{
+        const s=k.toLowerCase();
+        return TEXT_TOKENS.some(t=>s.indexOf(t)!==-1);
+      });
+    }
+    const BRAND_TOKENS = ['contoso coffee','contosocoffee','contoso.com'];
+    function cellHasBrand(v){
+      return typeof v==='string' && BRAND_TOKENS.some(t=>v.toLowerCase().indexOf(t)!==-1);
+    }
 
-        // Generate a minimal businessunit.csv
-        const businessUnit = [];
-        if(isCustomDemo){
-          if(!newName){ throw new Error('Customer name is required for Custom demo.'); }
-          businessUnit.push({
-            'Business Unit ID': (crypto.randomUUID && crypto.randomUUID()) || Math.random().toString(36).slice(2),
-            'Name': newName,
-            'Description': `Primary business unit for ${newName}`,
-            'Parent Business Unit': '',
-            'Address 1: City': 'Seattle',
-            'Address 1: State/Province': 'Washington',
-            'Email Address': `info@${newName.toLowerCase().replace(/\s+/g,'')}.com`,
-            'Website': `www.${newName.toLowerCase().replace(/\s+/g,'')}.com`
-          });
-          log(`✏️ Set Business Unit name to "${newName}".`);
-        } else {
-          businessUnit.push({
-            'Business Unit ID': (crypto.randomUUID && crypto.randomUUID()) || Math.random().toString(36).slice(2),
-            'Name': 'Contoso Coffee',
-            'Description': 'Primary business unit for Contoso Coffee',
-            'Parent Business Unit': '',
-            'Address 1: City': 'Seattle',
-            'Address 1: State/Province': 'Washington',
-            'Email Address': 'info@contosocoffee.com',
-            'Website': 'www.contosocoffee.com'
-          });
-        }
-        out['businessunit.csv'] = businessUnit;
+    function getUserDisplay(u){
+      return u['Full Name'] || ([u['First Name']||'', u['Last Name']||''].join(' ').trim()) || u['User Name'] || u['Primary Email'] || u['Email'] || u['UPN'] || 'Unknown User';
+    }
+    function roundRobinOwners(rows, users){
+      if(!rows || !rows.length || !users || !users.length) return rows;
+      const ownerCols = detectOwnerCols(rows[0]);
+      if(!ownerCols.length) return rows;
+      const names = users.map(getUserDisplay);
+      let i=0;
+      return rows.map(r=>{
+        const nr={...r};
+        ownerCols.forEach(col=>{ nr[col] = names[i % names.length]; });
+        i++; return nr;
+      });
+    }
 
-        // Swap users dataset if custom uploaded
-        if($('userMode').value === 'custom'){
-          if(!customUsers){ throw new Error('Please upload a users.csv before preparing the package.'); }
-          out['data/User.csv'] = customUsers;
-          log(`👥 Replaced User.csv with your custom upload (${customUsers.length} rows).`);
-        }
-
-        return out;
-      }
-
-      // === Package & download ===
-      function toCSV(rows){ return Papa.unparse(rows || []); }
-
-      async function buildZip(finalData){
-        const zip = new JSZip();
-        Object.keys(finalData).forEach(fname=>{
-          const rows = finalData[fname];
-          if(Array.isArray(rows) && rows.length){
-            const cleanName = fname.replace(/^data\//, '');
-            zip.file(cleanName, toCSV(rows));
+    function slugify(n){ return (n||'').toLowerCase().replace(/[^a-z0-9]+/g,'').slice(0,40) || 'customer'; }
+    function personalizeRows(rows, customerName){
+      if(!rows || !rows.length) return rows;
+      const first = rows[0] || {};
+      const textCols = detectTextCols(first);
+      const buCols = detectBuCols(first);
+      const domain = slugify(customerName);
+      return rows.map(r=>{
+        const nr = {...r};
+        Object.keys(nr).forEach(k=>{
+          const val = nr[k];
+          if(typeof val === 'string' && (textCols.indexOf(k)!==-1 || cellHasBrand(val))){
+            let nv = val.split('Contoso Coffee').join(customerName).split('contosocoffee').join(domain);
+            if(textCols.indexOf(k)!==-1 && nv.indexOf(customerName)===-1){
+              nv = nv.replace(/\s*-?\s*$/,'') + ' — ' + customerName;
+            }
+            nr[k] = nv;
           }
         });
+        buCols.forEach(k=> nr[k] = customerName);
+        return nr;
+      });
+    }
 
-        const instructions = `D365 DEMO DATA PACKAGE\n\nCONTENTS:\n- Sample datasets from /data.\n- businessunit.csv generated from your Demo Type selection.\n- User.csv may be replaced by your uploaded users.csv if chosen.\n\nHOW TO IMPORT (typical order):\n1. businessunit.csv\n2. User.csv\n3. Territory.csv\n4. Campaign.csv\n5. Product.csv\n6. Account.csv\n7. Contact.csv\n8. Opportunity.csv\n9. Emails.csv\n10. Appointments.csv\n\nNOTE: Adjust order to match your org’s schema & dependencies.`;
-        zip.file('INSTRUCTIONS.txt', instructions);
+    function generateBusinessUnit(customerName){
+      const name = (customerName && customerName.trim()) || 'Contoso Coffee';
+      const id = (crypto.randomUUID && crypto.randomUUID()) || Math.random().toString(36).slice(2);
+      return [{
+        'Business Unit ID': id,
+        'Name': name,
+        'Description': 'Primary business unit for ' + name,
+        'Parent Business Unit': '',
+        'Address 1: City': 'Seattle',
+        'Address 1: State/Province': 'Washington',
+        'Email Address': 'info@' + slugify(name) + '.com',
+        'Website': 'www.' + slugify(name) + '.com'
+      }];
+    }
 
-        const blob = await zip.generateAsync({type:'blob'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `D365-Demo-Data-${new Date().toISOString().slice(0,10)}.zip`;
-        document.body.appendChild(a); a.click(); a.remove();
-        URL.revokeObjectURL(url);
-        log('📦 ZIP download started.');
+    function applyScenario(){
+      const demoType = $('demoType').value;
+      const userMode = $('userMode').value;
+      const customerName = ($('customerName').value || '').trim();
+      const out = {...packageData};
+
+      if(demoType === 'custom'){
+        if(!customerName){ throw new Error('Customer name is required when Demo Type is Custom.'); }
+        out['businessunit.csv'] = generateBusinessUnit(customerName);
+      } else {
+        out['businessunit.csv'] = generateBusinessUnit('Contoso Coffee');
       }
 
-      // === Orchestrate ===
+      if(userMode === 'custom'){
+        if(!customUsers){ throw new Error('Please upload a users.csv before preparing the package.'); }
+        out['data/User.csv'] = customUsers;
+      }
+
+      const isCustomDemo = demoType === 'custom';
+      const hasCustomUsers = userMode === 'custom';
+
+      Object.keys(out).forEach(fname=>{
+        if(fname === 'data/User.csv' || fname === 'businessunit.csv') return;
+        let rows = out[fname];
+        if(!Array.isArray(rows) || !rows.length) return;
+        if(isCustomDemo){ rows = personalizeRows(rows, customerName); }
+        if(hasCustomUsers){ rows = roundRobinOwners(rows, customUsers); }
+        out[fname] = rows;
+      });
+
+      const scenario = (!isCustomDemo && !hasCustomUsers) ? '(1) Contoso + Contoso' : (!isCustomDemo && hasCustomUsers) ? '(2) Contoso + Custom (owners reassigned)' : (isCustomDemo && !hasCustomUsers) ? '(3) Custom + Contoso (personalized)' : '(4) Custom + Custom (personalized + owners reassigned)';
+      log('🔁 Applied scenario ' + scenario + '.');
+      return out;
+    }
+
+    function toCSV(rows){ return Papa.unparse(rows || []); }
+    async function buildZip(finalData){
+      const zip = new JSZip();
+      Object.keys(finalData).forEach(fname=>{
+        const rows = finalData[fname];
+        if(Array.isArray(rows) && rows.length){
+          const cleanName = fname.replace(/^data\//, '');
+          zip.file(cleanName, toCSV(rows));
+        }
+      });
+      const instructions = 'D365 DEMO DATA PACKAGE\n\nSCENARIOS:\n(1) Contoso+Contoso -> sample as-is\n(2) Contoso+Custom -> owners reassigned\n(3) Custom+Contoso -> personalized\n(4) Custom+Custom -> personalized + owners reassigned\n\nIMPORT ORDER (typical):\n1. businessunit.csv\n2. User.csv\n3. Territory.csv\n4. Campaign.csv\n5. Product.csv\n6. Account.csv\n7. Contact.csv\n8. Opportunity.csv\n9. Emails.csv\n10. Appointments.csv';
+      zip.file('INSTRUCTIONS.txt', instructions);
+      const blob = await zip.generateAsync({type:'blob'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'D365-Demo-Data-' + new Date().toISOString().slice(0,10) + '.zip';
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+      log('📦 ZIP download started.');
+    }
+
+    function initApp(){
+      log('Ready. Ensure your sample CSVs are in /data/ next to this page and click Prepare.');
       document.getElementById('generateBtn').addEventListener('click', async ()=>{
-        try{
-          document.getElementById('downloadBtn').disabled = True;
-        }catch(e){}
         try{
           document.getElementById('downloadBtn').disabled = true;
           document.getElementById('log').textContent = '';
           setBar(0); log('Starting…');
-          await loadSamples();
-          setBar(85);
-          const finalData = applyCustomizations();
-          setBar(95); log('Package prepared. Ready to download.');
+          await loadSamples(); setBar(75);
+          const finalData = applyScenario(); setBar(92);
+          log('Package prepared. Ready to download.');
           window.__finalData = finalData;
-          document.getElementById('downloadBtn').disabled = false;
-          setBar(100);
-        }catch(err){
-          log(`❌ ${err.message}`);
-        }
+          document.getElementById('downloadBtn').disabled = false; setBar(100);
+        }catch(err){ log('❌ ' + err.message); }
       });
-
       document.getElementById('downloadBtn').addEventListener('click', async ()=>{
         try{
           if(!window.__finalData){ throw new Error('Nothing to download yet. Click "Prepare Demo Package" first.'); }
           await buildZip(window.__finalData);
-        }catch(err){ log(`❌ ${err.message}`) }
+        }catch(err){ log('❌ ' + err.message); }
       });
-
-      // Initial state
-      (function init(){
-        log('Ready. Ensure your CSVs live in /data next to this page, then click Prepare.');
-      })();
     }
   </script>
 </body>
